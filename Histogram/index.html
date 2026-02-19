@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Histogram Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e29;
+    --border: #252939;
+    --accent: #5b8af5;
+    --accent2: #f05d8e;
+    --accent3: #36e8b2;
+    --text: #e8eaf2;
+    --muted: #6b7394;
+    --grid-line: rgba(91,138,245,0.04);
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --radius: 12px;
+    --transition: 0.2s ease;
+  }
+
+  :root.light {
+    --bg: #f0f2f8;
+    --surface: #ffffff;
+    --surface2: #e8ecf5;
+    --border: #cdd2e8;
+    --accent: #3b6ae8;
+    --accent2: #e0356b;
+    --accent3: #12a87a;
+    --text: #1a1d2e;
+    --muted: #7a82a8;
+    --grid-line: rgba(59,106,232,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-mono);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+    overflow-x: hidden;
+  }
+
+  /* Animated background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .left-panel .card { padding: 12px; }
+  .left-panel .card-title { font-size: 0.6rem; margin-bottom: 9px; }
+  .left-panel .input-grid { gap: 5px; }
+  .left-panel .data-input { padding: 14px 4px 3px; font-size: 0.72rem; }
+  .left-panel .input-label { font-size: 0.46rem; top: 3px; left: 5px; }
+  .left-panel .badge { font-size: 0.56rem; padding: 1px 6px; }
+  .left-panel button { padding: 6px 10px; font-size: 0.62rem; }
+  .left-panel .actions { gap: 6px; margin-top: 10px !important; }
+  .left-panel .swatch { width: 20px; height: 20px; border-radius: 5px; }
+  .left-panel .color-swatches { gap: 6px; }
+  .left-panel .slider-val { font-size: 1rem; min-width: 24px; }
+  .left-panel label { font-size: 0.6rem; margin-bottom: 7px; }
+  .left-panel .control-group { margin-bottom: 12px !important; }
+
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .left-panel { position: static; max-height: none; overflow: visible; }
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: slideDown 0.6s ease both;
+  }
+
+  header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: border-color var(--transition);
+  }
+  .card:hover { border-color: rgba(91,138,245,0.3); }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  /* Data inputs */
+  .input-section {}
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  @media (max-width: 700px) {
+    .input-grid { grid-template-columns: 1fr; }
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-label {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    font-size: 0.55rem;
+    color: var(--muted);
+    pointer-events: none;
+    font-family: var(--font-mono);
+    transition: color var(--transition);
+  }
+
+  .data-input {
+    width: 100%;
+    padding: 22px 8px 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-align: center;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    -moz-appearance: textfield;
+  }
+  .data-input::-webkit-inner-spin-button,
+  .data-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .data-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(91,138,245,0.15);
+  }
+
+  .data-input:focus + .input-label,
+  .data-input:not(:placeholder-shown) + .input-label {
+    color: var(--accent);
+  }
+
+  .data-input.has-value {
+    border-color: rgba(54,232,178,0.4);
+    background: rgba(54,232,178,0.05);
+  }
+
+  /* Controls */
+  .control-group {}
+
+  .control-group label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .slider-wrap {
+    flex: 1;
+    position: relative;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    margin: 0;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(91,138,245,0.6);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .slider-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 999px;
+    pointer-events: none;
+    transition: width 0.1s;
+  }
+
+  .slider-val {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+    min-width: 32px;
+    text-align: right;
+  }
+
+  /* Color picker */
+  .color-swatches {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .swatch:hover { transform: scale(1.15); }
+  .swatch.active { border-color: var(--text); transform: scale(1.1); }
+
+  /* Canvas */
+  .chart-card { padding: 20px; }
+  .canvas-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    background: transparent;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: var(--muted);
+    gap: 12px;
+    font-size: 0.8rem;
+    text-align: center;
+    animation: pulse 2s infinite;
+  }
+  .empty-state .icon { font-size: 2.5rem; opacity: 0.4; }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .stat-box:hover {
+    border-color: rgba(91,138,245,0.35);
+    transform: translateY(-2px);
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--accent3);
+  }
+
+  /* Frequency table */
+  .freq-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+  .freq-table th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .freq-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(37,41,57,0.6);
+  }
+  .freq-table tr:last-child td { border-bottom: none; }
+  .freq-table tr:hover td { background: rgba(91,138,245,0.05); }
+
+  .freq-bar-cell { width: 40%; }
+  .mini-bar-wrap { background: var(--surface2); border-radius: 4px; height: 6px; overflow: hidden; }
+  .mini-bar { height: 100%; border-radius: 4px; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
+
+  /* Action buttons */
+  .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    text-decoration: none;
+  }
+  button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  button:active { transform: translateY(0); }
+
+  .btn-reset {
+    background: rgba(240,93,142,0.15);
+    color: var(--accent2);
+    border: 1px solid rgba(240,93,142,0.35);
+  }
+  .btn-export {
+    background: rgba(91,138,245,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(91,138,245,0.35);
+  }
+  .btn-sample {
+    background: rgba(54,232,178,0.1);
+    color: var(--accent3);
+    border: 1px solid rgba(54,232,178,0.3);
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+    z-index: 10;
+    color: var(--text);
+  }
+
+  /* Animations */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.9; }
+  }
+
+  .card { animation: fadeIn 0.5s ease both; }
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.2s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+
+  /* Data count badge */
+  .badge {
+    display: inline-block;
+    background: rgba(91,138,245,0.2);
+    color: var(--accent);
+    border: 1px solid rgba(91,138,245,0.35);
+    border-radius: 999px;
+    padding: 1px 8px;
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  /* Theme toggle button */
+  .theme-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    user-select: none;
+    z-index: 10;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 0 12px rgba(91,138,245,0.3);
+  }
+
+  header { position: relative; }
+
+  /* Light mode overrides for elements using hardcoded colors */
+  :root.light .card { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+  :root.light .data-input { color: var(--text); }
+  :root.light .data-input.has-value { background: rgba(18,168,122,0.07); }
+  :root.light .stat-value { color: var(--accent3); }
+  :root.light input[type=range]::-webkit-slider-thumb { background: var(--accent); box-shadow: 0 0 8px rgba(59,106,232,0.4); }
+  :root.light .btn-reset { background: rgba(224,53,107,0.1); color: var(--accent2); border-color: rgba(224,53,107,0.3); }
+  :root.light .btn-export { background: rgba(59,106,232,0.1); color: var(--accent); border-color: rgba(59,106,232,0.3); }
+  :root.light .btn-sample { background: rgba(18,168,122,0.08); color: var(--accent3); border-color: rgba(18,168,122,0.25); }
+  :root.light .freq-table th { background: var(--surface2); color: var(--muted); }
+  :root.light .freq-table tr:hover td { background: rgba(59,106,232,0.05); }
+  :root.light .mini-bar-wrap { background: var(--surface2); }
+  :root.light .slider-wrap { background: var(--surface2); border-color: var(--border); }
+  :root.light .canvas-wrapper canvas { filter: none; }
+  :root.light .tooltip { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle Mode">
+      <span id="themeIcon">🌙</span>
+    </div>
+    <h1>Histogram Analytics</h1>
+    <p>Visualisasi Distribusi Data Interaktif</p>
+  </header>
+
+  <div class="layout">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+
+      <!-- Data Input -->
+      <div class="card input-section">
+        <div class="card-title">Input Data <span class="badge" id="dataCount">0 / 20</span></div>
+        <div class="input-grid" id="inputs"></div>
+        <div class="actions" style="margin-top:14px;">
+          <button class="btn-sample" onclick="loadSample()">⚡ Contoh Data</button>
+          <button class="btn-reset" onclick="resetAll()">✕ Reset</button>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="card">
+        <div class="card-title">Pengaturan</div>
+        <div class="control-group" style="margin-bottom:16px;">
+          <label>Jumlah Bins</label>
+          <div class="slider-row">
+            <div class="slider-wrap">
+              <div class="slider-fill" id="binsFill" style="width:33.3%"></div>
+              <input type="range" id="binsRange" min="1" max="15" value="5">
+            </div>
+            <div class="slider-val" id="binsValue">5</div>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>Warna Histogram</label>
+          <div class="color-swatches" id="swatches"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- Chart -->
+      <div class="card chart-card">
+        <div class="card-title">Histogram</div>
+        <div class="canvas-wrapper">
+          <canvas id="histogram"></canvas>
+          <div class="tooltip" id="tooltip"></div>
+          <div class="empty-state" id="emptyState">
+            <div class="icon">📊</div>
+            <div>Masukkan data untuk menampilkan histogram</div>
+          </div>
+        </div>
+        <div class="actions" style="margin-top:14px;">
+          <button class="btn-export" onclick="exportPNG()">↓ Export PNG</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="card" id="statsCard" style="display:none;">
+        <div class="card-title">Statistik Deskriptif</div>
+        <div class="stats-grid" id="statsGrid"></div>
+        <div class="card-title" style="margin-top:16px;">Distribusi Frekuensi</div>
+        <div style="overflow-x:auto;">
+          <table class="freq-table" id="freqTable"></table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────
+const PALETTES = [
+  { name:'Blue', stops:['#5b8af5','#7ba3ff'] },
+  { name:'Pink', stops:['#f05d8e','#ff8fab'] },
+  { name:'Teal', stops:['#36e8b2','#5effd3'] },
+  { name:'Amber', stops:['#f5a623','#ffc55e'] },
+  { name:'Purple', stops:['#9b6cf5','#c19fff'] },
+  { name:'Red', stops:['#f54d4d','#ff7a7a'] },
+];
+let activePalette = 0;
+let animFrame = null;
+
+// ─── Build Inputs ─────────────────────────────────────────
+const inputContainer = document.getElementById('inputs');
+for (let i = 1; i <= 20; i++) {
+  const wrap = document.createElement('div');
+  wrap.className = 'input-wrapper';
+  const inp = document.createElement('input');
+  inp.type = 'number';
+  inp.placeholder = ' ';
+  inp.className = 'data-input';
+  inp.addEventListener('input', () => { updateHasValue(inp); generate(); });
+  const lbl = document.createElement('span');
+  lbl.className = 'input-label';
+  lbl.textContent = 'D' + i;
+  wrap.appendChild(inp);
+  wrap.appendChild(lbl);
+  inputContainer.appendChild(wrap);
+}
+
+function updateHasValue(inp) {
+  inp.classList.toggle('has-value', inp.value !== '');
+}
+
+// ─── Swatches ────────────────────────────────────────────
+const swatchContainer = document.getElementById('swatches');
+PALETTES.forEach((p, i) => {
+  const sw = document.createElement('div');
+  sw.className = 'swatch' + (i === 0 ? ' active' : '');
+  sw.style.background = `linear-gradient(135deg, ${p.stops[0]}, ${p.stops[1]})`;
+  sw.title = p.name;
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    activePalette = i;
+    generate();
+  });
+  swatchContainer.appendChild(sw);
+});
+
+// ─── Bins Slider ──────────────────────────────────────────
+const binsRange = document.getElementById('binsRange');
+const binsValue = document.getElementById('binsValue');
+const binsFill  = document.getElementById('binsFill');
+binsRange.addEventListener('input', () => {
+  const pct = ((binsRange.value - 1) / 14) * 100;
+  binsFill.style.width = pct + '%';
+  binsValue.textContent = binsRange.value;
+  generate();
+});
+
+// ─── Data helpers ─────────────────────────────────────────
+function getData() {
+  return Array.from(document.querySelectorAll('.data-input'))
+    .map(i => i.value)
+    .filter(v => v !== '' && !isNaN(v))
+    .map(Number);
+}
+
+function updateCount(n) {
+  document.getElementById('dataCount').textContent = n + ' / 20';
+}
+
+// ─── Main generate ────────────────────────────────────────
+function generate() {
+  const data = getData();
+  updateCount(data.length);
+  const empty = document.getElementById('emptyState');
+  const statsCard = document.getElementById('statsCard');
+  if (data.length < 1) {
+    clearCanvas();
+    empty.style.display = 'flex';
+    statsCard.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  statsCard.style.display = 'block';
+  drawHistogram(data, parseInt(binsRange.value));
+  showStats(data, parseInt(binsRange.value));
+}
+
+// ─── Draw ─────────────────────────────────────────────────
+function computeBins(data, bins) {
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const binWidth = (max - min) / bins || 1;
+  const freq = new Array(bins).fill(0);
+  data.forEach(val => {
+    let idx = Math.floor((val - min) / binWidth);
+    if (idx === bins) idx = bins - 1;
+    freq[idx]++;
+  });
+  return { min, max, binWidth, freq };
+}
+
+// Animation state
+let hoveredIdx = -1;
+let barScales = [];   // current animated scale per bar (1.0 = normal)
+let rafId = null;
+
+function drawFrame(canvas, data, bins, timestamp) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.width / dpr;
+  const H = canvas.height / dpr;
+
+  // Fill canvas background
+  const lt = document.documentElement.classList.contains('light');
+  ctx.clearRect(0, 0, W, H);
+  if (lt) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  const pad = { top: 28, right: 20, bottom: 44, left: 44 };
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+
+  const { min, max, binWidth, freq } = computeBins(data, bins);
+  const maxFreq = Math.max(...freq);
+  const barW = cw / bins;
+  const pal = PALETTES[activePalette];
+
+  // Init barScales array
+  if (barScales.length !== bins) barScales = new Array(bins).fill(1);
+
+  // Animate scales toward target
+  let needsUpdate = false;
+  for (let i = 0; i < bins; i++) {
+    const target = (hoveredIdx === -1) ? 1 : (i === hoveredIdx ? 1.03 : 0.97);
+    const speed = 0.12;
+    const diff = target - barScales[i];
+    if (Math.abs(diff) > 0.001) {
+      barScales[i] += diff * speed;
+      needsUpdate = true;
+    } else {
+      barScales[i] = target;
+    }
+  }
+
+  // Y grid lines
+  ctx.strokeStyle = lt ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  const yTicks = 5;
+  for (let i = 0; i <= yTicks; i++) {
+    const y = pad.top + ch - (i / yTicks) * ch;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(pad.left + cw, y);
+    ctx.stroke();
+    ctx.fillStyle = lt ? '#7a82a8' : '#6b7394';
+    ctx.font = `10px 'Space Mono', monospace`;
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round((i / yTicks) * maxFreq), pad.left - 6, y + 4);
+  }
+
+  // Draw bars with animation
+  freq.forEach((f, i) => {
+    const scale = barScales[i];
+    const isHovered = i === hoveredIdx;
+    const baseH = maxFreq > 0 ? (f / maxFreq) * ch : 0;
+    const barH = baseH * scale;
+    const x = pad.left + i * barW;
+    const y = pad.top + ch - barH;
+
+    // Subtle glow for hovered bar
+    if (isHovered && f > 0) {
+      ctx.save();
+      ctx.shadowColor = pal.stops[0];
+      ctx.shadowBlur = 6;
+    }
+
+    // Gradient fill — hovered brighter
+    const grad = ctx.createLinearGradient(x, y, x, pad.top + ch);
+    if (isHovered) {
+      grad.addColorStop(0, pal.stops[0] + 'ff');
+      grad.addColorStop(1, pal.stops[1] + '88');
+    } else if (hoveredIdx !== -1) {
+      grad.addColorStop(0, pal.stops[0] + '99');
+      grad.addColorStop(1, pal.stops[1] + '44');
+    } else {
+      grad.addColorStop(0, pal.stops[0] + 'dd');
+      grad.addColorStop(1, pal.stops[1] + '44');
+    }
+    ctx.fillStyle = grad;
+
+    const r = Math.min(6, barW * 0.15, barH * 0.3);
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top + ch);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.lineTo(x + barW - r, y);
+    ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+    ctx.lineTo(x + barW, pad.top + ch);
+    ctx.closePath();
+    ctx.fill();
+
+    if (isHovered && f > 0) ctx.restore();
+
+    // Top highlight line on hovered
+    if (isHovered && barH > 2) {
+      ctx.strokeStyle = pal.stops[0] + 'cc';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.lineTo(x + barW - r, y);
+      ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+      ctx.stroke();
+    }
+
+    // Frequency label
+    if (f > 0) {
+      ctx.fillStyle = isHovered ? (lt ? pal.stops[0] : '#fff') : pal.stops[0];
+      ctx.font = `bold ${isHovered ? 12 : 11}px 'Space Mono', monospace`;
+      ctx.textAlign = 'center';
+      ctx.globalAlpha = isHovered ? 1 : (hoveredIdx !== -1 ? 0.6 : 1);
+      ctx.fillText(f, x + barW / 2, y - 7);
+      ctx.globalAlpha = 1;
+    }
+  });
+
+  // X axis labels
+  ctx.textAlign = 'center';
+  ctx.fillStyle = lt ? '#7a82a8' : '#6b7394';
+  ctx.font = `10px 'Space Mono', monospace`;
+  for (let i = 0; i <= bins; i++) {
+    const val = min + i * binWidth;
+    const x = pad.left + i * barW;
+    ctx.fillText(val.toFixed(1), x, H - pad.bottom + 16);
+    ctx.strokeStyle = lt ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top + ch);
+    ctx.lineTo(x, pad.top + ch + 4);
+    ctx.stroke();
+  }
+
+  // Axis lines
+  ctx.strokeStyle = lt ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.left, pad.top);
+  ctx.lineTo(pad.left, pad.top + ch);
+  ctx.lineTo(pad.left + cw, pad.top + ch);
+  ctx.stroke();
+
+
+
+  canvas._binData = { pad, cw, ch, bins, min, binWidth, freq, barW, maxFreq };
+
+  if (needsUpdate) {
+    rafId = requestAnimationFrame(ts => drawFrame(canvas, data, bins, ts));
+  } else {
+    rafId = null;
+  }
+}
+
+let _lastData = null, _lastBins = null;
+
+function drawHistogram(data, bins) {
+  _lastData = data;
+  _lastBins = bins;
+  barScales = [];
+
+  const canvas = document.getElementById('histogram');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth;
+  const H = Math.max(280, Math.min(420, W * 0.45));
+  canvas.style.height = H + 'px';
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.getContext('2d').scale(dpr, dpr);
+
+  if (rafId) cancelAnimationFrame(rafId);
+  drawFrame(canvas, data, bins, 0);
+}
+
+function startRaf() {
+  if (!_lastData || rafId) return;
+  const canvas = document.getElementById('histogram');
+  rafId = requestAnimationFrame(ts => drawFrame(canvas, _lastData, _lastBins, ts));
+}
+
+// ─── Tooltip ─────────────────────────────────────────────
+const canvas = document.getElementById('histogram');
+const tooltip = document.getElementById('tooltip');
+
+canvas.addEventListener('mousemove', e => {
+  const bd = canvas._binData;
+  if (!bd) return;
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const { pad, cw, ch, bins, min, binWidth, freq, barW } = bd;
+  const relX = mx - pad.left;
+
+  if (relX < 0 || relX > cw || my < pad.top || my > pad.top + ch) {
+    if (hoveredIdx !== -1) { hoveredIdx = -1; startRaf(); }
+    tooltip.style.opacity = '0';
+    return;
+  }
+
+  const idx = Math.min(Math.floor(relX / barW), bins - 1);
+  if (idx !== hoveredIdx) {
+    hoveredIdx = idx;
+    startRaf();
+  }
+
+  const lo = (min + idx * binWidth).toFixed(2);
+  const hi = (min + (idx + 1) * binWidth).toFixed(2);
+  tooltip.textContent = `[${lo} – ${hi}]  Freq: ${freq[idx]}`;
+  tooltip.style.opacity = '1';
+  tooltip.style.left = Math.min(mx + 10, rect.width - 160) + 'px';
+  tooltip.style.top  = (my - 30) + 'px';
+});
+
+canvas.addEventListener('mouseleave', () => {
+  tooltip.style.opacity = '0';
+  if (hoveredIdx !== -1) { hoveredIdx = -1; startRaf(); }
+});
+
+// ─── Stats ────────────────────────────────────────────────
+function showStats(data, bins) {
+  const sorted = [...data].sort((a, b) => a - b);
+  const N = sorted.length;
+  const min = sorted[0];
+  const max = sorted[N - 1];
+  const mean = sorted.reduce((a, b) => a + b, 0) / N;
+  const median = N % 2 === 0 ? (sorted[N/2-1] + sorted[N/2]) / 2 : sorted[Math.floor(N/2)];
+  const variance = sorted.reduce((a, b) => a + (b - mean) ** 2, 0) / (N - 1 || 1);
+  const std = Math.sqrt(variance);
+  const range = max - min;
+
+  const stats = [
+    { label: 'N', value: N },
+    { label: 'Min', value: min.toFixed(2) },
+    { label: 'Max', value: max.toFixed(2) },
+    { label: 'Range', value: range.toFixed(2) },
+    { label: 'Mean', value: mean.toFixed(2) },
+    { label: 'Median', value: median.toFixed(2) },
+    { label: 'Std Dev', value: std.toFixed(2) },
+    { label: 'Variance', value: variance.toFixed(2) },
+  ];
+
+  const grid = document.getElementById('statsGrid');
+  grid.innerHTML = stats.map(s => `
+    <div class="stat-box">
+      <div class="stat-label">${s.label}</div>
+      <div class="stat-value">${s.value}</div>
+    </div>`).join('');
+
+  // Frequency table
+  const { binWidth, freq } = computeBins(data, bins);
+  const maxFreq = Math.max(...freq);
+  const pal = PALETTES[activePalette];
+  let rows = freq.map((f, i) => {
+    const lo = (min + i * binWidth).toFixed(2);
+    const hi = (min + (i + 1) * binWidth).toFixed(2);
+    const pct = maxFreq > 0 ? (f / maxFreq * 100).toFixed(0) : 0;
+    const rel = N > 0 ? (f / N * 100).toFixed(1) : 0;
+    return `<tr>
+      <td>${i + 1}</td>
+      <td>${lo}</td>
+      <td>${hi}</td>
+      <td><b>${f}</b></td>
+      <td>${rel}%</td>
+      <td class="freq-bar-cell">
+        <div class="mini-bar-wrap">
+          <div class="mini-bar" style="width:${pct}%;background:${pal.stops[0]};"></div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('freqTable').innerHTML = `
+    <thead><tr>
+      <th>#</th><th>Bawah</th><th>Atas</th><th>Freq</th><th>Rel %</th><th>Bar</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>`;
+}
+
+// ─── Helpers ──────────────────────────────────────────────
+function clearCanvas() {
+  const c = document.getElementById('histogram');
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, c.width, c.height);
+  c.style.height = '0px';
+  c._binData = null;
+}
+
+function resetAll() {
+  document.querySelectorAll('.data-input').forEach(i => {
+    i.value = '';
+    i.classList.remove('has-value');
+  });
+  binsRange.value = 5;
+  binsValue.textContent = 5;
+  binsFill.style.width = '33.3%';
+  clearCanvas();
+  document.getElementById('statsCard').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'flex';
+  updateCount(0);
+}
+
+function loadSample() {
+  const inputs = document.querySelectorAll('.data-input');
+  // Pick a random distribution style each click
+  const style = Math.floor(Math.random() * 5);
+  const samples = Array.from({length: 20}, (_, i) => {
+    let v;
+    if (style === 0) {
+      // Normal-ish (Box-Muller)
+      const u = 1 - Math.random(), v2 = Math.random();
+      v = Math.round((Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v2)) * 15 + 50);
+    } else if (style === 1) {
+      // Uniform random range
+      const lo = Math.floor(Math.random() * 20) + 5;
+      const hi = lo + Math.floor(Math.random() * 60) + 20;
+      v = Math.round(Math.random() * (hi - lo) + lo);
+    } else if (style === 2) {
+      // Skewed right (exponential-ish)
+      v = Math.round(-Math.log(1 - Math.random()) * 20 + 5);
+    } else if (style === 3) {
+      // Bimodal
+      v = Math.random() < 0.5
+        ? Math.round(Math.random() * 15 + 10)
+        : Math.round(Math.random() * 15 + 50);
+    } else {
+      // Random integers in small range (clustered)
+      const center = Math.floor(Math.random() * 80) + 10;
+      v = Math.round(center + (Math.random() - 0.5) * 30);
+    }
+    return v;
+  });
+  inputs.forEach((inp, i) => {
+    inp.value = samples[i];
+    inp.classList.add('has-value');
+  });
+  generate();
+}
+
+function exportPNG() {
+  if (!_lastData) return;
+
+  const data = _lastData;
+  const bins = _lastBins;
+  const pal = PALETTES[activePalette];
+  const lt = document.documentElement.classList.contains('light');
+
+  // ── Theme colors ──
+  const C = {
+    bg:        lt ? '#f0f2f8' : '#0d0f14',
+    surface:   lt ? '#ffffff' : '#13161e',
+    surface2:  lt ? '#e8ecf5' : '#1a1e29',
+    border:    lt ? '#cdd2e8' : '#252939',
+    text:      lt ? '#1a1d2e' : '#e8eaf2',
+    muted:     lt ? '#7a82a8' : '#6b7394',
+    accent3:   lt ? '#12a87a' : '#36e8b2',
+    gridLine:  lt ? 'rgba(59,106,232,0.06)' : 'rgba(91,138,245,0.04)',
+    axisLine:  lt ? 'rgba(0,0,0,0.15)'      : 'rgba(255,255,255,0.12)',
+    gridStroke:lt ? 'rgba(0,0,0,0.06)'      : 'rgba(255,255,255,0.05)',
+    rowEven:   lt ? '#f7f8fc' : '#13161e',
+    rowOdd:    lt ? '#eef0f8' : '#0f1119',
+    tableHead: lt ? '#e0e4f0' : '#1a1e29',
+    barBg:     lt ? '#d8dcea' : '#252939',
+  };
+
+  // ── Compute stats ──
+  const sorted = [...data].sort((a, b) => a - b);
+  const N = sorted.length;
+  const min = sorted[0];
+  const max = sorted[N - 1];
+  const mean = sorted.reduce((a, b) => a + b, 0) / N;
+  const median = N % 2 === 0 ? (sorted[N/2-1] + sorted[N/2]) / 2 : sorted[Math.floor(N/2)];
+  const variance = sorted.reduce((a, b) => a + (b - mean) ** 2, 0) / (N - 1 || 1);
+  const std = Math.sqrt(variance);
+  const range = max - min;
+  const { binWidth, freq } = computeBins(data, bins);
+  const maxFreq = Math.max(...freq);
+
+  const statsArr = [
+    ['N', N], ['Min', min.toFixed(2)], ['Max', max.toFixed(2)], ['Range', range.toFixed(2)],
+    ['Mean', mean.toFixed(2)], ['Median', median.toFixed(2)], ['Std Dev', std.toFixed(2)], ['Variance', variance.toFixed(2)],
+  ];
+
+  // ── Layout ──
+  const dpr = 2;
+  const W = 900;
+  const histH = 340;
+  const headerH = 60;
+  const statH = 90;
+  const tableRowH = 26;
+  const tableH = (bins + 1) * tableRowH + 36;
+  const totalH = headerH + histH + statH + tableH + 40;
+
+  const ec = document.createElement('canvas');
+  ec.width  = W * dpr;
+  ec.height = totalH * dpr;
+  const ctx = ec.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Background
+  ctx.fillStyle = C.bg;
+  ctx.fillRect(0, 0, W, totalH);
+
+  // Grid pattern
+  ctx.strokeStyle = C.gridLine;
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,totalH); ctx.stroke(); }
+  for (let y = 0; y < totalH; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // ── Header ──
+  const gTitle = ctx.createLinearGradient(0, 0, W, 0);
+  gTitle.addColorStop(0, pal.stops[0]);
+  gTitle.addColorStop(0.5, lt ? '#e0356b' : '#f05d8e');
+  gTitle.addColorStop(1, C.accent3);
+  ctx.fillStyle = gTitle;
+  ctx.font = 'bold 28px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Histogram Analytics', W / 2, 38);
+  ctx.fillStyle = C.muted;
+  ctx.font = '11px monospace';
+  ctx.fillText(`N=${N}  |  Bins=${bins}  |  Exported ${new Date().toLocaleString('id-ID')}`, W / 2, 54);
+
+  // ── Histogram ──
+  const pad = { top: 28, right: 30, bottom: 44, left: 54 };
+  const cw = W - pad.left - pad.right;
+  const ch = histH - pad.top - pad.bottom;
+  const barW = cw / bins;
+  const offY = headerH;
+
+  // Grid lines
+  ctx.strokeStyle = C.gridStroke;
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = offY + pad.top + ch - (i / 5) * ch;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cw, y); ctx.stroke();
+    ctx.fillStyle = C.muted; ctx.font = '10px monospace'; ctx.textAlign = 'right';
+    ctx.fillText(Math.round((i / 5) * maxFreq), pad.left - 6, y + 4);
+  }
+
+  // Bars
+  freq.forEach((f, i) => {
+    const barH = maxFreq > 0 ? (f / maxFreq) * ch : 0;
+    const x = pad.left + i * barW;
+    const y = offY + pad.top + ch - barH;
+    const grad = ctx.createLinearGradient(x, y, x, offY + pad.top + ch);
+    grad.addColorStop(0, pal.stops[0] + 'dd');
+    grad.addColorStop(1, pal.stops[1] + '44');
+    ctx.fillStyle = grad;
+    const r = Math.min(6, barW * 0.15, barH * 0.3);
+    ctx.beginPath();
+    ctx.moveTo(x, offY + pad.top + ch);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.lineTo(x + barW - r, y);
+    ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+    ctx.lineTo(x + barW, offY + pad.top + ch);
+    ctx.closePath();
+    ctx.fill();
+    if (f > 0) {
+      ctx.fillStyle = pal.stops[0]; ctx.font = 'bold 11px monospace'; ctx.textAlign = 'center';
+      ctx.fillText(f, x + barW / 2, y - 6);
+    }
+  });
+
+  // X labels
+  ctx.fillStyle = C.muted; ctx.font = '10px monospace'; ctx.textAlign = 'center';
+  for (let i = 0; i <= bins; i++) {
+    const x = pad.left + i * barW;
+    ctx.fillText((min + i * binWidth).toFixed(1), x, offY + pad.top + ch + 16);
+  }
+
+  // Axes
+  ctx.strokeStyle = C.axisLine; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.left, offY + pad.top); ctx.lineTo(pad.left, offY + pad.top + ch); ctx.lineTo(pad.left + cw, offY + pad.top + ch); ctx.stroke();
+
+  // ── Stat boxes ──
+  const sOff = headerH + histH + 10;
+  const boxW = (W - 40) / statsArr.length;
+  statsArr.forEach(([lbl, val], i) => {
+    const bx = 20 + i * boxW;
+    ctx.strokeStyle = C.border; ctx.lineWidth = 1;
+    ctx.fillStyle = C.surface;
+    roundRect(ctx, bx, sOff, boxW - 8, 70, 8);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = C.muted; ctx.font = '9px monospace'; ctx.textAlign = 'center';
+    ctx.fillText(lbl.toUpperCase(), bx + (boxW - 8) / 2, sOff + 20);
+    ctx.fillStyle = C.accent3; ctx.font = 'bold 18px sans-serif';
+    ctx.fillText(val, bx + (boxW - 8) / 2, sOff + 50);
+  });
+
+  // ── Frequency Table ──
+  const tOff = sOff + statH;
+  const cols = ['#', 'Batas Bawah', 'Batas Atas', 'Frekuensi', 'Relatif %', 'Bar'];
+  const colW = [36, 160, 160, 110, 100, 194];
+  const tableW = colW.reduce((a,b)=>a+b,0);
+  const tX = (W - tableW) / 2;
+
+  // Section title
+  ctx.fillStyle = C.muted; ctx.font = '9px monospace'; ctx.textAlign = 'left';
+  ctx.fillText('DISTRIBUSI FREKUENSI', tX, tOff + 14);
+
+  // Header row
+  ctx.fillStyle = C.tableHead;
+  ctx.fillRect(tX, tOff + 22, tableW, tableRowH);
+  let cx2 = tX;
+  cols.forEach((c, i) => {
+    ctx.fillStyle = C.muted; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
+    ctx.fillText(c, cx2 + colW[i]/2, tOff + 22 + 17);
+    cx2 += colW[i];
+  });
+
+  // Data rows
+  freq.forEach((f, ri) => {
+    const ry = tOff + 22 + tableRowH * (ri + 1);
+    ctx.fillStyle = ri % 2 === 0 ? C.rowEven : C.rowOdd;
+    ctx.fillRect(tX, ry, tableW, tableRowH);
+    const lo = (min + ri * binWidth).toFixed(2);
+    const hi2 = (min + (ri + 1) * binWidth).toFixed(2);
+    const rel = (f / N * 100).toFixed(1);
+    const textCols = [ri+1, lo, hi2, f, rel+'%'];
+    let cx3 = tX;
+    textCols.forEach((v, ci) => {
+      ctx.fillStyle = ci === 3 ? pal.stops[0] : C.text;
+      ctx.font = ci === 3 ? 'bold 11px monospace' : '10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(v, cx3 + colW[ci]/2, ry + 17);
+      cx3 += colW[ci];
+    });
+
+    // Mini bar — drawn in the 6th column (index 5) only
+    const barColX = tX + colW[0] + colW[1] + colW[2] + colW[3] + colW[4];
+    const barPct = maxFreq > 0 ? f / maxFreq : 0;
+    const barPad = 12;
+    const barMaxW = colW[5] - barPad * 2;
+    const barY = ry + (tableRowH - 6) / 2;
+    ctx.fillStyle = C.barBg;
+    roundRect(ctx, barColX + barPad, barY, barMaxW, 6, 3); ctx.fill();
+    if (barPct > 0) {
+      ctx.fillStyle = pal.stops[0];
+      roundRect(ctx, barColX + barPad, barY, barMaxW * barPct, 6, 3); ctx.fill();
+    }
+  });
+
+  // Table border
+  ctx.strokeStyle = C.border; ctx.lineWidth = 1;
+  ctx.strokeRect(tX, tOff + 22, tableW, tableRowH * (bins + 1));
+
+  // ── Download ──
+  const link = document.createElement('a');
+  link.download = 'histogram-report.png';
+  link.href = ec.toDataURL('image/png');
+  link.click();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y);
+  ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h);
+  ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r);
+  ctx.quadraticCurveTo(x, y, x+r, y);
+  ctx.closePath();
+}
+
+// ─── Resize ───────────────────────────────────────────────
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => generate(), 150);
+});
+
+// ─── Theme Toggle ────────────────────────────────────────
+let isLight = true;
+document.documentElement.classList.add('light');
+function toggleTheme() {
+  isLight = !isLight;
+  document.documentElement.classList.toggle('light', isLight);
+  document.getElementById('themeIcon').textContent = isLight ? '🌙' : '☀️';
+  generate();
+}
+
+// Init
+generate();
+</script>
+</body>
+</html>
