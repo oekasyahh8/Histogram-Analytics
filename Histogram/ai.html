@@ -387,7 +387,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
     <div class="orb orb-1"></div>
@@ -398,7 +397,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   <h1>Penerapan <em>Artificial Intelligence</em><br>dalam Manufaktur Otomotif</h1>
   <p class="hero-sub">Kuasai tiga platform AI — dari menulis narasi &amp; skenario, menghasilkan gambar, hingga membuat video proses produksi operator secara profesional.</p>
   <div class="hero-platforms">
-    <a href="https://chat.openai.com" target="_blank" rel="noopener" class="platform-pill pill-gpt">🤖 ChatGPT — Narasi &amp; Gambar</a>
+    <a href="https://chat.openai.com" target="_blank" rel="noopener" class="platform-pill pill-gpt">🤖 ChatGPT (Free/Go) — Narasi &amp; Konsep Gambar</a>
     <a href="https://gemini.google.com" target="_blank" rel="noopener" class="platform-pill pill-gem">✨ Gemini — Gambar &amp; Video</a>
     <a href="https://aistudio.google.com" target="_blank" rel="noopener" class="platform-pill pill-ais">🎬 AI Studio — Video dari Gambar</a>
   </div>
@@ -415,9 +414,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════
-     BAB 1 & 2 — KONSEP DASAR (DIREVISI)
-══════════════════════════════════════════════════ -->
 <section class="section" id="konsep">
   <div class="sh">
     <span class="section-tag">Bab 1 &amp; 2</span>
@@ -426,13 +422,12 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   </div>
 
   <div class="platform-roles">
-    <!-- ChatGPT -->
     <div class="role-card">
       <div class="role-header">
         <div class="role-icon role-icon-gpt">🤖</div>
         <div>
-          <div class="role-name" style="color:var(--gpt)">ChatGPT</div>
-          <div class="role-tagline">chat.openai.com</div>
+          <div class="role-name" style="color:var(--gpt)">ChatGPT &amp; GPT Go</div>
+          <div class="role-tagline">chat.openai.com / gptgo.ai</div>
         </div>
         <span class="role-tag tag-gpt">Teks &amp; Gambar</span>
       </div>
@@ -440,14 +435,13 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
         <div class="role-func">
           <div class="func-item"><span class="func-dot dot-gpt"></span>Membuat narasi proses produksi yang lengkap dan terstruktur</div>
           <div class="func-item"><span class="func-dot dot-gpt"></span>Menyusun scene dan skenario detail untuk setiap tahap operator</div>
-          <div class="func-item"><span class="func-dot dot-gpt"></span>Generate gambar menggunakan DALL·E dari deskripsi narasi -- MASIH BISA GUNAKAN YANG GPT YANG FREE (Terbatas) -- </div>
+          <div class="func-item"><span class="func-dot dot-gpt"></span>Generate gambar dasar dari deskripsi narasi menggunakan ChatGPT Free atau GPT Go (kuota terbatas tapi cukup buat draft)</div>
           <div class="func-item"><span class="func-dot dot-gpt"></span>Merevisi dan menyempurnakan gambar secara iteratif dalam satu percakapan</div>
           <div class="func-item"><span class="func-dot dot-gpt"></span>Menyusun prompt visual siap pakai untuk digunakan di Gemini dan AI Studio</div>
         </div>
       </div>
     </div>
 
-    <!-- Gemini -->
     <div class="role-card">
       <div class="role-header">
         <div class="role-icon role-icon-gem">✨</div>
@@ -468,7 +462,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       </div>
     </div>
 
-    <!-- AI Studio -->
     <div class="role-card">
       <div class="role-header">
         <div class="role-icon role-icon-ais">🎬</div>
@@ -490,7 +483,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     </div>
   </div>
 
-  <!-- Accordion -->
   <div class="accordion">
     <div class="accordion-item">
       <div class="accordion-header" onclick="toggleAcc(this)">
@@ -500,7 +492,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       <div class="accordion-body"><div class="accordion-body-inner">
         <p>Artificial Intelligence (AI) adalah teknologi yang memungkinkan sistem komputer untuk memproses informasi dan menghasilkan output secara cerdas — mulai dari teks, gambar, hingga video. Dalam modul ini, tiga platform AI digunakan dengan peran yang berbeda namun saling melengkapi:</p>
         <ul>
-          <li><strong style="color:var(--gpt)">ChatGPT</strong> — spesialis pembuatan teks, skenario, serta generate dan revisi gambar menggunakan DALL·E</li>
+          <li><strong style="color:var(--gpt)">ChatGPT / GPT Go</strong> — spesialis pembuatan teks, skenario, serta generate dan revisi gambar versi gratis</li>
           <li><strong style="color:var(--gem)">Gemini</strong> — generate gambar dan video langsung dari deskripsi narasi atau scene</li>
           <li><strong style="color:var(--ais)">AI Studio</strong> — konversi gambar yang sudah ada menjadi video berkualitas tinggi menggunakan Veo 2</li>
         </ul>
@@ -520,7 +512,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
           <li>Menghasilkan gambar visual setiap tahapan kerja sebagai referensi pelatihan dan dokumentasi internal</li>
           <li>Membuat video proses kerja operator dari gambar yang sudah disiapkan, tanpa perlu kamera atau syuting langsung</li>
         </ul>
-        <p style="margin-top:.8rem"><strong>Fokus modul ini:</strong> AI digunakan sebagai alat bantu untuk membuat konten — narasi, gambar, dan video — bukan sebagai pengganti operator di lantai produksi. Operator tetap menjadi elemen utama dalam proses manufaktur.</p>
+        <p style="margin-top:.8rem"><strong>Fokus modul ini:</strong> AI hadir sebagai alat bantu — terutama untuk <em>brainstorming</em> dan mempercepat pembuatan konsep konten — bukan diciptakan untuk menggantikan peran manusia sepenuhnya dalam pekerjaan.</p>
       </div></div>
     </div>
 
@@ -531,7 +523,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       </div>
       <div class="accordion-body"><div class="accordion-body-inner">
         <ul style="list-style:none;margin-left:0">
-          <li style="padding:.3rem 0">✅ Menggunakan <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">ChatGPT ↗</a> untuk membuat narasi, menyusun scene, serta generate dan merevisi gambar</li>
+          <li style="padding:.3rem 0">✅ Menggunakan <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">ChatGPT / GPT Go ↗</a> untuk membuat narasi, menyusun scene, serta generate dan merevisi gambar</li>
           <li style="padding:.3rem 0">✅ Menggunakan <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">Gemini ↗</a> untuk generate gambar dan video proses produksi dari prompt scene</li>
           <li style="padding:.3rem 0">✅ Menggunakan <a href="https://aistudio.google.com" target="_blank" class="pl pl-ais">AI Studio ↗</a> untuk mengkonversi gambar menjadi video berdasarkan narasi scene</li>
           <li style="padding:.3rem 0">✅ Menguasai teknik prompt engineering yang efektif untuk teks, gambar, dan video</li>
@@ -544,7 +536,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- PANDUAN PLATFORM -->
 <section class="section" id="panduan">
   <div class="sh">
     <span class="section-tag">Panduan Platform</span>
@@ -552,61 +543,55 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <p class="section-desc">Panduan langkah demi langkah untuk memulai menggunakan ketiga platform sesuai peran masing-masing.</p>
   </div>
 
-  <!-- ChatGPT Guide -->
   <div class="platform-guide">
     <div class="pg-header">
       <div class="pg-icon pg-icon-gpt">🤖</div>
       <div>
-        <h3 style="color:var(--gpt)">ChatGPT — Narasi, Scene, Skenario &amp; Gambar</h3>
-        <p>Buat narasi produksi, susun scene per tahap, generate gambar, dan revisi gambar menggunakan ChatGPT</p>
+        <h3 style="color:var(--gpt)">ChatGPT &amp; GPT Go — Narasi, Scene &amp; Gambar</h3>
+        <p>Buat narasi produksi, susun scene per tahap, generate gambar, dan revisi gambar menggunakan tool gratis</p>
       </div>
       <a href="https://chat.openai.com" target="_blank" rel="noopener" class="pg-link pg-link-gpt">🔗 Buka ChatGPT ↗</a>
     </div>
     <div class="pg-body">
 
-      <!-- PAKET INFO BOX (BARU) -->
       <div class="paket-box">
         <div class="paket-box-header">
-          💳 Pilihan Paket ChatGPT — Mana yang Cocok untuk Modul Ini?
+          💳 Pilihan Tools — Fokus Versi Gratis
         </div>
         <div class="paket-grid">
           <div class="paket-col">
             <div class="paket-label paket-label-free">
-              Paket Free <span class="paket-badge badge-free">Gratis</span>
+              ChatGPT Free <span class="paket-badge badge-free">Gratis</span>
             </div>
             <ul class="paket-list">
               <li><span class="pi pi-ok">✅</span> Buat narasi &amp; teks produksi</li>
-              <li><span class="pi pi-ok">✅</span> Susun scene &amp; skenario per tahap</li>
+              <li><span class="pi pi-ok">✅</span> Susun scene &amp; skenario</li>
+              <li><span class="pi pi-ok">✅</span> Generate &amp; modifikasi gambar (Ada limit harian)</li>
               <li><span class="pi pi-ok">✅</span> Menyusun prompt visual untuk Gemini &amp; AI Studio</li>
-              <li><span class="pi pi-no">✖</span> Generate gambar (DALL·E) — tidak tersedia</li>
-              <li><span class="pi pi-no">✖</span> Revisi gambar langsung di ChatGPT — tidak tersedia</li>
             </ul>
           </div>
           <div class="paket-col">
             <div class="paket-label paket-label-plus">
-              ChatGPT Plus / Pro <span class="paket-badge badge-rekomendasi">⭐ Direkomendasikan</span>
+              GPT Go <span class="paket-badge badge-rekomendasi">Alternatif Cepat</span>
             </div>
             <ul class="paket-list">
-              <li><span class="pi pi-ok">✅</span> Semua fitur paket Free</li>
-              <li><span class="pi pi-ok">✅</span> Generate gambar menggunakan DALL·E 3</li>
-              <li><span class="pi pi-ok">✅</span> Revisi &amp; iterasi gambar dalam satu percakapan</li>
-              <li><span class="pi pi-ok">✅</span> Akses lebih cepat &amp; kuota penggunaan lebih tinggi</li>
-              <li><span class="pi pi-ok">✅</span> Workflow lebih efisien — narasi dan gambar dalam satu platform</li>
+              <li><span class="pi pi-ok">✅</span> Akses ChatGPT gratis lewat Search Engine</li>
+              <li><span class="pi pi-ok">✅</span> Praktis buat cari referensi prompt secara instan</li>
+              <li><span class="pi pi-ok">✅</span> Lebih ringan tanpa perlu login ribet</li>
+              <li><span class="pi pi-ok">✅</span> Workflow cepat untuk rancangan awal</li>
             </ul>
           </div>
         </div>
         <div class="paket-note">
-          💡 <strong>Rekomendasi:</strong> Untuk fitur lengkap termasuk generate dan revisi gambar langsung di ChatGPT, disarankan berlangganan <strong>ChatGPT Plus</strong> (sekitar $20/bulan). Namun jika belum berlangganan, paket <strong>Free tetap bisa digunakan</strong> untuk seluruh kegiatan narasi dan scene — generate gambarnya bisa dilakukan di Gemini atau AI Studio sebagai alternatif.
+          💡 <strong>Rekomendasi:</strong> Gunakan <strong>ChatGPT Free</strong> buat nyusun narasi detail dan coba fitur generate gambar hariannya. Kalau butuh <em>brainstorming</em> instan dan pencarian referensi cepat tanpa login, pake <strong>GPT Go</strong> sebagai pelengkap. Kombinasi yang pas buat jalanin modul ini!
         </div>
       </div>
-      <!-- END PAKET BOX -->
-
       <div class="guide-steps">
         <div class="guide-step">
           <div class="gs-num gs-gpt">1</div>
           <div class="gs-body">
-            <h4>Buka &amp; Login ke ChatGPT</h4>
-            <p>Kunjungi <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">chat.openai.com ↗</a>. Daftar gratis menggunakan email atau akun Google. Paket Free sudah cukup untuk membuat narasi dan scene. Jika ingin generate gambar langsung di ChatGPT, aktifkan berlangganan <strong>Plus</strong> terlebih dahulu.</p>
+            <h4>Buka &amp; Login ke ChatGPT / GPT Go</h4>
+            <p>Kunjungi <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">chat.openai.com ↗</a> atau akses GPT Go. Daftar gratis menggunakan email atau akun Google. Versi Free udah cukup banget buat bikin draft narasi dan konsep gambar awal.</p>
           </div>
         </div>
         <div class="guide-step">
@@ -626,30 +611,29 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
         <div class="guide-step">
           <div class="gs-num gs-gpt">4</div>
           <div class="gs-body">
-            <h4>Generate Gambar dengan DALL·E <em style="color:var(--text-3);font-style:normal;font-size:.75rem;font-weight:400">(Perlu Paket Plus)</em></h4>
-            <p>Di ChatGPT Plus, generate gambar langsung dari deskripsi scene. Contoh prompt: <em>"Gambarkan scene pertama: operator menyiapkan komponen di meja kerja pabrik Toyota, seragam oranye, lingkungan bersih dan terorganisir, gaya realistis, medium shot."</em> Gambar akan langsung muncul di percakapan.</p>
+            <h4>Generate Gambar Awal</h4>
+            <p>Gunakan kuota gratis harian lo buat generate gambar langsung dari deskripsi scene. Contoh prompt: <em>"Gambarkan scene pertama: operator menyiapkan komponen di meja kerja pabrik Toyota, seragam oranye, lingkungan bersih dan terorganisir, gaya realistis, medium shot."</em></p>
           </div>
         </div>
         <div class="guide-step">
           <div class="gs-num gs-gpt">5</div>
           <div class="gs-body">
-            <h4>Revisi &amp; Sempurnakan Gambar <em style="color:var(--text-3);font-style:normal;font-size:.75rem;font-weight:400">(Perlu Paket Plus)</em></h4>
-            <p>Jika gambar kurang sesuai, minta revisi langsung dalam percakapan yang sama. Contoh: <em>"Revisi gambar sebelumnya — tambahkan papan instruksi di latar belakang, ubah warna seragam menjadi biru navy, dan pastikan ekspresi operator terlihat lebih fokus."</em></p>
+            <h4>Revisi &amp; Sempurnakan Gambar</h4>
+            <p>Kalau gambarnya kurang pas, minta revisi. Contoh: <em>"Revisi gambar sebelumnya — tambahkan papan instruksi di latar belakang, ubah warna seragam menjadi biru navy, dan pastikan ekspresi operator terlihat lebih fokus."</em> (Ingat, versi gratis ada limitnya, manfaatkan sebaik-baiknya).</p>
           </div>
         </div>
         <div class="guide-step">
           <div class="gs-num gs-gpt">6</div>
           <div class="gs-body">
             <h4>Simpan Prompt Visual untuk Platform Lain</h4>
-            <p>Minta ChatGPT menyusun prompt yang siap digunakan di Gemini dan AI Studio. Prompt: <em>"Ubah deskripsi setiap scene menjadi prompt gambar dalam Bahasa Inggris yang sesuai untuk Gemini dan AI Studio."</em></p>
+            <p>Minta AI menyusun prompt yang siap digunakan di Gemini dan AI Studio. Prompt: <em>"Ubah deskripsi setiap scene menjadi prompt gambar dalam Bahasa Inggris yang sesuai untuk Gemini dan AI Studio."</em></p>
           </div>
         </div>
       </div>
-      <div class="tip-box tip-gpt">💡 <strong>Tips:</strong> Simpan narasi dan daftar scene dari ChatGPT dalam dokumen terpisah — ini akan menjadi panduan utama saat Anda bekerja di Gemini dan AI Studio. Konsistensi narasi sangat penting agar video akhir terasa koheren dan profesional.</div>
+      <div class="tip-box tip-gpt">💡 <strong>Tips:</strong> Simpan narasi dan daftar scene dari ChatGPT/GPT Go dalam dokumen terpisah — ini akan menjadi panduan utama saat Anda bekerja di Gemini dan AI Studio. Konsistensi narasi sangat penting agar video akhir terasa koheren dan profesional.</div>
     </div>
   </div>
 
-  <!-- Gemini Guide -->
   <div class="platform-guide">
     <div class="pg-header">
       <div class="pg-icon pg-icon-gem">✨</div>
@@ -672,7 +656,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     </div>
   </div>
 
-  <!-- AI Studio Guide -->
   <div class="platform-guide">
     <div class="pg-header">
       <div class="pg-icon pg-icon-ais">🎬</div>
@@ -685,7 +668,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <div class="pg-body">
       <div class="guide-steps">
         <div class="guide-step"><div class="gs-num gs-ais">1</div><div class="gs-body"><h4>Buka Google AI Studio &amp; Login</h4><p>Kunjungi <a href="https://aistudio.google.com" target="_blank" class="pl pl-ais">aistudio.google.com ↗</a> dengan akun Google. Setujui syarat penggunaan jika diminta.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">2</div><div class="gs-body"><h4>Siapkan Gambar dari ChatGPT atau Gemini</h4><p>Kumpulkan semua gambar yang sudah dihasilkan dari ChatGPT (DALL·E) atau Gemini untuk setiap scene. Simpan dalam satu folder yang terorganisir sesuai urutan scene (scene-01.png, scene-02.png, dan seterusnya).</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-ais">2</div><div class="gs-body"><h4>Siapkan Gambar dari ChatGPT atau Gemini</h4><p>Kumpulkan semua gambar yang sudah dihasilkan dari ChatGPT atau Gemini untuk setiap scene. Simpan dalam satu folder yang terorganisir sesuai urutan scene (scene-01.png, scene-02.png, dan seterusnya).</p></div></div>
         <div class="guide-step"><div class="gs-num gs-ais">3</div><div class="gs-body"><h4>Pilih Model Veo 2 untuk Generate Video</h4><p>Di halaman utama AI Studio, klik <code>+ Create new prompt</code>. Di dropdown model, pilih <strong>Veo 2</strong> — model Google khusus untuk menghasilkan video dari gambar atau prompt teks.</p></div></div>
         <div class="guide-step"><div class="gs-num gs-ais">4</div><div class="gs-body"><h4>Upload Gambar &amp; Masukkan Prompt Scene</h4><p>Upload gambar scene yang ingin dianimasikan, lalu masukkan deskripsi scene dari ChatGPT di kolom prompt. Contoh: <em>"Animate this image: The operator picks up the component, inspects it carefully, places it on the conveyor belt. Smooth camera movement, industrial lighting, 8 seconds."</em></p></div></div>
         <div class="guide-step"><div class="gs-num gs-ais">5</div><div class="gs-body"><h4>Atur Parameter Video</h4><p>Sesuaikan: <strong>Durasi</strong> (4–8 detik per scene), <strong>Aspect Ratio</strong> (16:9 untuk presentasi), dan <strong>Camera Motion</strong> (slow pan, static, atau zoom). Semua parameter ini tersedia di panel kanan AI Studio.</p></div></div>
@@ -699,12 +682,11 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- CHATGPT SECTION -->
 <section class="section" id="chatgpt">
   <div class="sh">
     <span class="section-tag">Bab 3</span>
-    <h2 class="section-title">ChatGPT — Narasi, Scene &amp; Gambar</h2>
-    <p class="section-desc">Pelajari cara menyusun narasi, memecahnya menjadi scene, generate gambar, dan merevisi gambar menggunakan ChatGPT.</p>
+    <h2 class="section-title">ChatGPT Free/Go — Narasi, Scene &amp; Gambar</h2>
+    <p class="section-desc">Pelajari cara menyusun narasi, memecahnya menjadi scene, generate gambar, dan merevisi gambar secara gratis.</p>
   </div>
   <div class="chapter-tabs">
     <button class="tab-btn active-gpt" onclick="switchTab(this,'tab-narasi','gpt')">📝 Narasi Produksi</button>
@@ -715,7 +697,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
   <div id="tab-narasi" class="tab-content active">
     <div class="prompt-card">
-      <div class="prompt-header"><span class="prompt-title">Prompt — Narasi Lengkap Proses Produksi</span><span class="prompt-badge badge-gpt">🤖 ChatGPT</span></div>
+      <div class="prompt-header"><span class="prompt-title">Prompt — Narasi Lengkap Proses Produksi</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Buatkan narasi lengkap proses produksi mobil di pabrik Toyota yang dikerjakan operator, mencakup 5 tahapan: (1) Persiapan Material, (2) Perakitan Rangka, (3) Pemasangan Komponen, (4) Finishing, (5) Quality Control. Setiap tahapan harus menjelaskan aktivitas operator, peralatan yang digunakan, dan standar kerja Toyota."</div>
         <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💬 Contoh Output:</strong>Proses produksi mobil di pabrik Toyota melibatkan koordinasi ketat antar operator di setiap lini. Tahap pertama dimulai dengan persiapan material — operator memeriksa daftar komponen menggunakan tablet digital, memastikan setiap part sesuai spesifikasi produksi hari itu...</div>
@@ -726,7 +708,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
   <div id="tab-scene" class="tab-content">
     <div class="prompt-card">
-      <div class="prompt-header"><span class="prompt-title">Prompt — Susun Scene &amp; Skenario per Tahap</span><span class="prompt-badge badge-gpt">🤖 ChatGPT</span></div>
+      <div class="prompt-header"><span class="prompt-title">Prompt — Susun Scene &amp; Skenario per Tahap</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Berdasarkan narasi di atas, buat 5 scene detail untuk setiap tahapan produksi. Setiap scene harus mencakup: (1) Deskripsi visual — apa yang terlihat di frame, (2) Aktivitas operator — gerakan dan tindakan spesifik, (3) Konteks lingkungan — lokasi, pencahayaan, peralatan, (4) Dialog/narasi pendek operator. Format setiap scene secara jelas dan terstruktur."</div>
         <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💬 Contoh Output Scene 1:</strong><strong>Scene 1 — Persiapan Material</strong><br>📷 <em>Visual:</em> Operator berseragam oranye berdiri di depan rak komponen berlabel. Tangan kanan memegang tablet, tangan kiri memegang part nomor B-204.<br>🎭 <em>Aktivitas:</em> Operator memindai barcode part, memeriksa kondisi fisik, lalu meletakkan di keranjang produksi berwarna biru.</div>
@@ -737,10 +719,10 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
   <div id="tab-gambar-gpt" class="tab-content">
     <div class="prompt-card">
-      <div class="prompt-header"><span class="prompt-title">Prompt — Generate Gambar dari Scene (DALL·E)</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Plus + DALL·E</span></div>
+      <div class="prompt-header"><span class="prompt-title">Prompt — Generate Gambar dari Scene</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free / Go</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Gambarkan scene 1 berikut: Seorang operator berseragam oranye berdiri di depan rak komponen mobil berlabel, memegang tablet digital di tangan kanan dan memegang sebuah part di tangan kiri. Lingkungan pabrik Toyota yang bersih, pencahayaan LED terang, papan Kanban terlihat di latar. Gaya realistis, sudut pandang medium shot, kualitas 4K."</div>
-        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💡 Cara Generate Gambar di ChatGPT:</strong>Ketikkan prompt di atas langsung di ChatGPT (versi Plus yang sudah mengaktifkan DALL·E). Gambar akan muncul langsung di percakapan. Klik kanan gambar → "Save image as" untuk menyimpan ke komputer Anda. Pengguna Free dapat menggunakan Gemini sebagai alternatif generate gambar.</div>
+        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💡 Cara Generate Gambar di ChatGPT Free/Go:</strong>Ketikkan prompt di atas di ChatGPT Free. Gunakan kuota yang ada sebaik mungkin. Gambar akan muncul langsung di percakapan. Klik kanan gambar → "Save image as" untuk menyimpan ke komputer Anda. Kalau kuota limit, bisa lanjut pakai Gemini sebagai alternatif generate gambar.</div>
         <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Gambarkan scene 1 berikut: Seorang operator berseragam oranye berdiri di depan rak komponen mobil berlabel, memegang tablet digital di tangan kanan dan memegang sebuah part di tangan kiri. Lingkungan pabrik Toyota yang bersih, pencahayaan LED terang, papan Kanban terlihat di latar. Gaya realistis, sudut pandang medium shot, kualitas 4K.')">📋 Salin Prompt</button>
       </div>
     </div>
@@ -748,10 +730,10 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
   <div id="tab-revisi" class="tab-content">
     <div class="prompt-card">
-      <div class="prompt-header"><span class="prompt-title">Prompt — Revisi &amp; Sempurnakan Gambar</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Plus + DALL·E</span></div>
+      <div class="prompt-header"><span class="prompt-title">Prompt — Revisi &amp; Sempurnakan Gambar</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free / Go</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Revisi gambar sebelumnya dengan perubahan berikut: (1) Tambahkan papan instruksi kerja di dinding latar belakang, (2) Ubah warna seragam menjadi biru navy dengan strip kuning, (3) Tampilkan ekspresi operator lebih fokus dan serius, (4) Tambahkan pencahayaan lebih hangat dari sisi kanan. Pertahankan semua elemen lainnya yang sudah sesuai."</div>
-        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💡 Tips Revisi Gambar di ChatGPT:</strong>ChatGPT mempertahankan konteks gambar sebelumnya dalam satu percakapan — cukup sebutkan perubahan spesifik tanpa mendeskripsikan ulang seluruh gambar. Semakin spesifik perubahan yang diminta, semakin akurat hasil revisinya.</div>
+        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💡 Tips Revisi Gambar:</strong>ChatGPT mempertahankan konteks gambar sebelumnya dalam satu percakapan — cukup sebutkan perubahan spesifik tanpa mendeskripsikan ulang seluruh gambar. Semakin spesifik permintaan lo, semakin akurat revisinya.</div>
         <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Revisi gambar sebelumnya dengan perubahan berikut: (1) Tambahkan papan instruksi kerja di dinding latar belakang, (2) Ubah warna seragam menjadi biru navy dengan strip kuning, (3) Tampilkan ekspresi operator lebih fokus dan serius, (4) Tambahkan pencahayaan lebih hangat dari sisi kanan. Pertahankan semua elemen lainnya yang sudah sesuai.')">📋 Salin Prompt</button>
       </div>
     </div>
@@ -760,7 +742,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- GEMINI -->
 <section class="section" id="gemini">
   <div class="sh">
     <span class="section-tag">Bab 4</span>
@@ -870,7 +851,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- AI STUDIO -->
 <section class="section" id="aistudio">
   <div class="sh">
     <span class="section-tag">Bab 5</span>
@@ -881,8 +861,8 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   <div class="video-flow">
     <div class="vf-box">
       <span class="vf-icon">🤖</span>
-      <div class="vf-label" style="color:var(--gpt)">ChatGPT</div>
-      <div class="vf-desc">Narasi + Scene + Gambar (DALL·E)</div>
+      <div class="vf-label" style="color:var(--gpt)">ChatGPT / GPT Go</div>
+      <div class="vf-desc">Narasi + Scene + Gambar</div>
     </div>
     <div class="vf-arrow">→</div>
     <div class="vf-box">
@@ -957,7 +937,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- WORKFLOW LENGKAP -->
 <section class="section" id="workflow">
   <div class="sh">
     <span class="section-tag">Bab 6</span>
@@ -969,13 +948,13 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <div class="wf-col">
       <div class="wf-col-header">
         <div class="wf-col-icon role-icon-gpt">🤖</div>
-        <div><div class="wf-col-title" style="color:var(--gpt)">ChatGPT</div><div class="wf-col-sub">Fondasi Konten</div></div>
+        <div><div class="wf-col-title" style="color:var(--gpt)">ChatGPT / GPT Go</div><div class="wf-col-sub">Fondasi Konten</div></div>
       </div>
       <div class="wf-tasks">
         <div class="wf-task"><strong style="color:var(--gpt)">Step 1 — Narasi</strong>Buat narasi lengkap 5 tahapan produksi</div>
         <div class="wf-task"><strong style="color:var(--gpt)">Step 2 — Scene</strong>Pecah narasi jadi 5 scene detail + deskripsi visual</div>
-        <div class="wf-task"><strong style="color:var(--gpt)">Step 3 — Gambar</strong> Generate gambar per scene (DALL·E — perlu Plus)</div>
-        <div class="wf-task"><strong style="color:var(--gpt)">Step 4 — Revisi</strong>Revisi gambar hingga sempurna</div>
+        <div class="wf-task"><strong style="color:var(--gpt)">Step 3 — Gambar</strong> Generate gambar per scene</div>
+        <div class="wf-task"><strong style="color:var(--gpt)">Step 4 — Revisi</strong>Revisi gambar sesuai konsep/draf</div>
         <div class="wf-task"><strong style="color:var(--gpt)">Step 5 — Prompt</strong>Susun prompt Inggris siap pakai untuk Gemini &amp; AI Studio</div>
       </div>
     </div>
@@ -1020,7 +999,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- PROMPT ENGINEERING -->
 <section class="section" id="prompt-eng">
   <div class="sh">
     <span class="section-tag">Bab 7</span>
@@ -1053,7 +1031,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- MANUFAKTUR -->
 <section class="section" id="manufaktur">
   <div class="sh">
     <span class="section-tag">Bab 8</span>
@@ -1069,7 +1046,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- KUIS -->
 <section class="section" id="kuis">
   <div class="sh">
     <span class="section-tag">Latihan &amp; Evaluasi</span>
@@ -1097,7 +1073,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
-<!-- GLOSARIUM -->
 <section class="section" id="glosarium">
   <div class="sh">
     <span class="section-tag">Referensi</span>
@@ -1111,7 +1086,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 <footer>
   <p>📘 <strong style="color:var(--text)">Modul Pembelajaran AI dalam Manufaktur Otomotif</strong> — Revisi 2.0</p>
   <p style="margin-top:8px"><a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">🤖 ChatGPT — Narasi &amp; Gambar ↗</a> &nbsp;|&nbsp; <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">✨ Gemini — Gambar &amp; Video ↗</a> &nbsp;|&nbsp; <a href="https://aistudio.google.com" target="_blank" class="pl pl-ais">🎬 AI Studio — Gambar ke Video ↗</a></p>
-  <p style="margin-top:10px;color:var(--text-3)"><strong style="color:var(--text-2)">Ingat:</strong> AI adalah alat bantu. <strong style="color:var(--gpt)">Operator tetap menjadi elemen utama dalam proses manufaktur.</strong></p>
+  <p style="margin-top:10px;color:var(--text-3)"><strong style="color:var(--text-2)">Ingat:</strong> AI adalah alat bantu untuk <em>brainstorming</em> dan efisiensi, <strong>bukan untuk menggantikan seluruh pekerjaan kita.</strong></p>
 </footer>
 
 <script>
@@ -1151,16 +1126,16 @@ function copyTxt(btn,text){
 
 // QUIZ
 const Qs=[
-  {q:"Apa peran utama ChatGPT dalam workflow modul ini?",opts:["Hanya untuk menjawab pertanyaan umum","Membuat narasi, menyusun scene & skenario, generate gambar, dan merevisi gambar","Konversi gambar ke video menggunakan Veo 2","Menyimpan file ke Google Drive"],ans:1,fb:"ChatGPT adalah fondasi konten — narasi, scene, generate gambar (DALL·E), dan revisi gambar. Output ChatGPT digunakan sebagai panduan di Gemini dan AI Studio."},
+  {q:"Apa peran utama ChatGPT/GPT Go dalam workflow modul ini?",opts:["Hanya untuk menjawab pertanyaan umum","Membuat narasi, menyusun scene & skenario, generate gambar awal, dan revisi gambar","Konversi gambar ke video menggunakan Veo 2","Menyimpan file ke Google Drive"],ans:1,fb:"Platform GPT adalah fondasi konten — narasi, scene, dan generate gambar. Output ini digunakan sebagai panduan di Gemini dan AI Studio."},
   {q:"Gemini digunakan untuk menghasilkan apa dalam modul ini?",opts:["Hanya teks narasi saja","Generate gambar DAN video berdasarkan prompt scene ChatGPT","Konversi video menjadi presentasi PowerPoint","Mengedit gambar yang sudah ada di komputer"],ans:1,fb:"Gemini memiliki kemampuan generate gambar dan video. Prompt yang digunakan berasal dari scene yang sudah disusun di ChatGPT sebelumnya."},
-  {q:"Apa fungsi utama Google AI Studio (Veo 2) dalam workflow ini?",opts:["Membuat narasi proses produksi","Generate gambar dari teks saja","Mengkonversi gambar (dari ChatGPT/Gemini) menjadi video berdasarkan prompt scene","Menyimpan semua file ke cloud"],ans:2,fb:"AI Studio dengan Veo 2 bertugas mengkonversi gambar yang sudah dihasilkan (dari ChatGPT atau Gemini) menjadi video, dipandu oleh prompt scene dari ChatGPT."},
-  {q:"Urutan workflow yang benar adalah...",opts:["AI Studio → Gemini → ChatGPT","Gemini → ChatGPT → AI Studio","ChatGPT (narasi+scene+gambar) → Gemini (gambar+video) / AI Studio (gambar→video)","Semua platform digunakan secara bersamaan tanpa urutan"],ans:2,fb:"Urutan yang benar: ChatGPT menjadi fondasi (narasi, scene, gambar), kemudian gambar/prompt tersebut digunakan di Gemini dan AI Studio untuk generate visual dan video."},
+  {q:"Apa fungsi utama Google AI Studio (Veo 2) dalam workflow ini?",opts:["Membuat narasi proses produksi","Generate gambar dari teks saja","Mengkonversi gambar menjadi video berdasarkan prompt scene","Menyimpan semua file ke cloud"],ans:2,fb:"AI Studio dengan Veo 2 bertugas mengkonversi gambar yang sudah dihasilkan menjadi video, dipandu oleh prompt scene dari ChatGPT."},
+  {q:"Urutan workflow yang benar adalah...",opts:["AI Studio → Gemini → ChatGPT","Gemini → ChatGPT → AI Studio","ChatGPT/GPT Go (narasi+scene+gambar) → Gemini (gambar+video) / AI Studio (gambar→video)","Semua platform digunakan secara bersamaan tanpa urutan"],ans:2,fb:"Urutan yang benar: ChatGPT/GPT Go menjadi fondasi (narasi, scene, gambar), kemudian gambar/prompt tersebut digunakan di Gemini dan AI Studio untuk generate visual dan video."},
   {q:"Apa yang dimaksud dengan 'scene' dalam konteks modul ini?",opts:["Satu foto produk jadi","Deskripsi detail satu momen/tahap produksi: visual, aktivitas operator, lingkungan, dan dialog","Judul bab dalam modul pembelajaran","Format file video yang digunakan"],ans:1,fb:"Scene adalah deskripsi detail satu tahapan: apa yang terlihat secara visual, apa yang dilakukan operator, kondisi lingkungan, dan narasi."},
-  {q:"Saat merevisi gambar di ChatGPT, cara yang benar adalah...",opts:["Membuat percakapan baru dan mendeskripsikan ulang seluruh gambar dari awal","Menyebutkan hanya perubahan spesifik yang diinginkan dalam percakapan yang sama","Menggunakan platform lain untuk merevisi","Tidak bisa — gambar ChatGPT tidak bisa direvisi"],ans:1,fb:"ChatGPT mempertahankan konteks gambar dalam satu percakapan. Cukup sebutkan perubahan spesifik — tidak perlu mendeskripsikan ulang seluruh gambar."},
-  {q:"Fitur generate gambar (DALL·E) di ChatGPT tersedia untuk...",opts:["Semua pengguna termasuk paket Free","Hanya pengguna ChatGPT Plus atau berbayar","Hanya pengguna perusahaan besar","Tidak tersedia sama sekali di ChatGPT"],ans:1,fb:"Generate gambar menggunakan DALL·E hanya tersedia di ChatGPT Plus (berbayar). Pengguna Free tetap bisa membuat narasi dan scene, lalu generate gambarnya menggunakan Gemini sebagai alternatif."},
-  {q:"Apa model AI dari Google yang digunakan di AI Studio untuk mengkonversi gambar ke video?",opts:["DALL·E 3","Stable Diffusion","Veo 2","Imagen 3"],ans:2,fb:"Veo 2 adalah model Google khusus untuk generate video — termasuk mengkonversi gambar statis menjadi video animasi berdasarkan prompt teks."},
+  {q:"Saat merevisi gambar di ChatGPT, cara yang benar adalah...",opts:["Membuat percakapan baru dan mendeskripsikan ulang seluruh gambar dari awal","Menyebutkan hanya perubahan spesifik yang diinginkan dalam percakapan yang sama","Menggunakan platform lain untuk merevisi","Tidak bisa merevisi sama sekali"],ans:1,fb:"ChatGPT mempertahankan konteks gambar dalam satu percakapan. Cukup sebutkan perubahan spesifik — tidak perlu mendeskripsikan ulang seluruh gambar."},
+  {q:"Fitur generate gambar di ChatGPT versi Free/Go sifatnya...",opts:["Tidak terbatas harian","Sangat dibatasi oleh kuota harian, gunakan sebijak mungkin","Hanya untuk pengguna perusahaan besar","Tidak tersedia sama sekali"],ans:1,fb:"Generate gambar di versi gratis dibatasi oleh kuota harian. Jika habis, Anda selalu bisa menggunakan Gemini sebagai alternatifnya."},
+  {q:"Apa model AI dari Google yang digunakan di AI Studio untuk mengkonversi gambar ke video?",opts:["GPT Go","Stable Diffusion","Veo 2","Imagen 3"],ans:2,fb:"Veo 2 adalah model Google khusus untuk generate video — termasuk mengkonversi gambar statis menjadi video animasi berdasarkan prompt teks."},
   {q:"Apa konsep Toyota yang paling relevan dengan urutan workflow tiga platform AI ini?",opts:["Lean Manufacturing — efisiensi tanpa pemborosan","Just In Time — setiap langkah dilakukan tepat pada waktunya dan berurutan","Kerja Tim — semua platform digunakan bersamaan","Quality Control — hanya fokus pada hasil akhir"],ans:1,fb:"Just In Time relevan karena setiap platform digunakan pada urutan yang tepat — ChatGPT dulu sebagai fondasi, baru kemudian Gemini dan AI Studio menggunakan outputnya."},
-  {q:"Output akhir yang lengkap dari Proyek Akhir modul ini adalah...",opts:["Hanya narasi tertulis saja","Hanya 5 gambar scene saja","Narasi tertulis + 5 gambar scene + 5 video scene + materi presentasi siap pakai","Hanya video tanpa narasi"],ans:2,fb:"Output final yang lengkap mencakup keempat komponen: narasi tertulis, 5 gambar scene (dari ChatGPT/Gemini), 5 video scene (dari AI Studio/Gemini), dan materi presentasi/pelatihan final."}
+  {q:"Output akhir yang lengkap dari Proyek Akhir modul ini adalah...",opts:["Hanya narasi tertulis saja","Hanya 5 gambar scene saja","Narasi tertulis + 5 gambar scene + 5 video scene + materi presentasi siap pakai","Hanya video tanpa narasi"],ans:2,fb:"Output final yang lengkap mencakup keempat komponen: narasi tertulis, 5 gambar scene, 5 video scene, dan materi presentasi/pelatihan final."}
 ];
 let cQ=0,score=0,answered=false;
 function renderQ(){
@@ -1203,22 +1178,20 @@ renderQ();
 
 // GLOSSARY
 const GD=[
-  {term:"ChatGPT",cat:"gpt",def:"Platform AI dari OpenAI (chat.openai.com). Dalam modul ini berperan membuat narasi, menyusun scene & skenario, generate gambar (DALL·E — perlu Plus), dan merevisi gambar."},
-  {term:"ChatGPT Free",cat:"gpt",def:"Paket gratis ChatGPT. Tersedia untuk membuat narasi, scene, dan menyusun prompt visual. Tidak dapat generate gambar langsung — gunakan Gemini sebagai alternatif."},
-  {term:"ChatGPT Plus",cat:"gpt",def:"Paket berbayar ChatGPT (~$20/bulan). Membuka akses generate gambar dengan DALL·E 3 dan revisi gambar langsung dalam percakapan. Direkomendasikan untuk workflow lengkap."},
+  {term:"ChatGPT Free",cat:"gpt",def:"Platform AI dari OpenAI (chat.openai.com) versi gratis. Dalam modul ini berperan membuat narasi, menyusun scene & skenario, generate gambar (terbatas kuota harian), dan merevisi gambar."},
+  {term:"GPT Go",cat:"gpt",def:"Mesin pencari gratis yang terintegrasi dengan fungsi ChatGPT. Sangat praktis sebagai alternatif untuk pencarian referensi prompt secara instan tanpa perlu mendaftar."},
   {term:"Gemini",cat:"gem",def:"Platform AI dari Google (gemini.google.com). Digunakan untuk generate gambar dari prompt scene, generate video pendek, dan ekspor hasil ke Google Drive."},
   {term:"AI Studio",cat:"ais",def:"Google AI Studio (aistudio.google.com). Digunakan untuk mengkonversi gambar (dari ChatGPT/Gemini) menjadi video menggunakan model Veo 2."},
-  {term:"Narasi",cat:"def",def:"Teks deskriptif yang menggambarkan alur proses produksi secara lengkap dan terstruktur. Dibuat di ChatGPT sebagai fondasi seluruh konten."},
+  {term:"Narasi",cat:"def",def:"Teks deskriptif yang menggambarkan alur proses produksi secara lengkap dan terstruktur. Dibuat di ChatGPT/GPT Go sebagai fondasi seluruh konten."},
   {term:"Scene",cat:"def",def:"Deskripsi detail satu momen/tahapan produksi mencakup visual, aktivitas operator, lingkungan, dan dialog. Dipecah dari narasi utama."},
   {term:"Skenario",cat:"def",def:"Urutan scene yang tersusun membentuk alur cerita proses produksi dari awal hingga akhir. Dibuat di ChatGPT setelah narasi selesai."},
-  {term:"DALL·E",cat:"gpt",def:"Model generate gambar dari OpenAI yang terintegrasi di ChatGPT Plus. Dapat membuat gambar dari deskripsi teks dan merevisi gambar sebelumnya. Tidak tersedia di paket Free."},
   {term:"Veo 2",cat:"ais",def:"Model AI dari Google untuk generate video, tersedia di AI Studio. Dapat mengkonversi gambar statis menjadi video bergerak berdasarkan prompt teks."},
   {term:"Imagen 3",cat:"ais",def:"Model AI dari Google untuk generate gambar berkualitas tinggi, tersedia di AI Studio. Alternatif selain Gemini untuk menghasilkan visual scene."},
   {term:"Prompt",cat:"def",def:"Instruksi teks yang diberikan kepada AI untuk menghasilkan output tertentu. Bisa berupa prompt narasi, prompt gambar, atau prompt video."},
   {term:"Prompt Engineering",cat:"def",def:"Teknik menyusun perintah secara efektif agar AI menghasilkan output yang akurat. Berbeda untuk narasi (ChatGPT), gambar, dan video."},
-  {term:"Workflow",cat:"def",def:"Alur kerja terintegrasi tiga platform: ChatGPT (narasi+scene+gambar) → Gemini (gambar+video) / AI Studio (gambar→video) → output final."},
+  {term:"Workflow",cat:"def",def:"Alur kerja terintegrasi tiga platform: ChatGPT/GPT Go (narasi+scene+gambar) → Gemini (gambar+video) / AI Studio (gambar→video) → output final."},
   {term:"Lean Manufacturing",cat:"def",def:"Filosofi produksi Toyota yang menekankan efisiensi dengan meminimalkan pemborosan. Relevan dengan penggunaan prompt yang tepat dan efisien."},
-  {term:"Just In Time",cat:"def",def:"Sistem produksi di mana setiap langkah dilakukan tepat pada waktunya. Analog dengan urutan workflow: ChatGPT dulu, baru kemudian Gemini dan AI Studio."},
+  {term:"Just In Time",cat:"def",def:"Sistem produksi di mana setiap langkah dilakukan tepat pada waktunya. Analog dengan urutan workflow: ChatGPT/GPT Go dulu, baru kemudian Gemini dan AI Studio."},
   {term:"Operator",cat:"def",def:"Tenaga kerja manusia yang menjalankan proses produksi langsung di lini manufaktur. Elemen utama pabrik — AI hanya membantu dokumentasi dan visualisasi kerjanya."},
   {term:"Generate Video",cat:"gem",def:"Proses AI menghasilkan video dari deskripsi teks atau gambar. Tersedia di Gemini (langsung dari prompt) dan AI Studio Veo 2 (dari upload gambar)."},
   {term:"Assembly Line",cat:"def",def:"Lini perakitan di pabrik — sistem produksi di mana produk dirakit secara berurutan dari satu stasiun ke stasiun berikutnya oleh operator."},
