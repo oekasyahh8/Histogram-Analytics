@@ -22,9 +22,13 @@
   --gem-lt:     rgba(64,112,196,.09);
   --gem-mid:    #3460b0;
 
-  --ais:        #9158c4;
-  --ais-lt:     rgba(145,88,196,.09);
-  --ais-mid:    #7a46aa;
+  --flow:       #9158c4;
+  --flow-lt:    rgba(145,88,196,.09);
+  --flow-mid:   #7a46aa;
+
+  --edit:       #c47a20;
+  --edit-lt:    rgba(196,122,32,.09);
+  --edit-mid:   #a86518;
 
   --gold:       #b88a2a;
   --gold-lt:    rgba(184,138,42,.1);
@@ -75,6 +79,7 @@ body::before{
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
 @keyframes floatOrb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,15px) scale(.97)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 
 .pl{display:inline-flex;align-items:center;gap:4px;font-weight:600;border-radius:6px;padding:2px 9px;text-decoration:none;font-size:.82em;transition:all .2s;border:1px solid transparent;white-space:nowrap;font-family:var(--font-body)}
 .pl:hover{transform:translateY(-1px)}
@@ -82,8 +87,10 @@ body::before{
 .pl-gpt:hover{background:rgba(46,139,110,.15)}
 .pl-gem{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.2)}
 .pl-gem:hover{background:rgba(64,112,196,.15)}
-.pl-ais{background:var(--ais-lt);color:var(--ais);border-color:rgba(145,88,196,.2)}
-.pl-ais:hover{background:rgba(145,88,196,.15)}
+.pl-flow{background:var(--flow-lt);color:var(--flow);border-color:rgba(145,88,196,.2)}
+.pl-flow:hover{background:rgba(145,88,196,.15)}
+.pl-edit{background:var(--edit-lt);color:var(--edit);border-color:rgba(196,122,32,.2)}
+.pl-edit:hover{background:rgba(196,122,32,.15)}
 
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
@@ -115,8 +122,8 @@ nav{
 
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--text-3);padding:7px 18px;border-radius:100px;font-size:.72rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;margin-bottom:2rem;animation:fadeUp .8s ease both;font-family:var(--font-body)}
 .hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5.5vw,4.4rem);font-weight:500;line-height:1.08;letter-spacing:-.5px;margin-bottom:1.5rem;animation:fadeUp .8s .1s ease both;color:var(--text)}
-.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gpt),var(--gem) 55%,var(--ais));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:.95rem;color:var(--text-2);max-width:520px;margin:0 auto 2.5rem;animation:fadeUp .8s .2s ease both;line-height:1.75;font-weight:400}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gpt),var(--gem) 55%,var(--flow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:.95rem;color:var(--text-2);max-width:560px;margin:0 auto 2.5rem;animation:fadeUp .8s .2s ease both;line-height:1.75;font-weight:400}
 .hero-platforms{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;animation:fadeUp .8s .3s ease both}
 .platform-pill{display:inline-flex;align-items:center;gap:9px;padding:10px 20px;border-radius:100px;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .25s;border:1px solid;background:var(--surface);font-family:var(--font-body)}
 .platform-pill:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
@@ -124,8 +131,10 @@ nav{
 .pill-gpt:hover{background:var(--gpt-lt)}
 .pill-gem{color:var(--gem);border-color:rgba(64,112,196,.25)}
 .pill-gem:hover{background:var(--gem-lt)}
-.pill-ais{color:var(--ais);border-color:rgba(145,88,196,.25)}
-.pill-ais:hover{background:var(--ais-lt)}
+.pill-flow{color:var(--flow);border-color:rgba(145,88,196,.25)}
+.pill-flow:hover{background:var(--flow-lt)}
+.pill-edit{color:var(--edit);border-color:rgba(196,122,32,.25)}
+.pill-edit:hover{background:var(--edit-lt)}
 
 .hero-ctas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .4s ease both}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:11px 26px;border-radius:var(--r);font-family:var(--font-body);font-size:.84rem;font-weight:600;text-decoration:none;transition:all .2s;cursor:pointer;border:1px solid transparent}
@@ -148,34 +157,119 @@ main{position:relative;z-index:1}
 .section-desc{color:var(--text-2);font-size:.9rem;max-width:560px;line-height:1.8}
 .sh{margin-bottom:2.8rem}
 
-/* ROLE CARDS */
-.platform-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2.5rem}
-.role-card{border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);background:var(--surface);transition:all .3s;box-shadow:var(--shadow)}
-.role-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border2)}
-.role-header{padding:1.5rem 1.6rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.role-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.role-icon-gpt{background:var(--gpt-lt)}.role-icon-gem{background:var(--gem-lt)}.role-icon-ais{background:var(--ais-lt)}
-.role-name{font-size:1rem;font-weight:700;margin-bottom:2px;font-family:var(--font-body)}
-.role-tagline{font-size:.71rem;color:var(--text-3);font-weight:500}
-.role-tag{font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:100px;margin-left:auto;flex-shrink:0;font-family:var(--font-body)}
-.tag-gpt{background:var(--gpt-lt);color:var(--gpt);border:1px solid rgba(46,139,110,.18)}
-.tag-gem{background:var(--gem-lt);color:var(--gem);border:1px solid rgba(64,112,196,.18)}
-.tag-ais{background:var(--ais-lt);color:var(--ais);border:1px solid rgba(145,88,196,.18)}
-.role-body{padding:1.4rem 1.6rem}
-.role-func{display:flex;flex-direction:column;gap:.65rem}
-.func-item{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--text-2);line-height:1.6}
-.func-dot{width:5px;height:5px;border-radius:50%;margin-top:7px;flex-shrink:0}
-.dot-gpt{background:var(--gpt)}.dot-gem{background:var(--gem)}.dot-ais{background:var(--ais)}
+/* ============================================================
+   BAB 1 & 2 — REDESIGNED PLATFORM ROLES
+   ============================================================ */
 
-/* CARDS */
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.6rem;transition:all .25s;position:relative;overflow:hidden;box-shadow:var(--shadow)}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--border2)}
-.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.9rem}
-.icon-gpt{background:var(--gpt-lt)}.icon-gem{background:var(--gem-lt)}.icon-ais{background:var(--ais-lt)}.icon-gold{background:var(--gold-lt)}.icon-red{background:var(--red-lt)}
-.card h3{font-size:.93rem;font-weight:700;margin-bottom:.4rem;color:var(--text)}
-.card p{font-size:.82rem;color:var(--text-2);line-height:1.7}
+/* Workflow connector strip */
+.workflow-connector{
+  display:flex;align-items:center;gap:0;margin-bottom:2.5rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.wf-step{
+  flex:1;display:flex;align-items:center;gap:12px;
+  padding:1rem 1.25rem;position:relative;cursor:pointer;transition:background .2s;
+}
+.wf-step:hover{background:var(--surface2)}
+.wf-step:not(:last-child)::after{
+  content:'→';position:absolute;right:-1px;top:50%;transform:translateY(-50%);
+  z-index:2;width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+  background:var(--bg2);border:1px solid var(--border);border-radius:50%;
+  font-size:.7rem;color:var(--text-3);
+}
+.wf-step-icon{
+  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+.wf-step-body{min-width:0}
+.wf-step-name{font-size:.8rem;font-weight:700;line-height:1.2;margin-bottom:1px}
+.wf-step-role{font-size:.68rem;color:var(--text-3);font-weight:500;line-height:1.3}
+
+/* Platform detail panel */
+.platform-detail-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;
+}
+.platform-detail-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  overflow:hidden;transition:all .3s;box-shadow:var(--shadow);
+}
+.platform-detail-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+
+.pd-header{
+  padding:1.4rem 1.6rem 1.1rem;display:flex;align-items:flex-start;gap:14px;
+  border-bottom:1px solid var(--border);
+}
+.pd-icon{
+  width:50px;height:50px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:1.3rem;flex-shrink:0;
+}
+.pd-meta{flex:1;min-width:0}
+.pd-name{font-size:1.05rem;font-weight:700;margin-bottom:2px;font-family:var(--font-body)}
+.pd-url{font-size:.7rem;color:var(--text-3);font-weight:500;font-family:var(--font-mono)}
+.pd-badge{
+  font-size:.64rem;font-weight:700;padding:3px 10px;border-radius:100px;
+  white-space:nowrap;flex-shrink:0;margin-top:2px;
+}
+
+.pd-body{padding:1.3rem 1.6rem}
+.pd-functions{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.1rem}
+.pd-functions li{
+  display:flex;align-items:flex-start;gap:10px;font-size:.82rem;
+  color:var(--text-2);line-height:1.55;
+}
+.pd-func-icon{
+  width:20px;height:20px;border-radius:5px;display:flex;align-items:center;
+  justify-content:center;font-size:.65rem;flex-shrink:0;margin-top:1px;font-weight:700;
+}
+.pd-link{
+  display:inline-flex;align-items:center;gap:5px;font-size:.75rem;font-weight:700;
+  text-decoration:none;padding:6px 14px;border-radius:8px;border:1px solid;
+  transition:all .2s;width:100%;justify-content:center;
+}
+.pd-link:hover{transform:translateY(-1px)}
+
+/* Color variants */
+.pd-gpt .pd-icon{background:var(--gpt-lt)}
+.pd-gpt .pd-name{color:var(--gpt)}
+.pd-gpt .pd-badge{background:var(--gpt-lt);color:var(--gpt);border:1px solid rgba(46,139,110,.2)}
+.pd-gpt .pd-func-icon{background:var(--gpt-lt);color:var(--gpt)}
+.pd-gpt .pd-link{background:var(--gpt-lt);color:var(--gpt);border-color:rgba(46,139,110,.22)}
+.pd-gpt .pd-link:hover{background:rgba(46,139,110,.15)}
+
+.pd-gem .pd-icon{background:var(--gem-lt)}
+.pd-gem .pd-name{color:var(--gem)}
+.pd-gem .pd-badge{background:var(--gem-lt);color:var(--gem);border:1px solid rgba(64,112,196,.2)}
+.pd-gem .pd-func-icon{background:var(--gem-lt);color:var(--gem)}
+.pd-gem .pd-link{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.22)}
+.pd-gem .pd-link:hover{background:rgba(64,112,196,.15)}
+
+.pd-flow .pd-icon{background:var(--flow-lt)}
+.pd-flow .pd-name{color:var(--flow)}
+.pd-flow .pd-badge{background:var(--flow-lt);color:var(--flow);border:1px solid rgba(145,88,196,.2)}
+.pd-flow .pd-func-icon{background:var(--flow-lt);color:var(--flow)}
+.pd-flow .pd-link{background:var(--flow-lt);color:var(--flow);border-color:rgba(145,88,196,.22)}
+.pd-flow .pd-link:hover{background:rgba(145,88,196,.15)}
+
+.pd-edit .pd-icon{background:var(--edit-lt)}
+.pd-edit .pd-name{color:var(--edit)}
+.pd-edit .pd-badge{background:var(--edit-lt);color:var(--edit);border:1px solid rgba(196,122,32,.2)}
+.pd-edit .pd-func-icon{background:var(--edit-lt);color:var(--edit)}
+.pd-edit .pd-link{background:var(--edit-lt);color:var(--edit);border-color:rgba(196,122,32,.22)}
+.pd-edit .pd-link:hover{background:rgba(196,122,32,.15)}
+
+/* Output summary row */
+.output-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;
+}
+.output-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:1rem 1.1rem;text-align:center;transition:all .22s;
+}
+.output-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.output-card-icon{font-size:1.5rem;margin-bottom:.5rem;display:block}
+.output-card-label{font-size:.75rem;font-weight:700;margin-bottom:3px;color:var(--text)}
+.output-card-desc{font-size:.71rem;color:var(--text-3);line-height:1.45}
 
 /* ACCORDION */
 .accordion{display:flex;flex-direction:column;gap:.65rem}
@@ -196,34 +290,37 @@ main{position:relative;z-index:1}
 .tab-btn:hover{color:var(--text);border-color:var(--border2);background:var(--surface2)}
 .tab-btn.active-gpt{background:var(--gpt-lt);color:var(--gpt);border-color:rgba(46,139,110,.25)}
 .tab-btn.active-gem{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.25)}
-.tab-btn.active-ais{background:var(--ais-lt);color:var(--ais);border-color:rgba(145,88,196,.25)}
+.tab-btn.active-flow{background:var(--flow-lt);color:var(--flow);border-color:rgba(145,88,196,.25)}
+.tab-btn.active-edit{background:var(--edit-lt);color:var(--edit);border-color:rgba(196,122,32,.25)}
 .tab-content{display:none}.tab-content.active{display:block;animation:fadeIn .35s ease}
 
 /* PLATFORM GUIDE */
 .platform-guide{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:2rem}
 .pg-header{display:flex;align-items:center;gap:14px;padding:1.4rem 1.8rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .pg-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-.pg-icon-gpt{background:var(--gpt-lt)}.pg-icon-gem{background:var(--gem-lt)}.pg-icon-ais{background:var(--ais-lt)}
+.pg-icon-gpt{background:var(--gpt-lt)}.pg-icon-gem{background:var(--gem-lt)}.pg-icon-flow{background:var(--flow-lt)}.pg-icon-edit{background:var(--edit-lt)}
 .pg-header h3{font-size:1.05rem;font-weight:700;margin-bottom:2px;font-family:var(--font-body)}
 .pg-header p{font-size:.77rem;color:var(--text-3)}
 .pg-link{font-size:.75rem;font-weight:700;text-decoration:none;padding:7px 15px;border-radius:8px;margin-left:auto;white-space:nowrap;border:1px solid;transition:all .2s;font-family:var(--font-body)}
 .pg-link:hover{transform:translateY(-1px)}
 .pg-link-gpt{background:var(--gpt-lt);color:var(--gpt);border-color:rgba(46,139,110,.22)}
 .pg-link-gem{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.22)}
-.pg-link-ais{background:var(--ais-lt);color:var(--ais);border-color:rgba(145,88,196,.22)}
+.pg-link-flow{background:var(--flow-lt);color:var(--flow);border-color:rgba(145,88,196,.22)}
+.pg-link-edit{background:var(--edit-lt);color:var(--edit);border-color:rgba(196,122,32,.22)}
 .pg-body{padding:1.8rem}
 .guide-steps{display:flex;flex-direction:column;gap:.9rem}
 .guide-step{display:flex;gap:1rem;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;transition:border-color .2s}
 .guide-step:hover{border-color:var(--border2)}
 .gs-num{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px;font-family:var(--font-mono)}
-.gs-gpt{background:var(--gpt-lt);color:var(--gpt)}.gs-gem{background:var(--gem-lt);color:var(--gem)}.gs-ais{background:var(--ais-lt);color:var(--ais)}
+.gs-gpt{background:var(--gpt-lt);color:var(--gpt)}.gs-gem{background:var(--gem-lt);color:var(--gem)}.gs-flow{background:var(--flow-lt);color:var(--flow)}.gs-edit{background:var(--edit-lt);color:var(--edit)}
 .gs-body h4{font-size:.88rem;font-weight:700;margin-bottom:3px;color:var(--text)}
 .gs-body p{font-size:.81rem;color:var(--text-2);line-height:1.65}
 .gs-body code{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 7px;font-size:.77rem;color:var(--text-2);font-family:var(--font-mono)}
 .tip-box{border-radius:var(--r);padding:.9rem 1.15rem;font-size:.81rem;margin-top:1.25rem;display:flex;gap:9px;align-items:flex-start;line-height:1.65}
 .tip-gpt{background:rgba(46,139,110,.07);border:1px solid rgba(46,139,110,.18);color:var(--gpt-mid)}
 .tip-gem{background:rgba(64,112,196,.07);border:1px solid rgba(64,112,196,.18);color:var(--gem-mid)}
-.tip-ais{background:rgba(145,88,196,.07);border:1px solid rgba(145,88,196,.18);color:var(--ais-mid)}
+.tip-flow{background:rgba(145,88,196,.07);border:1px solid rgba(145,88,196,.18);color:var(--flow-mid)}
+.tip-edit{background:rgba(196,122,32,.07);border:1px solid rgba(196,122,32,.18);color:var(--edit-mid)}
 
 /* PAKET INFO BOX */
 .paket-box{border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);margin-bottom:1.5rem;background:var(--surface)}
@@ -252,12 +349,14 @@ main{position:relative;z-index:1}
 .prompt-badge{font-size:.68rem;padding:3px 10px;border-radius:100px;font-weight:700;text-decoration:none;font-family:var(--font-body)}
 .badge-gpt{background:var(--gpt-lt);color:var(--gpt);border:1px solid rgba(46,139,110,.2)}
 .badge-gem{background:var(--gem-lt);color:var(--gem);border:1px solid rgba(64,112,196,.2)}
-.badge-ais{background:var(--ais-lt);color:var(--ais);border:1px solid rgba(145,88,196,.2)}
+.badge-flow{background:var(--flow-lt);color:var(--flow);border:1px solid rgba(145,88,196,.2)}
+.badge-edit{background:var(--edit-lt);color:var(--edit);border:1px solid rgba(196,122,32,.2)}
 .prompt-body{padding:1.25rem}
 .prompt-text{font-size:.83rem;line-height:1.7;font-family:var(--font-mono);padding:.85rem 1rem;border-radius:8px;margin-bottom:.75rem}
 .pt-gpt{color:var(--gpt-mid);background:var(--gpt-lt);border-left:3px solid var(--gpt)}
 .pt-gem{color:var(--gem-mid);background:var(--gem-lt);border-left:3px solid var(--gem)}
-.pt-ais{color:var(--ais-mid);background:var(--ais-lt);border-left:3px solid var(--ais)}
+.pt-flow{color:var(--flow-mid);background:var(--flow-lt);border-left:3px solid var(--flow)}
+.pt-edit{color:var(--edit-mid);background:var(--edit-lt);border-left:3px solid var(--edit)}
 .pt-bad{color:var(--red);background:var(--red-lt);border-left:3px solid var(--red)}
 .pt-good{color:var(--green);background:var(--green-lt);border-left:3px solid var(--green)}
 .prompt-result{font-size:.82rem;color:var(--text-2);line-height:1.7;padding:.85rem 1rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border)}
@@ -266,14 +365,17 @@ main{position:relative;z-index:1}
 .copy-btn-gpt:hover{background:rgba(46,139,110,.15)}
 .copy-btn-gem{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.22)}
 .copy-btn-gem:hover{background:rgba(64,112,196,.15)}
-.copy-btn-ais{background:var(--ais-lt);color:var(--ais);border-color:rgba(145,88,196,.22)}
-.copy-btn-ais:hover{background:rgba(145,88,196,.15)}
+.copy-btn-flow{background:var(--flow-lt);color:var(--flow);border-color:rgba(145,88,196,.22)}
+.copy-btn-flow:hover{background:rgba(145,88,196,.15)}
+.copy-btn-edit{background:var(--edit-lt);color:var(--edit);border-color:rgba(196,122,32,.22)}
+.copy-btn-edit:hover{background:rgba(196,122,32,.15)}
 
 /* STAGES */
 .stages-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.85rem}
 .stage-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.15rem .9rem;text-align:center;cursor:pointer;transition:all .25s}
 .stage-card:hover{border-color:var(--border2);transform:translateY(-3px)}
 .stage-card.active-gem{border-color:var(--gem);background:var(--gem-lt);transform:translateY(-3px)}
+.stage-card.active-flow{border-color:var(--flow);background:var(--flow-lt);transform:translateY(-3px)}
 .stage-icon{font-size:1.6rem;margin-bottom:.55rem;display:block}
 .stage-num{font-size:.64rem;font-weight:700;letter-spacing:1px;margin-bottom:3px;font-family:var(--font-mono)}
 .stage-name{font-size:.79rem;font-weight:600;line-height:1.25;color:var(--text)}
@@ -283,7 +385,7 @@ main{position:relative;z-index:1}
 .stage-detail p{color:var(--text-2);font-size:.84rem;margin-bottom:1rem;line-height:1.75}
 
 /* WORKFLOW */
-.wf-full{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-top:2rem}
+.wf-full{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-top:2rem}
 .wf-col{background:var(--surface);padding:1.5rem 1.3rem}
 .wf-col-header{display:flex;align-items:center;gap:8px;margin-bottom:1.2rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
 .wf-col-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
@@ -300,7 +402,7 @@ main{position:relative;z-index:1}
 .lean-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
 .lean-card:nth-child(1)::after{background:linear-gradient(90deg,var(--gold),#c9a040)}
 .lean-card:nth-child(2)::after{background:linear-gradient(90deg,var(--gpt),var(--gem))}
-.lean-card:nth-child(3)::after{background:linear-gradient(90deg,var(--gem),var(--ais))}
+.lean-card:nth-child(3)::after{background:linear-gradient(90deg,var(--gem),var(--flow))}
 .lean-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .lean-big{font-size:2.3rem;margin-bottom:.85rem;display:block}
 .lean-title{font-family:var(--font-display);font-size:1.1rem;font-style:italic;font-weight:500;margin-bottom:.2rem;color:var(--text)}
@@ -308,13 +410,57 @@ main{position:relative;z-index:1}
 .lean-desc{font-size:.83rem;color:var(--text-2);line-height:1.75}
 
 /* VIDEO FLOW */
-.video-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.8rem;align-items:center;margin-bottom:2rem}
+.video-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:.8rem;align-items:center;margin-bottom:2rem}
 .vf-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1rem;text-align:center;transition:all .25s}
 .vf-box:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 .vf-icon{font-size:1.5rem;margin-bottom:.5rem;display:block}
 .vf-label{font-size:.77rem;font-weight:700;margin-bottom:2px}
 .vf-desc{font-size:.69rem;color:var(--text-3);line-height:1.45}
 .vf-arrow{font-size:1.1rem;color:var(--border2);text-align:center;flex-shrink:0}
+
+/* STEP BOX */
+.step-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:1.2rem}
+.step-box-header{padding:.85rem 1.4rem;font-size:.82rem;font-weight:700;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.step-box-header-capcut{background:linear-gradient(90deg,rgba(0,0,0,.04),rgba(0,0,0,.01));color:var(--text)}
+.step-box-header-canva{background:rgba(64,112,196,.06);color:var(--gem-mid)}
+.step-num-circle{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;font-family:var(--font-mono)}
+.snc-edit{background:var(--edit-lt);color:var(--edit)}
+.snc-gem{background:var(--gem-lt);color:var(--gem)}
+.step-box-body{padding:1.2rem 1.4rem}
+.step-box-body p{font-size:.83rem;color:var(--text-2);line-height:1.75;margin-bottom:.5rem}
+
+/* APP COMPARE */
+.app-compare{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2rem}
+.app-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;transition:all .25s;box-shadow:var(--shadow)}
+.app-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.app-card-header{padding:1.2rem 1.4rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.app-logo{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.app-logo-capcut{background:linear-gradient(135deg,#111,#333)}
+.app-logo-canva{background:linear-gradient(135deg,#7B2FE0,#4B9FE1)}
+.app-card-title{font-size:1rem;font-weight:700}
+.app-card-sub{font-size:.72rem;color:var(--text-3);margin-top:2px}
+.app-card-body{padding:1.2rem 1.4rem}
+.app-features{list-style:none;display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.app-features li{font-size:.81rem;color:var(--text-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.app-badge-row{display:flex;gap:6px;flex-wrap:wrap}
+.app-badge{font-size:.67rem;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid}
+.ab-free{background:var(--green-lt);color:var(--green);border-color:rgba(42,138,94,.2)}
+.ab-mobile{background:var(--gpt-lt);color:var(--gpt);border-color:rgba(46,139,110,.2)}
+.ab-web{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.2)}
+
+/* CARDS */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.6rem;transition:all .25s;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--border2)}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.9rem}
+.icon-gpt{background:var(--gpt-lt)}.icon-gem{background:var(--gem-lt)}.icon-flow{background:var(--flow-lt)}.icon-edit{background:var(--edit-lt)}.icon-gold{background:var(--gold-lt)}.icon-red{background:var(--red-lt)}
+.card h3{font-size:.93rem;font-weight:700;margin-bottom:.4rem;color:var(--text)}
+.card p{font-size:.82rem;color:var(--text-2);line-height:1.7}
+
+/* INFO BOX */
+.info-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:2rem;display:flex;gap:12px;align-items:flex-start;font-size:.84rem;line-height:1.7}
+.info-box-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
 
 /* QUIZ */
 .quiz-container{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:2.2rem;max-width:700px;margin:0 auto;box-shadow:var(--shadow)}
@@ -340,20 +486,172 @@ main{position:relative;z-index:1}
 .result-score{font-family:var(--font-display);font-size:5rem;font-style:italic;font-weight:600;background:linear-gradient(135deg,var(--gpt),var(--gem));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.5rem}
 .result-label{font-size:.93rem;color:var(--text-2);margin-bottom:2rem;line-height:1.7}
 
-/* GLOSSARY */
-.glossary-search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 16px;margin-bottom:1.25rem}
-.glossary-search input{background:none;border:none;outline:none;color:var(--text);font-family:var(--font-body);font-size:.88rem;flex:1}
-.glossary-search input::placeholder{color:var(--text-4)}
-.glossary-list{display:flex;flex-direction:column;gap:.6rem}
-.glossary-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;transition:border-color .2s}
-.glossary-item:hover{border-color:var(--border2)}
-.glossary-term{font-weight:700;font-size:.83rem;min-width:120px;flex-shrink:0;font-family:var(--font-mono)}
-.glossary-term-gpt{color:var(--gpt)}.glossary-term-gem{color:var(--gem)}.glossary-term-ais{color:var(--ais)}.glossary-term-def{color:var(--text-2)}
-.glossary-def{font-size:.81rem;color:var(--text-2);line-height:1.65}
+/* ============================================================
+   GLOSSARY — REDESIGNED INTERACTIVE VERSION
+   ============================================================ */
 
-/* INFO BOX */
-.info-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:2rem;display:flex;gap:12px;align-items:flex-start;font-size:.84rem;line-height:1.7}
-.info-box-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+.glossary-container{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  overflow:hidden;box-shadow:var(--shadow);
+}
+
+/* Search + filters bar */
+.glossary-topbar{
+  padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);
+  background:var(--surface);
+  display:flex;flex-direction:column;gap:1rem;
+}
+.glossary-search-wrap{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg);border:1px solid var(--border2);border-radius:10px;
+  padding:10px 16px;transition:border-color .2s;
+}
+.glossary-search-wrap:focus-within{border-color:var(--gpt)}
+.glossary-search-wrap input{
+  background:none;border:none;outline:none;color:var(--text);
+  font-family:var(--font-body);font-size:.88rem;flex:1;
+}
+.glossary-search-wrap input::placeholder{color:var(--text-4)}
+.glossary-search-icon{color:var(--text-3);font-size:.95rem;flex-shrink:0}
+
+/* Category filter chips */
+.glossary-filters{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.filter-label{font-size:.68rem;font-weight:700;color:var(--text-3);letter-spacing:.5px;text-transform:uppercase;margin-right:.25rem}
+.filter-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;
+  border:1px solid var(--border);background:var(--bg2);color:var(--text-3);
+  cursor:pointer;transition:all .18s;font-family:var(--font-body);
+}
+.filter-chip:hover{border-color:var(--border2);color:var(--text)}
+.filter-chip.active-all{background:var(--text);color:var(--surface);border-color:var(--text)}
+.filter-chip.active-gpt{background:var(--gpt-lt);color:var(--gpt);border-color:rgba(46,139,110,.3)}
+.filter-chip.active-gem{background:var(--gem-lt);color:var(--gem);border-color:rgba(64,112,196,.3)}
+.filter-chip.active-flow{background:var(--flow-lt);color:var(--flow);border-color:rgba(145,88,196,.3)}
+.filter-chip.active-edit{background:var(--edit-lt);color:var(--edit);border-color:rgba(196,122,32,.3)}
+.filter-chip.active-def{background:var(--gold-lt);color:var(--gold);border-color:rgba(184,138,42,.3)}
+.filter-chip.active-lean{background:rgba(192,80,80,.08);color:var(--red);border-color:rgba(192,80,80,.25)}
+
+/* Stats row */
+.glossary-stats{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem 1.5rem;border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.glos-stat-count{font-size:.78rem;color:var(--text-3);font-weight:600}
+.glos-stat-count strong{color:var(--text)}
+.glos-sort{
+  display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--text-3);
+}
+.glos-sort select{
+  font-family:var(--font-body);font-size:.72rem;background:var(--surface);
+  border:1px solid var(--border);border-radius:6px;padding:4px 8px;
+  color:var(--text-2);cursor:pointer;outline:none;
+}
+
+/* Alphabet nav */
+.alpha-nav{
+  display:flex;gap:3px;flex-wrap:wrap;padding:.65rem 1.5rem;
+  border-bottom:1px solid var(--border);background:var(--surface);
+}
+.alpha-btn{
+  width:26px;height:26px;border-radius:6px;font-size:.65rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  background:none;border:none;color:var(--text-3);transition:all .15s;
+  font-family:var(--font-mono);
+}
+.alpha-btn:hover{background:var(--bg2);color:var(--text)}
+.alpha-btn.has-items{color:var(--text-2)}
+.alpha-btn.active{background:var(--gpt-lt);color:var(--gpt);border:1px solid rgba(46,139,110,.25)}
+
+/* Glossary body */
+.glossary-body{
+  max-height:600px;overflow-y:auto;
+  padding:.5rem 0;
+}
+.glossary-body::-webkit-scrollbar{width:4px}
+.glossary-body::-webkit-scrollbar-track{background:var(--bg2)}
+.glossary-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+/* Letter group header */
+.alpha-group-header{
+  padding:.5rem 1.5rem .3rem;
+  font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-4);font-family:var(--font-mono);
+  display:flex;align-items:center;gap:.8rem;
+}
+.alpha-group-header::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Glossary entry card — new expandable design */
+.glos-entry{
+  padding:.85rem 1.5rem;border-bottom:1px solid rgba(224,216,207,.5);
+  cursor:pointer;transition:background .15s;position:relative;
+}
+.glos-entry:last-child{border-bottom:none}
+.glos-entry:hover{background:var(--bg2)}
+.glos-entry.expanded{background:var(--bg2)}
+
+.glos-entry-header{display:flex;align-items:flex-start;gap:.9rem}
+.glos-cat-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;
+}
+.glos-entry-main{flex:1;min-width:0}
+.glos-term-row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:2px}
+.glos-term{font-size:.88rem;font-weight:700;color:var(--text);font-family:var(--font-body)}
+.glos-cat-badge{
+  font-size:.62rem;font-weight:700;padding:2px 8px;border-radius:100px;
+  white-space:nowrap;
+}
+.gcat-gpt{background:var(--gpt-lt);color:var(--gpt);border:1px solid rgba(46,139,110,.2)}
+.gcat-gem{background:var(--gem-lt);color:var(--gem);border:1px solid rgba(64,112,196,.2)}
+.gcat-flow{background:var(--flow-lt);color:var(--flow);border:1px solid rgba(145,88,196,.2)}
+.gcat-edit{background:var(--edit-lt);color:var(--edit);border:1px solid rgba(196,122,32,.2)}
+.gcat-def{background:var(--gold-lt);color:var(--gold);border:1px solid rgba(184,138,42,.2)}
+.gcat-lean{background:var(--red-lt);color:var(--red);border:1px solid rgba(192,80,80,.2)}
+
+.glos-summary{font-size:.8rem;color:var(--text-3);line-height:1.5;margin-top:1px}
+.glos-expand-icon{
+  width:20px;height:20px;border-radius:50%;background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;font-size:.58rem;
+  color:var(--text-3);flex-shrink:0;transition:transform .25s;margin-top:1px;
+}
+.glos-entry.expanded .glos-expand-icon{transform:rotate(180deg);background:var(--gpt-lt);color:var(--gpt)}
+
+.glos-detail{
+  max-height:0;overflow:hidden;transition:max-height .3s ease;
+}
+.glos-entry.expanded .glos-detail{max-height:300px}
+.glos-detail-inner{
+  padding:.7rem 0 .3rem 1.7rem;
+  font-size:.82rem;color:var(--text-2);line-height:1.75;
+}
+.glos-detail-inner p{margin-bottom:.5rem}
+.glos-detail-inner p:last-child{margin-bottom:0}
+.glos-detail-inner .glos-example{
+  background:var(--bg);border-left:2px solid var(--gpt);
+  border-radius:4px;padding:.5rem .8rem;font-size:.79rem;
+  color:var(--gpt-mid);font-style:italic;margin-top:.5rem;
+}
+.glos-related{
+  display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem;
+}
+.glos-related-label{font-size:.68rem;color:var(--text-4);font-weight:600;align-self:center}
+.glos-related-tag{
+  font-size:.68rem;font-weight:600;padding:2px 9px;border-radius:100px;
+  background:var(--surface2);border:1px solid var(--border);color:var(--text-3);
+  cursor:pointer;transition:all .15s;
+}
+.glos-related-tag:hover{background:var(--gpt-lt);color:var(--gpt);border-color:rgba(46,139,110,.25)}
+
+/* Empty state */
+.glos-empty{
+  text-align:center;padding:3rem 2rem;color:var(--text-3);
+}
+.glos-empty-icon{font-size:2.5rem;margin-bottom:.8rem;display:block;opacity:.4}
+.glos-empty-text{font-size:.88rem;line-height:1.7}
+
+/* NEW BADGE */
+.new-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(90deg,var(--edit),#e08a30);color:#fff;font-size:.63rem;font-weight:700;padding:3px 9px;border-radius:100px;letter-spacing:.3px;margin-left:8px;vertical-align:middle}
 
 footer{
   background:var(--surface);
@@ -364,9 +662,10 @@ footer{
 }
 footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
-@media(max-width:960px){.platform-roles{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr 1fr}.lean-cards{grid-template-columns:1fr}.stages-grid{grid-template-columns:repeat(3,1fr)}.wf-full{grid-template-columns:1fr 1fr}.paket-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.nav-links{display:none;flex-direction:column;position:absolute;top:58px;left:0;right:0;background:rgba(245,240,235,.97);backdrop-filter:blur(18px);padding:1rem;border-bottom:1px solid var(--border);gap:2px}.nav-links.open{display:flex}.nav-links a{padding:10px 14px;display:block}.nav-toggle{display:flex}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.stages-grid{grid-template-columns:repeat(2,1fr)}.pg-link{margin-left:0;margin-top:8px}.video-flow{grid-template-columns:1fr;gap:.6rem}.vf-arrow{transform:rotate(90deg)}.wf-full{grid-template-columns:1fr}}
-@media(max-width:480px){.stages-grid{grid-template-columns:1fr 1fr}.hero-stats{gap:1.5rem}}
+@media(max-width:1100px){.wf-full{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:960px){.platform-detail-grid{grid-template-columns:1fr}.output-row{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr 1fr}.lean-cards{grid-template-columns:1fr}.stages-grid{grid-template-columns:repeat(3,1fr)}.paket-grid{grid-template-columns:1fr}.app-compare{grid-template-columns:1fr}}
+@media(max-width:700px){.nav-links{display:none;flex-direction:column;position:absolute;top:58px;left:0;right:0;background:rgba(245,240,235,.97);backdrop-filter:blur(18px);padding:1rem;border-bottom:1px solid var(--border);gap:2px}.nav-links.open{display:flex}.nav-links a{padding:10px 14px;display:block}.nav-toggle{display:flex}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.stages-grid{grid-template-columns:repeat(2,1fr)}.pg-link{margin-left:0;margin-top:8px}.video-flow{grid-template-columns:1fr;gap:.6rem}.vf-arrow{transform:rotate(90deg)}.wf-full{grid-template-columns:1fr}.workflow-connector{flex-direction:column}.wf-step:not(:last-child)::after{content:'↓';right:auto;bottom:-1px;top:auto;transform:translateX(-50%);left:50%}.output-row{grid-template-columns:1fr 1fr}.alpha-nav{padding:.5rem 1rem}}
+@media(max-width:480px){.stages-grid{grid-template-columns:1fr 1fr}.hero-stats{gap:1.5rem}.output-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -378,8 +677,9 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <li><a href="#panduan">Panduan</a></li>
     <li><a href="#chatgpt">ChatGPT</a></li>
     <li><a href="#gemini">Gemini</a></li>
-    <li><a href="#aistudio">AI Studio</a></li>
+    <li><a href="#flow">Google Flow</a></li>
     <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#editing">Edit Video</a></li>
     <li><a href="#manufaktur">Manufaktur</a></li>
     <li><a href="#kuis">Kuis</a></li>
     <li><a href="#glosarium">Glosarium</a></li>
@@ -393,13 +693,14 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </div>
-  <div class="hero-badge">📘 Modul Pembelajaran — Revisi 2.0</div>
+  <div class="hero-badge">📘 Modul Pembelajaran — Revisi 4.0</div>
   <h1>Penerapan <em>Artificial Intelligence</em><br>dalam Manufaktur Otomotif</h1>
-  <p class="hero-sub">Kuasai tiga platform AI — dari menulis narasi &amp; skenario, menghasilkan gambar, hingga membuat video proses produksi operator secara profesional.</p>
+  <p class="hero-sub">Kuasai empat platform AI — dari menulis narasi &amp; skenario, menghasilkan gambar, membuat video proses produksi, hingga menggabungkan video menjadi hasil akhir yang profesional.</p>
   <div class="hero-platforms">
-    <a href="https://chat.openai.com" target="_blank" rel="noopener" class="platform-pill pill-gpt">🤖 ChatGPT (Free/Go) — Narasi &amp; Konsep Gambar</a>
-    <a href="https://gemini.google.com" target="_blank" rel="noopener" class="platform-pill pill-gem">✨ Gemini — Gambar &amp; Video</a>
-    <a href="https://aistudio.google.com" target="_blank" rel="noopener" class="platform-pill pill-ais">🎬 AI Studio — Video dari Gambar</a>
+    <a href="https://chat.openai.com" target="_blank" rel="noopener" class="platform-pill pill-gpt">🤖 ChatGPT (Free/Go) — Narasi &amp; Gambar</a>
+    <a href="https://gemini.google.com" target="_blank" rel="noopener" class="platform-pill pill-gem">✨ Gemini — Generate Gambar &amp; Video</a>
+    <a href="https://labs.google/fx/id/tools/flow" target="_blank" rel="noopener" class="platform-pill pill-flow">🎬 Google Flow — Gambar ke Video</a>
+    <a href="#editing" class="platform-pill pill-edit">✂️ CapCut / Canva — Edit &amp; Gabungkan Video</a>
   </div>
   <div class="hero-ctas">
     <a href="#konsep" class="btn btn-primary">🚀 Mulai Belajar</a>
@@ -407,79 +708,165 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <a href="#kuis" class="btn btn-outline">📝 Uji Pemahaman</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><span class="stat-num">9</span><div class="stat-label">Bab Materi</div></div>
-    <div class="stat"><span class="stat-num">3</span><div class="stat-label">Platform AI</div></div>
+    <div class="stat"><span class="stat-num">10</span><div class="stat-label">Bab Materi</div></div>
+    <div class="stat"><span class="stat-num">4</span><div class="stat-label">Platform</div></div>
     <div class="stat"><span class="stat-num">5</span><div class="stat-label">Tahap Produksi</div></div>
     <div class="stat"><span class="stat-num">10</span><div class="stat-label">Soal Kuis</div></div>
   </div>
 </section>
 
+<!-- ============================================================
+     BAB 1 & 2 — REDESIGNED
+     ============================================================ -->
 <section class="section" id="konsep">
   <div class="sh">
     <span class="section-tag">Bab 1 &amp; 2</span>
     <h2 class="section-title">Konsep Dasar &amp; Pembagian Peran Platform AI</h2>
-    <p class="section-desc">Pahami peran masing-masing platform AI dan bagaimana ketiganya bekerja bersama dalam satu alur produksi konten manufaktur.</p>
+    <p class="section-desc">Pahami peran masing-masing platform dan bagaimana keempatnya bekerja bersama dalam satu alur produksi konten manufaktur yang lengkap.</p>
   </div>
 
-  <div class="platform-roles">
-    <div class="role-card">
-      <div class="role-header">
-        <div class="role-icon role-icon-gpt">🤖</div>
-        <div>
-          <div class="role-name" style="color:var(--gpt)">ChatGPT &amp; GPT Go</div>
-          <div class="role-tagline">chat.openai.com / gptgo.ai</div>
-        </div>
-        <span class="role-tag tag-gpt">Teks &amp; Gambar</span>
+  <!-- Workflow connector — alur visual -->
+  <div class="workflow-connector">
+    <div class="wf-step" onclick="document.getElementById('chatgpt').scrollIntoView({behavior:'smooth'})">
+      <div class="wf-step-icon" style="background:var(--gpt-lt)">🤖</div>
+      <div class="wf-step-body">
+        <div class="wf-step-name" style="color:var(--gpt)">ChatGPT / GPT Go</div>
+        <div class="wf-step-role">Narasi, Scene &amp; Gambar</div>
       </div>
-      <div class="role-body">
-        <div class="role-func">
-          <div class="func-item"><span class="func-dot dot-gpt"></span>Membuat narasi proses produksi yang lengkap dan terstruktur</div>
-          <div class="func-item"><span class="func-dot dot-gpt"></span>Menyusun scene dan skenario detail untuk setiap tahap operator</div>
-          <div class="func-item"><span class="func-dot dot-gpt"></span>Generate gambar dasar dari deskripsi narasi menggunakan ChatGPT Free atau GPT Go (kuota terbatas tapi cukup buat draft)</div>
-          <div class="func-item"><span class="func-dot dot-gpt"></span>Merevisi dan menyempurnakan gambar secara iteratif dalam satu percakapan</div>
-          <div class="func-item"><span class="func-dot dot-gpt"></span>Menyusun prompt visual siap pakai untuk digunakan di Gemini dan AI Studio</div>
+    </div>
+    <div class="wf-step" onclick="document.getElementById('gemini').scrollIntoView({behavior:'smooth'})">
+      <div class="wf-step-icon" style="background:var(--gem-lt)">✨</div>
+      <div class="wf-step-body">
+        <div class="wf-step-name" style="color:var(--gem)">Gemini</div>
+        <div class="wf-step-role">Generate Gambar &amp; Video</div>
+      </div>
+    </div>
+    <div class="wf-step" onclick="document.getElementById('flow').scrollIntoView({behavior:'smooth'})">
+      <div class="wf-step-icon" style="background:var(--flow-lt)">🎬</div>
+      <div class="wf-step-body">
+        <div class="wf-step-name" style="color:var(--flow)">Google Flow</div>
+        <div class="wf-step-role">Gambar → Video MP4</div>
+      </div>
+    </div>
+    <div class="wf-step" onclick="document.getElementById('editing').scrollIntoView({behavior:'smooth'})">
+      <div class="wf-step-icon" style="background:var(--edit-lt)">✂️</div>
+      <div class="wf-step-body">
+        <div class="wf-step-name" style="color:var(--edit)">CapCut / Canva</div>
+        <div class="wf-step-role">Edit &amp; Video Final</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 Platform Cards — 2x2 grid -->
+  <div class="platform-detail-grid">
+
+    <div class="platform-detail-card pd-gpt">
+      <div class="pd-header">
+        <div class="pd-icon">🤖</div>
+        <div class="pd-meta">
+          <div class="pd-name">ChatGPT &amp; GPT Go</div>
+          <div class="pd-url">chat.openai.com / gptgo.ai</div>
         </div>
+        <span class="pd-badge">Teks &amp; Gambar</span>
+      </div>
+      <div class="pd-body">
+        <ul class="pd-functions">
+          <li><span class="pd-func-icon">✍️</span>Membuat narasi proses produksi yang lengkap dan terstruktur</li>
+          <li><span class="pd-func-icon">🎬</span>Menyusun scene dan skenario detail untuk setiap tahap operator</li>
+          <li><span class="pd-func-icon">🖼️</span>Generate gambar awal dari deskripsi narasi (kuota terbatas di versi gratis)</li>
+          <li><span class="pd-func-icon">✏️</span>Revisi dan sempurnakan gambar secara iteratif dalam satu percakapan</li>
+          <li><span class="pd-func-icon">📋</span>Menyusun prompt visual siap pakai untuk Gemini dan Google Flow</li>
+        </ul>
+        <a href="https://chat.openai.com" target="_blank" rel="noopener" class="pd-link">🔗 Buka ChatGPT ↗</a>
       </div>
     </div>
 
-    <div class="role-card">
-      <div class="role-header">
-        <div class="role-icon role-icon-gem">✨</div>
-        <div>
-          <div class="role-name" style="color:var(--gem)">Gemini</div>
-          <div class="role-tagline">gemini.google.com</div>
+    <div class="platform-detail-card pd-gem">
+      <div class="pd-header">
+        <div class="pd-icon">✨</div>
+        <div class="pd-meta">
+          <div class="pd-name">Gemini</div>
+          <div class="pd-url">gemini.google.com</div>
         </div>
-        <span class="role-tag tag-gem">Gambar &amp; Video</span>
+        <span class="pd-badge">Gambar &amp; Video</span>
       </div>
-      <div class="role-body">
-        <div class="role-func">
-          <div class="func-item"><span class="func-dot dot-gem"></span>Generate gambar dari prompt narasi dan skenario yang sudah dibuat di ChatGPT</div>
-          <div class="func-item"><span class="func-dot dot-gem"></span>Generate video pendek berdasarkan deskripsi scene secara langsung</div>
-          <div class="func-item"><span class="func-dot dot-gem"></span>Mengembangkan dan menyempurnakan deskripsi visual sesuai kebutuhan</div>
-          <div class="func-item"><span class="func-dot dot-gem"></span>Ekspor hasil gambar dan catatan langsung ke Google Docs atau Google Drive</div>
-          <div class="func-item"><span class="func-dot dot-gem"></span>Menghasilkan konten multimodal — teks dan visual sekaligus dalam satu respons</div>
-        </div>
+      <div class="pd-body">
+        <ul class="pd-functions">
+          <li><span class="pd-func-icon">🖼️</span>Generate gambar dari prompt scene yang sudah dibuat di ChatGPT</li>
+          <li><span class="pd-func-icon">🎬</span>Generate video pendek langsung dari deskripsi scene</li>
+          <li><span class="pd-func-icon">🔄</span>Mengembangkan deskripsi visual sesuai kebutuhan</li>
+          <li><span class="pd-func-icon">📤</span>Ekspor hasil ke Google Docs atau Google Drive</li>
+          <li><span class="pd-func-icon">🌐</span>Menghasilkan konten multimodal — teks dan visual sekaligus</li>
+        </ul>
+        <a href="https://gemini.google.com" target="_blank" rel="noopener" class="pd-link">🔗 Buka Gemini ↗</a>
       </div>
     </div>
 
-    <div class="role-card">
-      <div class="role-header">
-        <div class="role-icon role-icon-ais">🎬</div>
-        <div>
-          <div class="role-name" style="color:var(--ais)">Google AI Studio</div>
-          <div class="role-tagline">aistudio.google.com</div>
+    <div class="platform-detail-card pd-flow">
+      <div class="pd-header">
+        <div class="pd-icon">🎬</div>
+        <div class="pd-meta">
+          <div class="pd-name">Google Flow</div>
+          <div class="pd-url">labs.google/fx/id/tools/flow</div>
         </div>
-        <span class="role-tag tag-ais">Gambar → Video</span>
+        <span class="pd-badge">Gambar → Video</span>
       </div>
-      <div class="role-body">
-        <div class="role-func">
-          <div class="func-item"><span class="func-dot dot-ais"></span>Generate gambar berkualitas tinggi menggunakan model Imagen 3</div>
-          <div class="func-item"><span class="func-dot dot-ais"></span>Konversi gambar statis menjadi video menggunakan Veo 2, sesuai narasi scene</div>
-          <div class="func-item"><span class="func-dot dot-ais"></span>Gunakan prompt narasi dari ChatGPT sebagai panduan animasi video</div>
-          <div class="func-item"><span class="func-dot dot-ais"></span>Ekspor hasil dalam format video MP4 yang siap digunakan dalam presentasi</div>
-          <div class="func-item"><span class="func-dot dot-ais"></span>Kontrol gaya, durasi, dan gerakan kamera secara detail dan fleksibel</div>
+      <div class="pd-body">
+        <ul class="pd-functions">
+          <li><span class="pd-func-icon">🔄</span>Khusus mengubah gambar statis menjadi video yang bergerak secara natural</li>
+          <li><span class="pd-func-icon">📤</span>Upload gambar dari ChatGPT atau Gemini, lalu masukkan deskripsi gerakannya</li>
+          <li><span class="pd-func-icon">🎥</span>Kontrol arah gerakan, kecepatan, dan gaya kamera secara detail</li>
+          <li><span class="pd-func-icon">💾</span>Hasilkan video per scene lalu download dalam format MP4</li>
+          <li><span class="pd-func-icon">🎯</span>Lebih fokus dan sederhana — satu tool, satu tujuan: gambar jadi video</li>
+        </ul>
+        <a href="https://labs.google/fx/id/tools/flow" target="_blank" rel="noopener" class="pd-link">🔗 Buka Google Flow ↗</a>
+      </div>
+    </div>
+
+    <div class="platform-detail-card pd-edit">
+      <div class="pd-header">
+        <div class="pd-icon">✂️</div>
+        <div class="pd-meta">
+          <div class="pd-name">CapCut / Canva</div>
+          <div class="pd-url">capcut.com / canva.com</div>
         </div>
+        <span class="pd-badge">Edit Video</span>
       </div>
+      <div class="pd-body">
+        <ul class="pd-functions">
+          <li><span class="pd-func-icon">🔗</span>Gabungkan semua video scene menjadi satu video utuh yang rapi</li>
+          <li><span class="pd-func-icon">🔤</span>Tambahkan teks judul, keterangan, dan narasi suara di setiap scene</li>
+          <li><span class="pd-func-icon">🎵</span>Sisipkan musik latar dan atur transisi antar scene</li>
+          <li><span class="pd-func-icon">📤</span>Ekspor video final dalam resolusi HD siap presentasi</li>
+          <li><span class="pd-func-icon">📱</span>Tersedia di HP maupun komputer, mudah digunakan tanpa keahlian khusus</li>
+        </ul>
+        <a href="https://www.capcut.com" target="_blank" rel="noopener" class="pd-link">🔗 Buka CapCut ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Output summary row -->
+  <div class="output-row">
+    <div class="output-card">
+      <span class="output-card-icon">📄</span>
+      <div class="output-card-label">Narasi Tertulis</div>
+      <div class="output-card-desc">Dokumen 5 tahapan produksi operator</div>
+    </div>
+    <div class="output-card">
+      <span class="output-card-icon">🖼️</span>
+      <div class="output-card-label">5 Gambar Scene</div>
+      <div class="output-card-desc">Visual setiap tahapan dari ChatGPT / Gemini</div>
+    </div>
+    <div class="output-card">
+      <span class="output-card-icon">🎬</span>
+      <div class="output-card-label">5 Video Scene</div>
+      <div class="output-card-desc">Animasi per scene dari Google Flow</div>
+    </div>
+    <div class="output-card" style="border-color:rgba(184,138,42,.3);background:var(--gold-lt)">
+      <span class="output-card-icon">🏁</span>
+      <div class="output-card-label" style="color:var(--gold)">1 Video Final</div>
+      <div class="output-card-desc">Semua scene tergabung — siap presentasi!</div>
     </div>
   </div>
 
@@ -490,13 +877,14 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
         <span class="accordion-arrow">▼</span>
       </div>
       <div class="accordion-body"><div class="accordion-body-inner">
-        <p>Artificial Intelligence (AI) adalah teknologi yang memungkinkan sistem komputer untuk memproses informasi dan menghasilkan output secara cerdas — mulai dari teks, gambar, hingga video. Dalam modul ini, tiga platform AI digunakan dengan peran yang berbeda namun saling melengkapi:</p>
+        <p>Artificial Intelligence (AI) adalah teknologi yang memungkinkan komputer untuk memproses informasi dan menghasilkan output secara cerdas — mulai dari teks, gambar, hingga video. Dalam modul ini, empat platform digunakan dengan peran yang berbeda namun saling melengkapi:</p>
         <ul>
-          <li><strong style="color:var(--gpt)">ChatGPT / GPT Go</strong> — spesialis pembuatan teks, skenario, serta generate dan revisi gambar versi gratis</li>
+          <li><strong style="color:var(--gpt)">ChatGPT / GPT Go</strong> — spesialis teks: narasi, scene, serta generate dan revisi gambar versi gratis</li>
           <li><strong style="color:var(--gem)">Gemini</strong> — generate gambar dan video langsung dari deskripsi narasi atau scene</li>
-          <li><strong style="color:var(--ais)">AI Studio</strong> — konversi gambar yang sudah ada menjadi video berkualitas tinggi menggunakan Veo 2</li>
+          <li><strong style="color:var(--flow)">Google Flow</strong> — mengubah gambar menjadi video secara mudah dan terfokus</li>
+          <li><strong style="color:var(--edit)">CapCut / Canva</strong> — menggabungkan, mengedit, dan mempoles semua video scene menjadi hasil akhir profesional</li>
         </ul>
-        <p style="margin-top:.8rem">Ketiganya digunakan secara berurutan dan saling terhubung, membentuk satu alur kerja yang menghasilkan konten produksi yang lengkap.</p>
+        <p style="margin-top:.8rem">Keempatnya digunakan secara berurutan dan saling terhubung, membentuk satu alur kerja yang menghasilkan konten produksi lengkap dari nol.</p>
       </div></div>
     </div>
 
@@ -508,11 +896,12 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       <div class="accordion-body"><div class="accordion-body-inner">
         <p>Dalam industri otomotif seperti Toyota, konten berbasis AI dimanfaatkan untuk mendukung dokumentasi dan pelatihan operator di lapangan. Beberapa penggunaannya antara lain:</p>
         <ul>
-          <li>Membuat narasi proses produksi yang terstruktur dan mudah dipahami oleh operator</li>
+          <li>Membuat narasi proses produksi yang terstruktur dan mudah dipahami operator</li>
           <li>Menghasilkan gambar visual setiap tahapan kerja sebagai referensi pelatihan dan dokumentasi internal</li>
           <li>Membuat video proses kerja operator dari gambar yang sudah disiapkan, tanpa perlu kamera atau syuting langsung</li>
+          <li>Menggabungkan semua video menjadi satu materi pelatihan yang siap ditayangkan</li>
         </ul>
-        <p style="margin-top:.8rem"><strong>Fokus modul ini:</strong> AI hadir sebagai alat bantu — terutama untuk <em>brainstorming</em> dan mempercepat pembuatan konsep konten — bukan diciptakan untuk menggantikan peran manusia sepenuhnya dalam pekerjaan.</p>
+        <p style="margin-top:.8rem"><strong>Fokus modul ini:</strong> AI hadir sebagai alat bantu — terutama untuk <em>brainstorming</em> dan mempercepat pembuatan konsep konten — bukan untuk menggantikan peran manusia sepenuhnya dalam pekerjaan.</p>
       </div></div>
     </div>
 
@@ -525,9 +914,10 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
         <ul style="list-style:none;margin-left:0">
           <li style="padding:.3rem 0">✅ Menggunakan <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">ChatGPT / GPT Go ↗</a> untuk membuat narasi, menyusun scene, serta generate dan merevisi gambar</li>
           <li style="padding:.3rem 0">✅ Menggunakan <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">Gemini ↗</a> untuk generate gambar dan video proses produksi dari prompt scene</li>
-          <li style="padding:.3rem 0">✅ Menggunakan <a href="https://aistudio.google.com" target="_blank" class="pl pl-ais">AI Studio ↗</a> untuk mengkonversi gambar menjadi video berdasarkan narasi scene</li>
+          <li style="padding:.3rem 0">✅ Menggunakan <a href="https://labs.google/fx/id/tools/flow" target="_blank" class="pl pl-flow">Google Flow ↗</a> untuk mengkonversi gambar menjadi video berdasarkan narasi scene</li>
+          <li style="padding:.3rem 0">✅ Menggunakan <span class="pl pl-edit">CapCut / Canva</span> untuk menggabungkan semua video scene menjadi video final yang profesional</li>
           <li style="padding:.3rem 0">✅ Menguasai teknik prompt engineering yang efektif untuk teks, gambar, dan video</li>
-          <li style="padding:.3rem 0">✅ Menghasilkan output final yang lengkap: narasi + gambar + video proses produksi operator</li>
+          <li style="padding:.3rem 0">✅ Menghasilkan output final yang lengkap: narasi + gambar + video + hasil edit</li>
         </ul>
       </div></div>
     </div>
@@ -536,11 +926,12 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
+<!-- PANDUAN PLATFORM -->
 <section class="section" id="panduan">
   <div class="sh">
     <span class="section-tag">Panduan Platform</span>
-    <h2 class="section-title">Cara Memulai di<br>Setiap Platform AI</h2>
-    <p class="section-desc">Panduan langkah demi langkah untuk memulai menggunakan ketiga platform sesuai peran masing-masing.</p>
+    <h2 class="section-title">Cara Memulai di<br>Setiap Platform</h2>
+    <p class="section-desc">Panduan langkah demi langkah untuk memulai menggunakan keempat platform sesuai peran masing-masing.</p>
   </div>
 
   <div class="platform-guide">
@@ -553,84 +944,39 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       <a href="https://chat.openai.com" target="_blank" rel="noopener" class="pg-link pg-link-gpt">🔗 Buka ChatGPT ↗</a>
     </div>
     <div class="pg-body">
-
       <div class="paket-box">
-        <div class="paket-box-header">
-          💳 Pilihan Tools — Fokus Versi Gratis
-        </div>
+        <div class="paket-box-header">💳 Pilihan Tools — Fokus Versi Gratis</div>
         <div class="paket-grid">
           <div class="paket-col">
-            <div class="paket-label paket-label-free">
-              ChatGPT Free <span class="paket-badge badge-free">Gratis</span>
-            </div>
+            <div class="paket-label paket-label-free">ChatGPT Free <span class="paket-badge badge-free">Gratis</span></div>
             <ul class="paket-list">
               <li><span class="pi pi-ok">✅</span> Buat narasi &amp; teks produksi</li>
               <li><span class="pi pi-ok">✅</span> Susun scene &amp; skenario</li>
-              <li><span class="pi pi-ok">✅</span> Generate &amp; modifikasi gambar (Ada limit harian)</li>
-              <li><span class="pi pi-ok">✅</span> Menyusun prompt visual untuk Gemini &amp; AI Studio</li>
+              <li><span class="pi pi-ok">✅</span> Generate &amp; modifikasi gambar (ada limit harian)</li>
+              <li><span class="pi pi-ok">✅</span> Susun prompt visual untuk Gemini &amp; Google Flow</li>
             </ul>
           </div>
           <div class="paket-col">
-            <div class="paket-label paket-label-plus">
-              GPT Go <span class="paket-badge badge-rekomendasi">Alternatif Cepat</span>
-            </div>
+            <div class="paket-label paket-label-plus">GPT Go <span class="paket-badge badge-rekomendasi">Alternatif Cepat</span></div>
             <ul class="paket-list">
               <li><span class="pi pi-ok">✅</span> Akses ChatGPT gratis lewat Search Engine</li>
               <li><span class="pi pi-ok">✅</span> Praktis buat cari referensi prompt secara instan</li>
-              <li><span class="pi pi-ok">✅</span> Lebih ringan tanpa perlu login ribet</li>
+              <li><span class="pi pi-ok">✅</span> Lebih ringan, tidak perlu login</li>
               <li><span class="pi pi-ok">✅</span> Workflow cepat untuk rancangan awal</li>
             </ul>
           </div>
         </div>
-        <div class="paket-note">
-          💡 <strong>Rekomendasi:</strong> Gunakan <strong>ChatGPT Free</strong> buat nyusun narasi detail dan coba fitur generate gambar hariannya. Kalau butuh <em>brainstorming</em> instan dan pencarian referensi cepat tanpa login, pake <strong>GPT Go</strong> sebagai pelengkap. Kombinasi yang pas buat jalanin modul ini!
-        </div>
+        <div class="paket-note">💡 <strong>Rekomendasi:</strong> Gunakan <strong>ChatGPT Free</strong> untuk narasi detail dan generate gambar. Kalau butuh <em>brainstorming</em> instan, pakai <strong>GPT Go</strong> sebagai pelengkap.</div>
       </div>
       <div class="guide-steps">
-        <div class="guide-step">
-          <div class="gs-num gs-gpt">1</div>
-          <div class="gs-body">
-            <h4>Buka &amp; Login ke ChatGPT / GPT Go</h4>
-            <p>Kunjungi <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">chat.openai.com ↗</a> atau akses GPT Go. Daftar gratis menggunakan email atau akun Google. Versi Free udah cukup banget buat bikin draft narasi dan konsep gambar awal.</p>
-          </div>
-        </div>
-        <div class="guide-step">
-          <div class="gs-num gs-gpt">2</div>
-          <div class="gs-body">
-            <h4>Buat Narasi Proses Produksi</h4>
-            <p>Mulai dengan narasi lengkap. Contoh prompt: <em>"Buatkan narasi proses produksi mobil di pabrik Toyota yang dilakukan operator, mencakup 5 tahapan dari persiapan material hingga quality control."</em></p>
-          </div>
-        </div>
-        <div class="guide-step">
-          <div class="gs-num gs-gpt">3</div>
-          <div class="gs-body">
-            <h4>Susun Scene &amp; Skenario per Tahap</h4>
-            <p>Setelah narasi selesai, minta ChatGPT memecahnya menjadi scene. Prompt: <em>"Pecah narasi di atas menjadi 5 scene detail dengan deskripsi visual, aktivitas operator, dan konteks lingkungan di setiap scene."</em></p>
-          </div>
-        </div>
-        <div class="guide-step">
-          <div class="gs-num gs-gpt">4</div>
-          <div class="gs-body">
-            <h4>Generate Gambar Awal</h4>
-            <p>Gunakan kuota gratis harian lo buat generate gambar langsung dari deskripsi scene. Contoh prompt: <em>"Gambarkan scene pertama: operator menyiapkan komponen di meja kerja pabrik Toyota, seragam oranye, lingkungan bersih dan terorganisir, gaya realistis, medium shot."</em></p>
-          </div>
-        </div>
-        <div class="guide-step">
-          <div class="gs-num gs-gpt">5</div>
-          <div class="gs-body">
-            <h4>Revisi &amp; Sempurnakan Gambar</h4>
-            <p>Kalau gambarnya kurang pas, minta revisi. Contoh: <em>"Revisi gambar sebelumnya — tambahkan papan instruksi di latar belakang, ubah warna seragam menjadi biru navy, dan pastikan ekspresi operator terlihat lebih fokus."</em> (Ingat, versi gratis ada limitnya, manfaatkan sebaik-baiknya).</p>
-          </div>
-        </div>
-        <div class="guide-step">
-          <div class="gs-num gs-gpt">6</div>
-          <div class="gs-body">
-            <h4>Simpan Prompt Visual untuk Platform Lain</h4>
-            <p>Minta AI menyusun prompt yang siap digunakan di Gemini dan AI Studio. Prompt: <em>"Ubah deskripsi setiap scene menjadi prompt gambar dalam Bahasa Inggris yang sesuai untuk Gemini dan AI Studio."</em></p>
-          </div>
-        </div>
+        <div class="guide-step"><div class="gs-num gs-gpt">1</div><div class="gs-body"><h4>Buka &amp; Login ke ChatGPT / GPT Go</h4><p>Kunjungi <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">chat.openai.com ↗</a> atau akses GPT Go. Daftar gratis menggunakan email atau akun Google. Versi Free sudah cukup untuk membuat draft narasi dan konsep gambar awal.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gpt">2</div><div class="gs-body"><h4>Buat Narasi Proses Produksi</h4><p>Mulai dengan narasi lengkap. Contoh prompt: <em>"Buatkan narasi proses produksi mobil di pabrik Toyota yang dilakukan operator, mencakup 5 tahapan dari persiapan material hingga quality control."</em></p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gpt">3</div><div class="gs-body"><h4>Susun Scene &amp; Skenario per Tahap</h4><p>Minta ChatGPT memecah narasi menjadi scene. Prompt: <em>"Pecah narasi di atas menjadi 5 scene detail dengan deskripsi visual, aktivitas operator, dan konteks lingkungan di setiap scene."</em></p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gpt">4</div><div class="gs-body"><h4>Generate Gambar Awal</h4><p>Gunakan kuota gratis harian untuk generate gambar dari deskripsi scene. Contoh: <em>"Gambarkan scene pertama: operator menyiapkan komponen di meja kerja pabrik Toyota, seragam oranye, lingkungan bersih dan terorganisir, gaya realistis, medium shot."</em></p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gpt">5</div><div class="gs-body"><h4>Revisi &amp; Sempurnakan Gambar</h4><p>Kalau hasilnya kurang pas, minta revisi spesifik. Contoh: <em>"Revisi gambar sebelumnya — tambahkan papan instruksi di latar belakang, ubah warna seragam menjadi biru navy."</em></p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gpt">6</div><div class="gs-body"><h4>Simpan Prompt Visual untuk Platform Lain</h4><p>Minta AI menyusun prompt siap pakai. Prompt: <em>"Ubah deskripsi setiap scene menjadi prompt gambar dalam Bahasa Inggris yang sesuai untuk Gemini dan Google Flow."</em></p></div></div>
       </div>
-      <div class="tip-box tip-gpt">💡 <strong>Tips:</strong> Simpan narasi dan daftar scene dari ChatGPT/GPT Go dalam dokumen terpisah — ini akan menjadi panduan utama saat Anda bekerja di Gemini dan AI Studio. Konsistensi narasi sangat penting agar video akhir terasa koheren dan profesional.</div>
+      <div class="tip-box tip-gpt">💡 <strong>Tips:</strong> Simpan narasi dan daftar scene dari ChatGPT/GPT Go dalam dokumen terpisah — ini akan menjadi panduan utama saat bekerja di Gemini dan Google Flow.</div>
     </div>
   </div>
 
@@ -645,37 +991,38 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     </div>
     <div class="pg-body">
       <div class="guide-steps">
-        <div class="guide-step"><div class="gs-num gs-gem">1</div><div class="gs-body"><h4>Buka &amp; Login dengan Akun Google</h4><p>Kunjungi <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">gemini.google.com ↗</a>. Login dengan Gmail — tidak perlu akun baru. Gemini terintegrasi penuh dengan ekosistem Google.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-gem">2</div><div class="gs-body"><h4>Pilih Model Gemini 2.0 Flash atau Pro</h4><p>Di dropdown atas, pilih <strong>Gemini 2.0 Flash</strong> (gratis) atau <strong>Gemini 1.5 Pro</strong> untuk kemampuan generate gambar dan video yang lebih baik.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gem">1</div><div class="gs-body"><h4>Buka &amp; Login dengan Akun Google</h4><p>Kunjungi <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">gemini.google.com ↗</a>. Login dengan Gmail — tidak perlu akun baru.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gem">2</div><div class="gs-body"><h4>Pilih Model Gemini yang Tersedia</h4><p>Di dropdown atas, pilih model yang tersedia. Gemini 2.0 Flash sudah cukup bagus untuk generate gambar dan video dari prompt.</p></div></div>
         <div class="guide-step"><div class="gs-num gs-gem">3</div><div class="gs-body"><h4>Generate Gambar dari Scene ChatGPT</h4><p>Tempel prompt visual yang sudah disiapkan ChatGPT ke kolom Gemini. Contoh: <em>"Generate image: Automotive factory operator in orange uniform standing at labeled parts rack, holding digital tablet, clean Toyota factory, bright LED lighting, Kanban board in background, realistic, 4K."</em></p></div></div>
-        <div class="guide-step"><div class="gs-num gs-gem">4</div><div class="gs-body"><h4>Generate Video dari Narasi Scene</h4><p>Setelah gambar dihasilkan, minta Gemini membuat video pendek. Contoh: <em>"Buat video 5 detik menggambarkan scene ini: operator mengambil komponen dari rak, memeriksa nomor part, dan meletakkannya di conveyor belt — suasana pabrik Toyota yang bersih."</em></p></div></div>
-        <div class="guide-step"><div class="gs-num gs-gem">5</div><div class="gs-body"><h4>Iterasi Video per Scene</h4><p>Ulangi proses untuk setiap scene dari narasi ChatGPT (5 scene = 5 video pendek). Pastikan setiap video konsisten dengan narasi dan deskripsi scene yang sudah dibuat sebelumnya.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-gem">6</div><div class="gs-body"><h4>Ekspor ke Google Drive atau Docs</h4><p>Klik ikon tiga titik (⋮) di setiap respons, pilih <code>Export to Docs</code> atau <code>Save to Drive</code> untuk menyimpan gambar dan catatan video. File siap digunakan di tahap selanjutnya.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gem">4</div><div class="gs-body"><h4>Generate Video dari Narasi Scene</h4><p>Setelah gambar dihasilkan, minta Gemini membuat video pendek. Contoh: <em>"Buat video 5 detik menggambarkan scene ini: operator mengambil komponen dari rak, memeriksa nomor part, dan meletakkannya di conveyor belt."</em></p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gem">5</div><div class="gs-body"><h4>Ulangi untuk Setiap Scene</h4><p>Ulang proses untuk semua 5 scene. Pastikan setiap gambar dan video konsisten dengan narasi yang sudah dibuat sebelumnya.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-gem">6</div><div class="gs-body"><h4>Download &amp; Simpan Gambar</h4><p>Klik gambar hasil generate lalu pilih ikon download. Simpan semua gambar dengan nama yang jelas (scene-01.jpg, scene-02.jpg, dst.) untuk digunakan di Google Flow.</p></div></div>
       </div>
-      <div class="tip-box tip-gem">💡 <strong>Tips:</strong> Saat generate video di Gemini, sertakan frasa dari narasi ChatGPT langsung dalam prompt — misalnya nama tahapan produksi, tindakan operator, dan suasana lingkungan. Ini menjaga konsistensi antara narasi dan video yang dihasilkan.</div>
+      <div class="tip-box tip-gem">💡 <strong>Tips:</strong> Sertakan frasa dari narasi ChatGPT langsung dalam prompt — nama tahapan produksi, tindakan operator, dan suasana lingkungan. Ini menjaga konsistensi antara narasi dan video.</div>
     </div>
   </div>
 
   <div class="platform-guide">
     <div class="pg-header">
-      <div class="pg-icon pg-icon-ais">🎬</div>
+      <div class="pg-icon pg-icon-flow">🎬</div>
       <div>
-        <h3 style="color:var(--ais)">Google AI Studio — Gambar ke Video (Veo 2)</h3>
-        <p>Konversi gambar yang sudah dibuat (dari ChatGPT atau Gemini) menjadi video sesuai narasi &amp; scene dari ChatGPT</p>
+        <h3 style="color:var(--flow)">Google Flow — Ubah Gambar Jadi Video</h3>
+        <p>Upload gambar dari ChatGPT atau Gemini, lalu deskripsikan gerakannya</p>
       </div>
-      <a href="https://aistudio.google.com" target="_blank" rel="noopener" class="pg-link pg-link-ais">🔗 Buka AI Studio ↗</a>
+      <a href="https://labs.google/fx/id/tools/flow" target="_blank" rel="noopener" class="pg-link pg-link-flow">🔗 Buka Google Flow ↗</a>
     </div>
     <div class="pg-body">
-      <div class="guide-steps">
-        <div class="guide-step"><div class="gs-num gs-ais">1</div><div class="gs-body"><h4>Buka Google AI Studio &amp; Login</h4><p>Kunjungi <a href="https://aistudio.google.com" target="_blank" class="pl pl-ais">aistudio.google.com ↗</a> dengan akun Google. Setujui syarat penggunaan jika diminta.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">2</div><div class="gs-body"><h4>Siapkan Gambar dari ChatGPT atau Gemini</h4><p>Kumpulkan semua gambar yang sudah dihasilkan dari ChatGPT atau Gemini untuk setiap scene. Simpan dalam satu folder yang terorganisir sesuai urutan scene (scene-01.png, scene-02.png, dan seterusnya).</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">3</div><div class="gs-body"><h4>Pilih Model Veo 2 untuk Generate Video</h4><p>Di halaman utama AI Studio, klik <code>+ Create new prompt</code>. Di dropdown model, pilih <strong>Veo 2</strong> — model Google khusus untuk menghasilkan video dari gambar atau prompt teks.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">4</div><div class="gs-body"><h4>Upload Gambar &amp; Masukkan Prompt Scene</h4><p>Upload gambar scene yang ingin dianimasikan, lalu masukkan deskripsi scene dari ChatGPT di kolom prompt. Contoh: <em>"Animate this image: The operator picks up the component, inspects it carefully, places it on the conveyor belt. Smooth camera movement, industrial lighting, 8 seconds."</em></p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">5</div><div class="gs-body"><h4>Atur Parameter Video</h4><p>Sesuaikan: <strong>Durasi</strong> (4–8 detik per scene), <strong>Aspect Ratio</strong> (16:9 untuk presentasi), dan <strong>Camera Motion</strong> (slow pan, static, atau zoom). Semua parameter ini tersedia di panel kanan AI Studio.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">6</div><div class="gs-body"><h4>Klik "Run" &amp; Tunggu Proses Generate</h4><p>Klik tombol <code>Run</code> atau tekan <code>Ctrl+Enter</code>. Proses generate video membutuhkan sekitar 30–90 detik per scene. Hasilnya muncul langsung di layar dan dapat diputar sebelum diunduh.</p></div></div>
-        <div class="guide-step"><div class="gs-num gs-ais">7</div><div class="gs-body"><h4>Unduh Video &amp; Susun Urutan Scene</h4><p>Klik ikon unduh (⬇) pada setiap video. Setelah semua scene diunduh, susun urutannya sesuai narasi ChatGPT menggunakan video editor seperti Canva, CapCut, atau PowerPoint.</p></div></div>
+      <div class="info-box">
+        <span class="info-box-icon">💡</span>
+        <div style="font-size:.83rem;color:var(--text-2)"><strong style="color:var(--flow)">Apa itu Google Flow?</strong> Tool AI dari Google Labs yang khusus dirancang untuk <strong>mengubah gambar menjadi video yang bergerak</strong>. Upload gambar, tulis deskripsi gerakan, dan Google Flow akan menganimasikannya menjadi video pendek.</div>
       </div>
-      <div class="tip-box tip-ais">💡 <strong>Tips:</strong> Gunakan prompt scene dari ChatGPT sebagai <em>panduan animasi</em> — bukan sekadar deskripsi gambar. Sertakan kata kerja gerak seperti <em>"slowly reaches", "carefully inspects", "places gently"</em> agar AI Studio menghasilkan gerakan yang alami dan sesuai narasi.</div>
+      <div class="guide-steps">
+        <div class="guide-step"><div class="gs-num gs-flow">1</div><div class="gs-body"><h4>Buka Google Flow</h4><p>Kunjungi <a href="https://labs.google/fx/id/tools/flow" target="_blank" class="pl pl-flow">labs.google/fx/id/tools/flow ↗</a>. Login menggunakan akun Google. Akses gratis dari Google Labs.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-flow">2</div><div class="gs-body"><h4>Siapkan Gambar dari ChatGPT atau Gemini</h4><p>Kumpulkan semua gambar yang sudah dihasilkan sebelumnya. Simpan dalam satu folder dengan nama yang jelas — <code>scene-01.jpg</code>, <code>scene-02.jpg</code>, dst.</p></div></div>
+        <div class="guide-step"><div class="gs-num gs-flow">3</div><div class="gs-body"><h4>Upload Gambar &amp; Tulis Deskripsi Gerakan</h4><p>Upload gambar scene, lalu tulis deskripsi gerakan. Contoh: <em>"The operator slowly walks to the parts rack, picks up a component with both hands, scans the barcode, then places it in the blue basket. 8 seconds."</em></p></div></div>
+        <div class="guide-step"><div class="gs-num gs-flow">4</div><div class="gs-body"><h4>Generate &amp; Download Video MP4</h4><p>Klik Generate, tunggu 30–90 detik. Kalau hasilnya kurang pas, ubah sedikit deskripsi gerakannya dan coba lagi. Simpan hasil terbaik sebagai <code>video-scene-01.mp4</code>.</p></div></div>
+      </div>
+      <div class="tip-box tip-flow">💡 <strong>Tips:</strong> Gunakan kata kerja gerak spesifik: <em>"slowly reaches", "carefully picks up", "gently places"</em>. Semakin jelas deskripsi gerakan, semakin natural hasilnya.</div>
     </div>
   </div>
 </section>
@@ -711,8 +1058,8 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       <div class="prompt-header"><span class="prompt-title">Prompt — Susun Scene &amp; Skenario per Tahap</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Berdasarkan narasi di atas, buat 5 scene detail untuk setiap tahapan produksi. Setiap scene harus mencakup: (1) Deskripsi visual — apa yang terlihat di frame, (2) Aktivitas operator — gerakan dan tindakan spesifik, (3) Konteks lingkungan — lokasi, pencahayaan, peralatan, (4) Dialog/narasi pendek operator. Format setiap scene secara jelas dan terstruktur."</div>
-        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💬 Contoh Output Scene 1:</strong><strong>Scene 1 — Persiapan Material</strong><br>📷 <em>Visual:</em> Operator berseragam oranye berdiri di depan rak komponen berlabel. Tangan kanan memegang tablet, tangan kiri memegang part nomor B-204.<br>🎭 <em>Aktivitas:</em> Operator memindai barcode part, memeriksa kondisi fisik, lalu meletakkan di keranjang produksi berwarna biru.</div>
-        <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Berdasarkan narasi di atas, buat 5 scene detail untuk setiap tahapan produksi. Setiap scene harus mencakup: (1) Deskripsi visual - apa yang terlihat di frame, (2) Aktivitas operator - gerakan dan tindakan spesifik, (3) Konteks lingkungan - lokasi, pencahayaan, peralatan, (4) Dialog/narasi pendek operator.')">📋 Salin Prompt</button>
+        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💬 Contoh Output Scene 1:</strong><strong>Scene 1 — Persiapan Material</strong><br>📷 <em>Visual:</em> Operator berseragam oranye berdiri di depan rak komponen berlabel. Tangan kanan memegang tablet, tangan kiri memegang part nomor B-204.</div>
+        <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Berdasarkan narasi di atas, buat 5 scene detail untuk setiap tahapan produksi. Setiap scene harus mencakup: (1) Deskripsi visual, (2) Aktivitas operator, (3) Konteks lingkungan, (4) Dialog/narasi pendek operator.')">📋 Salin Prompt</button>
       </div>
     </div>
   </div>
@@ -722,7 +1069,6 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       <div class="prompt-header"><span class="prompt-title">Prompt — Generate Gambar dari Scene</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free / Go</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Gambarkan scene 1 berikut: Seorang operator berseragam oranye berdiri di depan rak komponen mobil berlabel, memegang tablet digital di tangan kanan dan memegang sebuah part di tangan kiri. Lingkungan pabrik Toyota yang bersih, pencahayaan LED terang, papan Kanban terlihat di latar. Gaya realistis, sudut pandang medium shot, kualitas 4K."</div>
-        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💡 Cara Generate Gambar di ChatGPT Free/Go:</strong>Ketikkan prompt di atas di ChatGPT Free. Gunakan kuota yang ada sebaik mungkin. Gambar akan muncul langsung di percakapan. Klik kanan gambar → "Save image as" untuk menyimpan ke komputer Anda. Kalau kuota limit, bisa lanjut pakai Gemini sebagai alternatif generate gambar.</div>
         <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Gambarkan scene 1 berikut: Seorang operator berseragam oranye berdiri di depan rak komponen mobil berlabel, memegang tablet digital di tangan kanan dan memegang sebuah part di tangan kiri. Lingkungan pabrik Toyota yang bersih, pencahayaan LED terang, papan Kanban terlihat di latar. Gaya realistis, sudut pandang medium shot, kualitas 4K.')">📋 Salin Prompt</button>
       </div>
     </div>
@@ -733,8 +1079,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       <div class="prompt-header"><span class="prompt-title">Prompt — Revisi &amp; Sempurnakan Gambar</span><span class="prompt-badge badge-gpt">🤖 ChatGPT Free / Go</span></div>
       <div class="prompt-body">
         <div class="prompt-text pt-gpt">"Revisi gambar sebelumnya dengan perubahan berikut: (1) Tambahkan papan instruksi kerja di dinding latar belakang, (2) Ubah warna seragam menjadi biru navy dengan strip kuning, (3) Tampilkan ekspresi operator lebih fokus dan serius, (4) Tambahkan pencahayaan lebih hangat dari sisi kanan. Pertahankan semua elemen lainnya yang sudah sesuai."</div>
-        <div class="prompt-result"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">💡 Tips Revisi Gambar:</strong>ChatGPT mempertahankan konteks gambar sebelumnya dalam satu percakapan — cukup sebutkan perubahan spesifik tanpa mendeskripsikan ulang seluruh gambar. Semakin spesifik permintaan lo, semakin akurat revisinya.</div>
-        <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Revisi gambar sebelumnya dengan perubahan berikut: (1) Tambahkan papan instruksi kerja di dinding latar belakang, (2) Ubah warna seragam menjadi biru navy dengan strip kuning, (3) Tampilkan ekspresi operator lebih fokus dan serius, (4) Tambahkan pencahayaan lebih hangat dari sisi kanan. Pertahankan semua elemen lainnya yang sudah sesuai.')">📋 Salin Prompt</button>
+        <button class="copy-btn copy-btn-gpt" onclick="copyTxt(this,'Revisi gambar sebelumnya dengan perubahan berikut: (1) Tambahkan papan instruksi kerja, (2) Ubah warna seragam menjadi biru navy dengan strip kuning, (3) Ekspresi operator lebih fokus, (4) Pencahayaan lebih hangat dari sisi kanan.')">📋 Salin Prompt</button>
       </div>
     </div>
   </div>
@@ -758,7 +1103,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   <div id="tab-gem-gambar" class="tab-content active">
     <div class="info-box">
       <span class="info-box-icon">ℹ️</span>
-      <div style="font-size:.83rem;color:var(--text-2)"><strong style="color:var(--gem)">Cara kerja:</strong> Tempel prompt visual yang sudah disiapkan ChatGPT langsung ke Gemini. Gemini akan menghasilkan gambar berdasarkan deskripsi scene yang sudah dimatangkan sebelumnya. Gambar ini bisa langsung diunduh dan digunakan di AI Studio.</div>
+      <div style="font-size:.83rem;color:var(--text-2)"><strong style="color:var(--gem)">Cara kerja:</strong> Tempel prompt visual yang sudah disiapkan ChatGPT langsung ke Gemini. Gemini akan menghasilkan gambar berdasarkan deskripsi scene yang sudah dimatangkan sebelumnya.</div>
     </div>
     <div class="stages-grid" id="stagesGridGem">
       <div class="stage-card active-gem" onclick="selStageGem(0,this)"><span class="stage-icon">📦</span><div class="stage-num" style="color:var(--gem)">SCENE 01</div><div class="stage-name">Persiapan Material</div></div>
@@ -770,7 +1115,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <div>
       <div class="stage-detail active" id="gem-stage-0" style="border-color:rgba(64,112,196,.25)">
         <h3 style="color:var(--gem)">📦 Scene 1 — Persiapan Material</h3>
-        <p>Operator memeriksa dan menyiapkan komponen produksi di area material. Gunakan prompt Bahasa Inggris berikut langsung di Gemini.</p>
+        <p>Operator memeriksa dan menyiapkan komponen produksi di area material.</p>
         <div class="prompt-text pt-gem">Automotive factory operator in orange uniform standing at labeled parts rack, holding digital tablet in right hand checking inventory, clean and organized Toyota factory floor, bright LED lighting, Kanban board visible in background, realistic photography style, medium shot, 4K</div>
         <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.9rem">
           <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Automotive factory operator in orange uniform standing at labeled parts rack, holding digital tablet in right hand checking inventory, clean and organized Toyota factory floor, bright LED lighting, Kanban board visible in background, realistic photography style, medium shot, 4K')">📋 Salin Prompt</button>
@@ -788,51 +1133,34 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
       </div>
       <div class="stage-detail" id="gem-stage-2" style="border-color:rgba(64,112,196,.25)">
         <h3 style="color:var(--gem)">⚙️ Scene 3 — Pemasangan Komponen</h3>
-        <p>Operator memasang dashboard dan komponen interior dengan teliti sesuai instruksi kerja.</p>
-        <div class="prompt-text pt-gem">Skilled factory worker carefully installing car dashboard interior components, referring to work instruction sheet mounted at workstation, modern automotive assembly line, clean environment with proper lighting, focused expression, Toyota factory, realistic, close-up and medium shot blend, 4K</div>
+        <div class="prompt-text pt-gem">Skilled factory worker carefully installing car dashboard interior components, referring to work instruction sheet mounted at workstation, modern automotive assembly line, clean environment, focused expression, Toyota factory, realistic, close-up and medium shot blend, 4K</div>
         <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.9rem">
-          <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Skilled factory worker carefully installing car dashboard interior components, referring to work instruction sheet mounted at workstation, modern automotive assembly line, clean environment with proper lighting, focused expression, Toyota factory, realistic, close-up and medium shot blend, 4K')">📋 Salin Prompt</button>
-          <a href="https://gemini.google.com" target="_blank" class="pl pl-gem" style="padding:5px 13px;font-size:.77rem;border-radius:7px">✨ Buka Gemini ↗</a>
+          <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Skilled factory worker carefully installing car dashboard interior components, referring to work instruction sheet mounted at workstation, modern automotive assembly line, clean environment, focused expression, Toyota factory, realistic, close-up and medium shot blend, 4K')">📋 Salin Prompt</button>
         </div>
       </div>
       <div class="stage-detail" id="gem-stage-3" style="border-color:rgba(64,112,196,.25)">
         <h3 style="color:var(--gem)">✨ Scene 4 — Finishing</h3>
-        <p>Operator melakukan pengecekan akhir dan penyesuaian detail pada kendaraan yang hampir selesai.</p>
         <div class="prompt-text pt-gem">Automotive factory worker doing final finishing checks on nearly completed car, using inspection tools and checklist, detailed close-up of hands adjusting trim, Toyota production facility, warm professional lighting, concentrated and meticulous work, realistic photography, 4K</div>
         <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.9rem">
           <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Automotive factory worker doing final finishing checks on nearly completed car, using inspection tools and checklist, detailed close-up of hands adjusting trim, Toyota production facility, warm professional lighting, concentrated and meticulous work, realistic photography, 4K')">📋 Salin Prompt</button>
-          <a href="https://gemini.google.com" target="_blank" class="pl pl-gem" style="padding:5px 13px;font-size:.77rem;border-radius:7px">✨ Buka Gemini ↗</a>
         </div>
       </div>
       <div class="stage-detail" id="gem-stage-4" style="border-color:rgba(64,112,196,.25)">
         <h3 style="color:var(--gem)">🔍 Scene 5 — Quality Control</h3>
-        <p>Inspektor QC melakukan pemeriksaan menyeluruh pada kendaraan jadi menggunakan alat ukur dan checklist digital.</p>
         <div class="prompt-text pt-gem">Quality control inspector carefully examining finished automobile in dedicated QC area, using measurement tools and digital checklist tablet, professional inspection lighting setup, Toyota quality standards poster visible, serious and thorough inspection process, realistic, full body shot, 4K</div>
         <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.9rem">
           <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Quality control inspector carefully examining finished automobile in dedicated QC area, using measurement tools and digital checklist tablet, professional inspection lighting setup, Toyota quality standards poster visible, serious and thorough inspection process, realistic, full body shot, 4K')">📋 Salin Prompt</button>
-          <a href="https://gemini.google.com" target="_blank" class="pl pl-gem" style="padding:5px 13px;font-size:.77rem;border-radius:7px">✨ Buka Gemini ↗</a>
         </div>
       </div>
     </div>
   </div>
 
   <div id="tab-gem-video" class="tab-content">
-    <div class="info-box">
-      <span class="info-box-icon">🎬</span>
-      <div style="font-size:.83rem;color:var(--text-2)"><strong style="color:var(--gem)">Generate Video di Gemini:</strong> Gemini dapat membuat video pendek berdasarkan deskripsi scene yang sudah Anda siapkan dari ChatGPT.</div>
-    </div>
     <div class="prompt-card">
       <div class="prompt-header"><span class="prompt-title">Prompt Video Scene 1 — Persiapan Material</span><span class="prompt-badge badge-gem">✨ Gemini Video</span></div>
       <div class="prompt-body">
-        <div class="prompt-text pt-gem">"Buat video pendek 6 detik berdasarkan scene berikut dari narasi produksi Toyota: Seorang operator berseragam oranye berjalan mendekati rak komponen, mengambil sebuah part, memindai barcodenya dengan tablet, memeriksa kondisi fisik part tersebut, lalu meletakkannya dengan hati-hati di keranjang produksi biru. Suasana pabrik bersih dan terorganisir, pencahayaan LED terang, gerakan operator lambat dan teliti."</div>
-        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Buat video pendek 6 detik berdasarkan scene berikut dari narasi produksi Toyota: Seorang operator berseragam oranye berjalan mendekati rak komponen, mengambil sebuah part, memindai barcodenya dengan tablet, memeriksa kondisi fisik part tersebut, lalu meletakkannya dengan hati-hati di keranjang produksi biru. Suasana pabrik bersih dan terorganisir, pencahayaan LED terang, gerakan operator lambat dan teliti.')">📋 Salin Prompt</button>
-      </div>
-    </div>
-    <div class="prompt-card" style="margin-top:1rem">
-      <div class="prompt-header"><span class="prompt-title">Prompt Video Scene 5 — Quality Control</span><span class="prompt-badge badge-gem">✨ Gemini Video</span></div>
-      <div class="prompt-body">
-        <div class="prompt-text pt-gem">"Buat video 8 detik: Inspektor QC berjalan mengelilingi mobil jadi sambil memeriksa setiap panel bodi, menggunakan alat ukur di tangan kiri dan mencentang checklist di tablet di tangan kanan. Ekspresi serius dan profesional. Area QC dengan pencahayaan inspection yang kuat dari berbagai arah. Kamera mengikuti gerak inspektor dari samping (side tracking shot)."</div>
-        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Buat video 8 detik: Inspektor QC berjalan mengelilingi mobil jadi sambil memeriksa setiap panel bodi, menggunakan alat ukur di tangan kiri dan mencentang checklist di tablet di tangan kanan. Ekspresi serius dan profesional. Area QC dengan pencahayaan inspection yang kuat dari berbagai arah. Kamera mengikuti gerak inspektor dari samping (side tracking shot).')">📋 Salin Prompt</button>
+        <div class="prompt-text pt-gem">"Buat video pendek 6 detik: Seorang operator berseragam oranye berjalan mendekati rak komponen, mengambil sebuah part, memindai barcodenya dengan tablet, memeriksa kondisi fisik part tersebut, lalu meletakkannya dengan hati-hati di keranjang produksi biru. Suasana pabrik bersih dan terorganisir, pencahayaan LED terang, gerakan operator lambat dan teliti."</div>
+        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Buat video pendek 6 detik: Seorang operator berseragam oranye berjalan mendekati rak komponen, mengambil sebuah part, memindai barcodenya dengan tablet, memeriksa kondisi fisik part tersebut, lalu meletakkannya dengan hati-hati di keranjang produksi biru.')">📋 Salin Prompt</button>
       </div>
     </div>
   </div>
@@ -840,98 +1168,74 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   <div id="tab-gem-prompts" class="tab-content">
     <div class="grid-2">
       <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">Minta Gemini Buat Prompt Video</span><span class="prompt-badge badge-gem">✨ Gemini</span></div>
-      <div class="prompt-body"><div class="prompt-text pt-gem">"Berdasarkan scene berikut dari narasi ChatGPT, buatkan prompt video yang siap digunakan di Google AI Studio (Veo 2). Sertakan: deskripsi gerakan kamera, durasi, pencahayaan, dan gaya visual. Scene: [tempel scene dari ChatGPT]"</div>
-      <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Berdasarkan scene berikut dari narasi ChatGPT, buatkan prompt video yang siap digunakan di Google AI Studio (Veo 2). Sertakan: deskripsi gerakan kamera, durasi, pencahayaan, dan gaya visual. Scene: [tempel scene dari ChatGPT]')">📋 Salin Prompt</button></div></div>
+      <div class="prompt-body"><div class="prompt-text pt-gem">"Berdasarkan scene berikut dari narasi ChatGPT, buatkan prompt video yang siap digunakan di Google Flow. Sertakan: deskripsi gerakan kamera, durasi, pencahayaan, dan gaya visual. Scene: [tempel scene dari ChatGPT]"</div>
+      <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Berdasarkan scene berikut dari narasi ChatGPT, buatkan prompt video yang siap digunakan di Google Flow. Sertakan: deskripsi gerakan kamera, durasi, pencahayaan, dan gaya visual. Scene: [tempel scene dari ChatGPT]')">📋 Salin Prompt</button></div></div>
       <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">Konsistensi Visual antar Scene</span><span class="prompt-badge badge-gem">✨ Gemini</span></div>
-      <div class="prompt-body"><div class="prompt-text pt-gem">"Pastikan semua gambar dan video yang dibuat konsisten secara visual: seragam operator warna [X], pabrik [nama], pencahayaan [tipe], gaya [realistis/cinematic]. Terapkan panduan visual ini ke semua 5 scene berikutnya."</div>
-      <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Pastikan semua gambar dan video yang dibuat konsisten secara visual: seragam operator warna [X], pabrik [nama], pencahayaan [tipe], gaya [realistis/cinematic]. Terapkan panduan visual ini ke semua 5 scene berikutnya.')">📋 Salin Prompt</button></div></div>
+      <div class="prompt-body"><div class="prompt-text pt-gem">"Pastikan semua gambar yang dibuat konsisten secara visual: seragam operator warna [X], pabrik [nama], pencahayaan [tipe], gaya [realistis/cinematic]. Terapkan panduan visual ini ke semua 5 scene berikutnya."</div>
+      <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'Pastikan semua gambar yang dibuat konsisten secara visual: seragam operator warna [X], pabrik [nama], pencahayaan [tipe], gaya [realistis/cinematic]. Terapkan panduan visual ini ke semua 5 scene berikutnya.')">📋 Salin Prompt</button></div></div>
     </div>
   </div>
 </section>
 
 <hr class="section-divider">
 
-<section class="section" id="aistudio">
+<section class="section" id="flow">
   <div class="sh">
     <span class="section-tag">Bab 5</span>
-    <h2 class="section-title">AI Studio — Gambar ke Video (Veo 2)</h2>
-    <p class="section-desc">Konversi gambar dari ChatGPT atau Gemini menjadi video menggunakan Veo 2, berpanduan pada narasi &amp; scene yang sudah dibuat di ChatGPT.</p>
+    <h2 class="section-title">Google Flow — Ubah Gambar Jadi Video</h2>
+    <p class="section-desc">Cara menggunakan Google Flow untuk mengubah gambar scene yang sudah disiapkan menjadi video yang bergerak secara natural.</p>
   </div>
 
   <div class="video-flow">
-    <div class="vf-box">
-      <span class="vf-icon">🤖</span>
-      <div class="vf-label" style="color:var(--gpt)">ChatGPT / GPT Go</div>
-      <div class="vf-desc">Narasi + Scene + Gambar</div>
-    </div>
+    <div class="vf-box"><span class="vf-icon">🤖</span><div class="vf-label" style="color:var(--gpt)">ChatGPT / GPT Go</div><div class="vf-desc">Narasi + Scene + Gambar</div></div>
     <div class="vf-arrow">→</div>
-    <div class="vf-box">
-      <span class="vf-icon">📁</span>
-      <div class="vf-label" style="color:var(--text-2)">Gambar Tersimpan</div>
-      <div class="vf-desc">scene-01.png s/d scene-05.png</div>
-    </div>
+    <div class="vf-box"><span class="vf-icon">✨</span><div class="vf-label" style="color:var(--gem)">Gemini</div><div class="vf-desc">Generate gambar alternatif</div></div>
     <div class="vf-arrow">→</div>
-    <div class="vf-box" style="border-color:rgba(145,88,196,.25);background:var(--ais-lt)">
-      <span class="vf-icon">🎬</span>
-      <div class="vf-label" style="color:var(--ais)">AI Studio (Veo 2)</div>
-      <div class="vf-desc">Upload gambar + prompt scene → Video</div>
-    </div>
+    <div class="vf-box" style="border-color:rgba(145,88,196,.3);background:var(--flow-lt)"><span class="vf-icon">🎬</span><div class="vf-label" style="color:var(--flow)">Google Flow</div><div class="vf-desc">Upload gambar + prompt → Video MP4</div></div>
+    <div class="vf-arrow">→</div>
+    <div class="vf-box" style="border-color:rgba(196,122,32,.3);background:var(--edit-lt)"><span class="vf-icon">✂️</span><div class="vf-label" style="color:var(--edit)">CapCut / Canva</div><div class="vf-desc">Gabungkan &amp; edit video final</div></div>
   </div>
 
   <div class="chapter-tabs">
-    <button class="tab-btn active-ais" onclick="switchTab(this,'tab-ais-cara','ais')">🎬 Cara Buat Video</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-ais-prompts','ais')">📋 Prompt Video per Scene</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-ais-tips','ais')">💡 Tips &amp; Parameter</button>
+    <button class="tab-btn active-flow" onclick="switchTab(this,'tab-flow-cara','flow')">🎬 Cara Buat Video</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-flow-prompts','flow')">📋 Prompt per Scene</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-flow-tips','flow')">💡 Tips &amp; Trik</button>
   </div>
 
-  <div id="tab-ais-cara" class="tab-content active">
+  <div id="tab-flow-cara" class="tab-content active">
     <div class="grid-2">
       <div class="prompt-card">
-        <div class="prompt-header"><span class="prompt-title">Prompt: Animasikan Gambar Scene 1</span><span class="prompt-badge badge-ais">🎬 AI Studio Veo 2</span></div>
+        <div class="prompt-header"><span class="prompt-title">Animasikan Scene 1 — Persiapan Material</span><span class="prompt-badge badge-flow">🎬 Google Flow</span></div>
         <div class="prompt-body">
-          <div class="prompt-text pt-ais">Animate this image based on the production scene: The operator slowly walks toward the parts rack, picks up a component with both hands, carefully inspects it visually, scans the barcode with tablet, then gently places it in the blue production basket. Smooth natural movement, steady camera, industrial factory lighting, 8 seconds duration.</div>
-          <div class="prompt-result" style="margin-top:.75rem"><strong style="font-size:.79rem;display:block;margin-bottom:5px;color:var(--text)">⚙️ Cara menggunakannya:</strong>1. Buka AI Studio → Create New Prompt → pilih Veo 2<br>2. Upload gambar scene-01.png dari ChatGPT/Gemini<br>3. Tempel prompt di atas ke kolom teks<br>4. Klik Run — tunggu 30–90 detik<br>5. Unduh video MP4 hasilnya</div>
-          <button class="copy-btn copy-btn-ais" onclick="copyTxt(this,'Animate this image based on the production scene: The operator slowly walks toward the parts rack, picks up a component with both hands, carefully inspects it visually, scans the barcode with tablet, then gently places it in the blue production basket. Smooth natural movement, steady camera, industrial factory lighting, 8 seconds duration.')">📋 Salin Prompt</button>
+          <div class="prompt-text pt-flow">The operator slowly walks toward the parts rack, picks up a component with both hands, carefully inspects it visually, scans the barcode with tablet, then gently places it in the blue production basket. Smooth natural movement, steady camera, industrial factory lighting, 8 seconds.</div>
+          <button class="copy-btn copy-btn-flow" onclick="copyTxt(this,'The operator slowly walks toward the parts rack, picks up a component with both hands, carefully inspects it visually, scans the barcode with tablet, then gently places it in the blue production basket. Smooth natural movement, steady camera, industrial factory lighting, 8 seconds.')">📋 Salin Prompt</button>
         </div>
       </div>
       <div class="prompt-card">
-        <div class="prompt-header"><span class="prompt-title">Prompt: Animasikan Gambar Scene 5 (QC)</span><span class="prompt-badge badge-ais">🎬 AI Studio Veo 2</span></div>
+        <div class="prompt-header"><span class="prompt-title">Animasikan Scene 5 — Quality Control</span><span class="prompt-badge badge-flow">🎬 Google Flow</span></div>
         <div class="prompt-body">
-          <div class="prompt-text pt-ais">Animate this quality control inspection image: The inspector slowly walks around the finished vehicle, pausing to examine door panels with a measurement tool, marking checklist on tablet. Camera follows inspector in a slow tracking side shot. Professional inspection lighting, focused and methodical movement, Toyota factory environment, 10 seconds.</div>
-          <button class="copy-btn copy-btn-ais" onclick="copyTxt(this,'Animate this quality control inspection image: The inspector slowly walks around the finished vehicle, pausing to examine door panels with a measurement tool, marking checklist on tablet. Camera follows inspector in a slow tracking side shot. Professional inspection lighting, focused and methodical movement, Toyota factory environment, 10 seconds.')">📋 Salin Prompt</button>
+          <div class="prompt-text pt-flow">The inspector slowly walks around the finished vehicle, pausing to examine door panels with a measurement tool, marking checklist on tablet. Camera follows inspector in a slow tracking side shot. Professional inspection lighting, focused and methodical movement, 10 seconds.</div>
+          <button class="copy-btn copy-btn-flow" onclick="copyTxt(this,'The inspector slowly walks around the finished vehicle, pausing to examine door panels with a measurement tool, marking checklist on tablet. Camera follows inspector in a slow tracking side shot. Professional inspection lighting, focused and methodical movement, 10 seconds.')">📋 Salin Prompt</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="tab-ais-prompts" class="tab-content">
+  <div id="tab-flow-prompts" class="tab-content">
     <div style="display:flex;flex-direction:column;gap:1rem">
-      <div class="prompt-card">
-        <div class="prompt-header"><span class="prompt-title">Scene 2 — Perakitan Rangka</span><span class="prompt-badge badge-ais">🎬 Veo 2</span></div>
-        <div class="prompt-body"><div class="prompt-text pt-ais">Animate: Two operators approach the car frame from opposite sides, begin attaching structural components using torque wrenches simultaneously. Show the coordinated teamwork, tools rotating, sparks from welding briefly visible. Wide establishing shot then cut to medium shot of hands working. 8 seconds, realistic industrial motion.</div>
-        <button class="copy-btn copy-btn-ais" onclick="copyTxt(this,'Animate: Two operators approach the car frame from opposite sides, begin attaching structural components using torque wrenches simultaneously. Show the coordinated teamwork, tools rotating, sparks from welding briefly visible. Wide establishing shot then cut to medium shot of hands working. 8 seconds, realistic industrial motion.')">📋 Salin Prompt</button></div>
-      </div>
-      <div class="prompt-card">
-        <div class="prompt-header"><span class="prompt-title">Scene 3 — Pemasangan Komponen</span><span class="prompt-badge badge-ais">🎬 Veo 2</span></div>
-        <div class="prompt-body"><div class="prompt-text pt-ais">Animate: Factory worker carefully picks up dashboard panel, positions it precisely into car interior opening, clips it into place using both hands. Worker glances at instruction sheet between each step. Close-up of hands working with precision, then pull back to medium shot. 8 seconds, smooth and methodical movement.</div>
-        <button class="copy-btn copy-btn-ais" onclick="copyTxt(this,'Animate: Factory worker carefully picks up dashboard panel, positions it precisely into car interior opening, clips it into place using both hands. Worker glances at instruction sheet between each step. Close-up of hands working with precision, then pull back to medium shot. 8 seconds, smooth and methodical movement.')">📋 Salin Prompt</button></div>
-      </div>
-      <div class="prompt-card">
-        <div class="prompt-header"><span class="prompt-title">Scene 4 — Finishing</span><span class="prompt-badge badge-ais">🎬 Veo 2</span></div>
-        <div class="prompt-body"><div class="prompt-text pt-ais">Animate: Worker walks along finished car body, running gloved hand slowly along panel surfaces to detect imperfections, stops at one point, makes a small adjustment with a tool, marks the checklist. Slow deliberate movement, camera follows at medium distance. Warm finishing area lighting. 8 seconds.</div>
-        <button class="copy-btn copy-btn-ais" onclick="copyTxt(this,'Animate: Worker walks along finished car body, running gloved hand slowly along panel surfaces to detect imperfections, stops at one point, makes a small adjustment with a tool, marks the checklist. Slow deliberate movement, camera follows at medium distance. Warm finishing area lighting. 8 seconds.')">📋 Salin Prompt</button></div>
-      </div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">Scene 2 — Perakitan Rangka</span><span class="prompt-badge badge-flow">🎬</span></div><div class="prompt-body"><div class="prompt-text pt-flow">Two operators approach the car frame from opposite sides, begin attaching structural components using torque wrenches simultaneously. Show coordinated teamwork, tools rotating, sparks briefly visible. Wide establishing shot then close to medium shot of hands working. 8 seconds, realistic industrial motion.</div><button class="copy-btn copy-btn-flow" onclick="copyTxt(this,'Two operators approach the car frame from opposite sides, begin attaching structural components using torque wrenches simultaneously. Wide establishing shot then close to medium. 8 seconds.')">📋 Salin</button></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">Scene 3 — Pemasangan Komponen</span><span class="prompt-badge badge-flow">🎬</span></div><div class="prompt-body"><div class="prompt-text pt-flow">Factory worker carefully picks up dashboard panel, positions it precisely into car interior opening, clips it into place using both hands. Worker glances at instruction sheet between each step. Close-up of hands working with precision, then pull back to medium shot. 8 seconds, smooth and methodical movement.</div><button class="copy-btn copy-btn-flow" onclick="copyTxt(this,'Factory worker carefully picks up dashboard panel, positions it precisely into car interior opening, clips it into place. Close-up then pull back to medium shot. 8 seconds.')">📋 Salin</button></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">Scene 4 — Finishing</span><span class="prompt-badge badge-flow">🎬</span></div><div class="prompt-body"><div class="prompt-text pt-flow">Worker walks along finished car body, running gloved hand slowly along panel surfaces to detect imperfections, stops at one point, makes a small adjustment, marks the checklist. Slow deliberate movement, camera follows at medium distance. Warm finishing area lighting. 8 seconds.</div><button class="copy-btn copy-btn-flow" onclick="copyTxt(this,'Worker walks along finished car body, running gloved hand slowly along panel surfaces, stops and adjusts, marks checklist. Slow deliberate movement. Warm lighting. 8 seconds.')">📋 Salin</button></div></div>
     </div>
   </div>
 
-  <div id="tab-ais-tips" class="tab-content">
+  <div id="tab-flow-tips" class="tab-content">
     <div class="grid-2">
-      <div class="card"><div class="card-icon icon-ais">⏱️</div><h3>Durasi Video</h3><p>Rekomendasikan <strong>6–10 detik</strong> per scene untuk keseimbangan antara detail gerakan dan kelancaran presentasi. Sebutkan durasi eksplisit di akhir prompt.</p></div>
-      <div class="card"><div class="card-icon icon-ais">🎥</div><h3>Gerakan Kamera</h3><p>Tentukan gerakan: <em>static</em> (diam), <em>slow pan</em> (geser lambat), <em>tracking shot</em> (ikuti subjek), atau <em>zoom in/out</em>. Ini membuat video lebih sinematik.</p></div>
-      <div class="card"><div class="card-icon icon-ais">📐</div><h3>Aspect Ratio</h3><p>Gunakan <strong>16:9</strong> untuk presentasi PowerPoint/layar lebar. Gunakan <strong>9:16</strong> untuk konten mobile atau reels. Pilih di panel kanan AI Studio sebelum generate.</p></div>
-      <div class="card"><div class="card-icon icon-ais">🔗</div><h3>Konsistensi Narasi</h3><p>Selalu sertakan elemen dari <strong>scene ChatGPT</strong> — nama aktivitas operator, objek spesifik, dan suasana lingkungan — agar video konsisten dengan narasi asli.</p></div>
+      <div class="card"><div class="card-icon icon-flow">⏱️</div><h3>Durasi yang Pas</h3><p>Rekomendasikan <strong>6–10 detik</strong> per scene. Sebutkan durasi secara eksplisit di akhir prompt, misalnya <em>"8 seconds"</em>.</p></div>
+      <div class="card"><div class="card-icon icon-flow">🎥</div><h3>Kata Kerja Gerak</h3><p>Selalu gunakan kata kerja gerak yang spesifik: <em>"slowly walks toward", "carefully picks up", "gently places"</em>.</p></div>
+      <div class="card"><div class="card-icon icon-flow">🔁</div><h3>Kalau Hasilnya Kurang Pas</h3><p>Generate ulang! Ubah sedikit susunan kalimat atau tambahkan kata seperti <em>"smooth"</em>, <em>"natural"</em>.</p></div>
+      <div class="card"><div class="card-icon icon-flow">🔗</div><h3>Konsistensi Antar Scene</h3><p>Gunakan elemen visual yang sama di setiap scene: warna seragam, jenis pabrik, gaya pencahayaan.</p></div>
     </div>
-    <div class="tip-box tip-ais" style="margin-top:1.5rem">🎬 <strong>Tips Alur Terbaik:</strong> ChatGPT (narasi + scene + gambar) → simpan gambar → AI Studio Veo 2 (upload gambar + prompt scene) → unduh video → susun urutan di video editor. Hasilnya adalah video proses produksi yang sepenuhnya berbasis narasi yang sudah Anda buat!</div>
   </div>
 </section>
 
@@ -940,60 +1244,173 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 <section class="section" id="workflow">
   <div class="sh">
     <span class="section-tag">Bab 6</span>
-    <h2 class="section-title">Workflow Lengkap Tiga Platform</h2>
-    <p class="section-desc">Alur kerja terintegrasi dari narasi ChatGPT hingga video final di AI Studio — setiap platform punya peran yang jelas.</p>
+    <h2 class="section-title">Workflow Lengkap Empat Platform</h2>
+    <p class="section-desc">Alur kerja terintegrasi dari narasi ChatGPT, gambar dari Gemini, video dari Google Flow, hingga video final di CapCut/Canva.</p>
   </div>
 
   <div class="wf-full">
     <div class="wf-col">
-      <div class="wf-col-header">
-        <div class="wf-col-icon role-icon-gpt">🤖</div>
-        <div><div class="wf-col-title" style="color:var(--gpt)">ChatGPT / GPT Go</div><div class="wf-col-sub">Fondasi Konten</div></div>
-      </div>
+      <div class="wf-col-header"><div class="wf-col-icon" style="background:var(--gpt-lt)">🤖</div><div><div class="wf-col-title" style="color:var(--gpt)">ChatGPT / GPT Go</div><div class="wf-col-sub">Fondasi Konten</div></div></div>
       <div class="wf-tasks">
         <div class="wf-task"><strong style="color:var(--gpt)">Step 1 — Narasi</strong>Buat narasi lengkap 5 tahapan produksi</div>
         <div class="wf-task"><strong style="color:var(--gpt)">Step 2 — Scene</strong>Pecah narasi jadi 5 scene detail + deskripsi visual</div>
-        <div class="wf-task"><strong style="color:var(--gpt)">Step 3 — Gambar</strong> Generate gambar per scene</div>
-        <div class="wf-task"><strong style="color:var(--gpt)">Step 4 — Revisi</strong>Revisi gambar sesuai konsep/draf</div>
-        <div class="wf-task"><strong style="color:var(--gpt)">Step 5 — Prompt</strong>Susun prompt Inggris siap pakai untuk Gemini &amp; AI Studio</div>
+        <div class="wf-task"><strong style="color:var(--gpt)">Step 3 — Gambar</strong>Generate gambar per scene (kuota gratis)</div>
+        <div class="wf-task"><strong style="color:var(--gpt)">Step 4 — Revisi</strong>Revisi gambar sesuai konsep</div>
+        <div class="wf-task"><strong style="color:var(--gpt)">Step 5 — Prompt</strong>Susun prompt Inggris siap pakai untuk Gemini &amp; Google Flow</div>
       </div>
     </div>
     <div class="wf-col">
-      <div class="wf-col-header">
-        <div class="wf-col-icon role-icon-gem">✨</div>
-        <div><div class="wf-col-title" style="color:var(--gem)">Gemini</div><div class="wf-col-sub">Visual Alternatif &amp; Video</div></div>
-      </div>
+      <div class="wf-col-header"><div class="wf-col-icon" style="background:var(--gem-lt)">✨</div><div><div class="wf-col-title" style="color:var(--gem)">Gemini</div><div class="wf-col-sub">Visual Alternatif &amp; Video</div></div></div>
       <div class="wf-tasks">
         <div class="wf-task"><strong style="color:var(--gem)">Step 1 — Terima Prompt</strong>Input prompt scene dari ChatGPT</div>
-        <div class="wf-task"><strong style="color:var(--gem)">Step 2 — Generate Gambar</strong>Buat gambar per scene sesuai prompt ChatGPT</div>
+        <div class="wf-task"><strong style="color:var(--gem)">Step 2 — Generate Gambar</strong>Buat gambar per scene sesuai prompt</div>
         <div class="wf-task"><strong style="color:var(--gem)">Step 3 — Generate Video</strong>Buat video pendek tiap scene dari narasi</div>
-        <div class="wf-task"><strong style="color:var(--gem)">Step 4 — Ekspor</strong>Simpan gambar &amp; video ke Google Drive</div>
+        <div class="wf-task"><strong style="color:var(--gem)">Step 4 — Download</strong>Simpan gambar ke komputer untuk dipakai di Google Flow</div>
       </div>
     </div>
     <div class="wf-col">
-      <div class="wf-col-header">
-        <div class="wf-col-icon role-icon-ais">🎬</div>
-        <div><div class="wf-col-title" style="color:var(--ais)">AI Studio</div><div class="wf-col-sub">Video Berkualitas Tinggi</div></div>
-      </div>
+      <div class="wf-col-header"><div class="wf-col-icon" style="background:var(--flow-lt)">🎬</div><div><div class="wf-col-title" style="color:var(--flow)">Google Flow</div><div class="wf-col-sub">Gambar → Video</div></div></div>
       <div class="wf-tasks">
-        <div class="wf-task"><strong style="color:var(--ais)">Step 1 — Upload Gambar</strong>Upload gambar dari ChatGPT atau Gemini</div>
-        <div class="wf-task"><strong style="color:var(--ais)">Step 2 — Prompt Scene</strong>Masukkan prompt scene dari ChatGPT sebagai panduan</div>
-        <div class="wf-task"><strong style="color:var(--ais)">Step 3 — Generate Veo 2</strong>Konversi gambar ke video (6–10 detik per scene)</div>
-        <div class="wf-task"><strong style="color:var(--ais)">Step 4 — Unduh MP4</strong>Download semua 5 video scene</div>
+        <div class="wf-task"><strong style="color:var(--flow)">Step 1 — Upload Gambar</strong>Upload gambar scene dari ChatGPT atau Gemini</div>
+        <div class="wf-task"><strong style="color:var(--flow)">Step 2 — Prompt Gerakan</strong>Tulis deskripsi gerakan dari scene ChatGPT</div>
+        <div class="wf-task"><strong style="color:var(--flow)">Step 3 — Generate</strong>Generate video (6–10 detik per scene)</div>
+        <div class="wf-task"><strong style="color:var(--flow)">Step 4 — Download MP4</strong>Download semua 5 video scene ke komputer</div>
+      </div>
+    </div>
+    <div class="wf-col">
+      <div class="wf-col-header"><div class="wf-col-icon" style="background:var(--edit-lt)">✂️</div><div><div class="wf-col-title" style="color:var(--edit)">CapCut / Canva</div><div class="wf-col-sub">Edit &amp; Gabungkan</div></div></div>
+      <div class="wf-tasks">
+        <div class="wf-task"><strong style="color:var(--edit)">Step 1 — Import Video</strong>Masukkan semua video scene ke CapCut/Canva</div>
+        <div class="wf-task"><strong style="color:var(--edit)">Step 2 — Susun Urutan</strong>Atur urutan scene sesuai narasi</div>
+        <div class="wf-task"><strong style="color:var(--edit)">Step 3 — Edit</strong>Tambah teks, musik, transisi</div>
+        <div class="wf-task"><strong style="color:var(--edit)">Step 4 — Export</strong>Export video final resolusi HD</div>
       </div>
     </div>
     <div class="wf-col" style="background:var(--bg2)">
-      <div class="wf-col-header">
-        <div class="wf-col-icon" style="background:var(--gold-lt);font-size:.9rem">🏁</div>
-        <div><div class="wf-col-title" style="color:var(--gold)">Output Final</div><div class="wf-col-sub">Hasil Proyek Akhir</div></div>
-      </div>
+      <div class="wf-col-header"><div class="wf-col-icon" style="background:var(--gold-lt);font-size:.9rem">🏁</div><div><div class="wf-col-title" style="color:var(--gold)">Output Final</div><div class="wf-col-sub">Hasil Proyek Akhir</div></div></div>
       <div class="wf-tasks">
         <div class="wf-task"><strong style="color:var(--gold)">Narasi Tertulis</strong>Dokumen narasi 5 tahapan produksi</div>
         <div class="wf-task"><strong style="color:var(--gold)">5 Gambar Scene</strong>Visual setiap tahapan produksi operator</div>
         <div class="wf-task"><strong style="color:var(--gold)">5 Video Scene</strong>Video animasi per scene (30–50 detik total)</div>
-        <div class="wf-task"><strong style="color:var(--gold)">Presentasi Final</strong>Materi siap pakai untuk pelatihan &amp; dokumentasi</div>
+        <div class="wf-task"><strong style="color:var(--gold)">1 Video Final</strong>Semua scene tergabung, siap presentasi &amp; pelatihan</div>
       </div>
     </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="editing">
+  <div class="sh">
+    <span class="section-tag">Bab 7 — Baru!</span>
+    <h2 class="section-title">Menggabungkan &amp; Mengedit Video<br><em>di CapCut dan Canva</em></h2>
+    <p class="section-desc">Semua video scene sudah selesai di-download? Saatnya digabungkan menjadi satu video utuh yang rapi dan profesional.</p>
+  </div>
+
+  <div class="info-box">
+    <span class="info-box-icon">🎯</span>
+    <div style="font-size:.84rem;color:var(--text-2)"><strong style="color:var(--edit)">Tujuan tahap ini:</strong> Kamu sudah punya 5 video scene terpisah (scene-01.mp4 sampai scene-05.mp4). Gabungkan semua video itu menjadi satu video panjang, tambahkan judul, teks keterangan, musik latar, dan transisi antar scene. Hasilnya: video pelatihan operator yang siap ditayangkan!</div>
+  </div>
+
+  <div class="app-compare">
+    <div class="app-card">
+      <div class="app-card-header"><div class="app-logo app-logo-capcut">✂️</div><div><div class="app-card-title">CapCut</div><div class="app-card-sub">Cocok untuk edit video cepat di HP maupun komputer</div></div></div>
+      <div class="app-card-body">
+        <ul class="app-features">
+          <li>✅ Gratis dan tersedia di Android, iOS, dan browser</li>
+          <li>✅ Mudah digunakan, tampilan drag-and-drop yang intuitif</li>
+          <li>✅ Banyak template transisi dan efek siap pakai</li>
+          <li>✅ Bisa tambahkan teks, subtitle otomatis, dan narasi suara</li>
+          <li>✅ Export langsung ke MP4 HD</li>
+        </ul>
+        <div class="app-badge-row"><span class="app-badge ab-free">Gratis</span><span class="app-badge ab-mobile">📱 Mobile</span><span class="app-badge ab-web">💻 Web</span></div>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="app-card-header"><div class="app-logo app-logo-canva">🎨</div><div><div class="app-card-title">Canva</div><div class="app-card-sub">Cocok jika ingin desain visual yang lebih rapi dan bermerek</div></div></div>
+      <div class="app-card-body">
+        <ul class="app-features">
+          <li>✅ Gratis (fitur lengkap dengan akun Pro)</li>
+          <li>✅ Tersedia di browser dan aplikasi HP</li>
+          <li>✅ Banyak template presentasi dan video profesional</li>
+          <li>✅ Mudah tambahkan logo, warna perusahaan, dan branding</li>
+          <li>✅ Bisa langsung share link atau download MP4/PDF</li>
+        </ul>
+        <div class="app-badge-row"><span class="app-badge ab-free">Gratis</span><span class="app-badge ab-mobile">📱 Mobile</span><span class="app-badge ab-web">💻 Web</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter-tabs">
+    <button class="tab-btn active-edit" onclick="switchTab(this,'tab-edit-capcut','edit')">✂️ Panduan CapCut</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-edit-canva','edit')">🎨 Panduan Canva</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-edit-tips','edit')">💡 Tips Editing</button>
+  </div>
+
+  <div id="tab-edit-capcut" class="tab-content active">
+    <div class="platform-guide" style="margin-bottom:0">
+      <div class="pg-header">
+        <div class="pg-icon" style="background:linear-gradient(135deg,rgba(0,0,0,.08),rgba(0,0,0,.04));font-size:1.4rem">✂️</div>
+        <div><h3>Langkah-Langkah di CapCut</h3><p>Step by step dari import video sampai export hasil akhir</p></div>
+        <a href="https://www.capcut.com" target="_blank" rel="noopener" class="pg-link" style="background:var(--bg2);color:var(--text-2);border-color:var(--border2)">🔗 Buka CapCut ↗</a>
+      </div>
+      <div class="pg-body">
+        <div class="guide-steps">
+          <div class="guide-step"><div class="gs-num gs-edit">1</div><div class="gs-body"><h4>Buka CapCut dan Buat Proyek Baru</h4><p>Klik tombol <strong>"+ New Project"</strong>. Pilih rasio video <strong>16:9</strong> untuk presentasi di layar lebar.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-edit">2</div><div class="gs-body"><h4>Import Semua Video Scene</h4><p>Klik <strong>"Import"</strong>, pilih semua 5 file video scene sekaligus (scene-01.mp4 sampai scene-05.mp4).</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-edit">3</div><div class="gs-body"><h4>Seret Video ke Timeline Sesuai Urutan</h4><p>Seret video ke area <strong>timeline</strong> secara berurutan: scene-01 dulu, lalu 02, 03, 04, dan 05. Urutan ini = urutan cerita di video final.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-edit">4</div><div class="gs-body"><h4>Tambahkan Transisi Antar Scene</h4><p>Klik pada titik sambungan antar dua video di timeline. Pilih efek <em>Fade</em> atau <em>Dissolve</em>. Durasi transisi 0.5–1 detik sudah bagus.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-edit">5</div><div class="gs-body"><h4>Tambahkan Teks Judul di Setiap Scene</h4><p>Klik menu <strong>"Text" → "Add Text"</strong>. Ketikkan nama tahapan, misalnya <em>"Scene 1 — Persiapan Material"</em>. Posisikan di bagian bawah layar seperti subtitle.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-edit">6</div><div class="gs-body"><h4>Tambahkan Musik Latar (Opsional)</h4><p>Klik menu <strong>"Audio"</strong>. Pilih musik yang tenang dan profesional. Atur volume sekitar 20–30% agar tidak mengganggu pesan utama.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-edit">7</div><div class="gs-body"><h4>Preview dan Export Final</h4><p>Tonton dulu dari awal. Kalau sudah oke, klik <strong>"Export" → pilih 1080p Full HD</strong>. Video finalmu siap!</p></div></div>
+        </div>
+        <div class="tip-box tip-edit">✂️ <strong>Tips CapCut:</strong> Versi web di capcut.com memberikan lebih banyak kontrol. Keduanya (HP dan komputer) cukup untuk video pelatihan yang profesional.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-edit-canva" class="tab-content">
+    <div class="platform-guide" style="margin-bottom:0">
+      <div class="pg-header">
+        <div class="pg-icon" style="background:linear-gradient(135deg,rgba(123,47,224,.12),rgba(75,159,225,.08));font-size:1.4rem">🎨</div>
+        <div><h3 style="color:var(--gem-mid)">Langkah-Langkah di Canva</h3><p>Pilihan untuk tampilan yang lebih branded dan desain yang rapi</p></div>
+        <a href="https://www.canva.com" target="_blank" rel="noopener" class="pg-link pg-link-gem">🔗 Buka Canva ↗</a>
+      </div>
+      <div class="pg-body">
+        <div class="guide-steps">
+          <div class="guide-step"><div class="gs-num gs-gem">1</div><div class="gs-body"><h4>Buka Canva dan Pilih Template Video</h4><p>Klik <strong>"Buat desain"</strong>, pilih <strong>"Presentasi Video"</strong> ukuran 16:9. Bisa juga mulai dari template kosong.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-gem">2</div><div class="gs-body"><h4>Upload Semua Video Scene</h4><p>Di panel kiri, klik <strong>"Unggah" → "Unggah file"</strong> dan pilih semua 5 video sekaligus.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-gem">3</div><div class="gs-body"><h4>Tambah Halaman untuk Setiap Scene</h4><p>Buat 5 halaman — satu halaman untuk satu scene. Drag-and-drop setiap video ke halaman yang sesuai.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-gem">4</div><div class="gs-body"><h4>Tambahkan Teks dan Elemen Branding</h4><p>Tambahkan teks judul dan logo perusahaan dari menu Elemen. Gunakan warna brand untuk tampilan yang konsisten.</p></div></div>
+          <div class="guide-step"><div class="gs-num gs-gem">5</div><div class="gs-body"><h4>Preview dan Export</h4><p>Klik <strong>"Bagikan" → "Unduh" → pilih format MP4</strong>. Video finalmu siap diunduh.</p></div></div>
+        </div>
+        <div class="tip-box tip-gem">🎨 <strong>Tips Canva:</strong> Gunakan fitur "Brand Kit" untuk menyimpan warna dan font perusahaan agar semua video terlihat seragam.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-edit-tips" class="tab-content">
+    <div class="grid-2" style="margin-bottom:1.5rem">
+      <div class="card"><div class="card-icon icon-edit">📁</div><h3>Organisir File Sebelum Mulai</h3><p>Buat satu folder khusus dan isi dengan semua file: <code>scene-01.mp4</code> sampai <code>scene-05.mp4</code>. Ini memudahkan proses import.</p></div>
+      <div class="card"><div class="card-icon icon-edit">🔤</div><h3>Teks yang Jelas dan Ringkas</h3><p>Tambahkan teks judul singkat di awal setiap scene. Gunakan ukuran font yang cukup besar agar terbaca di layar besar.</p></div>
+      <div class="card"><div class="card-icon icon-edit">🎵</div><h3>Pilih Musik yang Tepat</h3><p>Pilih musik latar yang <strong>tenang dan netral</strong>. Volume musik sekitar 20–30% dari video sudah ideal untuk konten pelatihan.</p></div>
+      <div class="card"><div class="card-icon icon-edit">🎬</div><h3>Format Export yang Tepat</h3><p>Export dalam <strong>MP4 resolusi 1080p</strong>. Untuk share via WhatsApp atau email, bisa pilih 720p yang lebih ringan.</p></div>
+    </div>
+    <div class="step-box">
+      <div class="step-box-header step-box-header-capcut"><span>📋</span>Checklist Sebelum Export Video Final</div>
+      <div class="step-box-body">
+        <ul style="margin-top:.5rem;margin-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Urutan scene sudah sesuai narasi ChatGPT (1 → 2 → 3 → 4 → 5)</li>
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Transisi antar scene berjalan mulus</li>
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Teks judul muncul di waktu yang tepat dan terbaca jelas</li>
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Volume musik latar tidak terlalu keras atau terlalu pelan</li>
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Total durasi video sudah sesuai kebutuhan (40–60 detik untuk 5 scene)</li>
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Kualitas export minimal 720p atau 1080p</li>
+          <li style="font-size:.83rem;color:var(--text-2)">☐ Sudah preview dari awal sampai akhir minimal satu kali</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box tip-edit" style="margin-top:1.5rem">🏁 <strong>Selamat!</strong> Kalau semua langkah sudah selesai — dari narasi di ChatGPT, gambar di Gemini, video di Google Flow, sampai penggabungan di CapCut/Canva — kamu berhasil membuat <strong>video pelatihan operator produksi yang lengkap dan profesional</strong> menggunakan AI, sepenuhnya gratis!</div>
   </div>
 </section>
 
@@ -1001,31 +1418,25 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <section class="section" id="prompt-eng">
   <div class="sh">
-    <span class="section-tag">Bab 7</span>
+    <span class="section-tag">Bab 8</span>
     <h2 class="section-title">Prompt Engineering</h2>
     <p class="section-desc">Teknik menyusun perintah yang tepat untuk teks, gambar, dan video agar output AI sesuai kebutuhan industri.</p>
   </div>
   <div class="grid-2" style="margin-bottom:2rem">
     <div class="prompt-card">
       <div class="prompt-header"><span class="prompt-title" style="color:var(--red)">❌ Prompt Tidak Efektif</span></div>
-      <div class="prompt-body">
-        <div class="prompt-text pt-bad">pabrik mobil</div>
-        <p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Terlalu umum — tidak ada subjek, aktivitas, lingkungan, atau gaya. AI tidak tahu apa yang harus ditampilkan. Hasilnya tidak dapat diprediksi.</p>
-      </div>
+      <div class="prompt-body"><div class="prompt-text pt-bad">pabrik mobil</div><p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Terlalu umum — tidak ada subjek, aktivitas, lingkungan, atau gaya. Hasilnya tidak dapat diprediksi.</p></div>
     </div>
     <div class="prompt-card">
       <div class="prompt-header"><span class="prompt-title" style="color:var(--green)">✅ Prompt Efektif (Gambar + Video)</span></div>
-      <div class="prompt-body">
-        <div class="prompt-text pt-good">Toyota factory operator in blue uniform carefully installs dashboard into car interior, refers to work instruction sheet, clean and organized assembly area, bright overhead lighting, focused professional expression, realistic, medium shot, 4K — animate: smooth hand movement, 8 seconds, static camera</div>
-        <p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Mencakup: subjek + aktivitas + detail lingkungan + gaya visual + parameter video. Hasilnya konsisten dan profesional.</p>
-      </div>
+      <div class="prompt-body"><div class="prompt-text pt-good">Toyota factory operator in blue uniform carefully installs dashboard into car interior, refers to work instruction sheet, clean assembly area, bright overhead lighting, focused expression, realistic, medium shot, 4K — animate: smooth hand movement, 8 seconds, static camera</div><p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Mencakup: subjek + aktivitas + detail lingkungan + gaya visual + parameter video. Hasilnya konsisten dan profesional.</p></div>
     </div>
   </div>
   <div class="grid-2">
-    <div class="card"><div class="card-icon icon-gpt">📝</div><h3>Untuk Narasi &amp; Scene (ChatGPT)</h3><p>Sebutkan: jumlah tahapan, nama pabrik, jenis operator, format output yang diinginkan (narasi/scene/storyboard). Semakin spesifik, semakin berguna hasilnya.</p></div>
-    <div class="card"><div class="card-icon icon-gem">🖼️</div><h3>Untuk Gambar (ChatGPT / Gemini)</h3><p>Gunakan: <strong>Subjek + Aktivitas + Detail + Gaya + Kualitas</strong>. Tambahkan sudut kamera (medium shot, close-up) dan pencahayaan (LED, warm, cinematic) untuk hasil terbaik.</p></div>
-    <div class="card"><div class="card-icon icon-ais">🎬</div><h3>Untuk Video (AI Studio / Gemini)</h3><p>Tambahkan: <strong>kata kerja gerak</strong> (walks toward, slowly picks up, carefully places), <strong>gerakan kamera</strong>, dan <strong>durasi</strong>. Sertakan referensi dari scene ChatGPT untuk konsistensi narasi.</p></div>
-    <div class="card"><div class="card-icon icon-gold">🔄</div><h3>Revisi &amp; Iterasi</h3><p>Revisi adalah bagian dari proses. Untuk gambar: sebutkan perubahan spesifik. Untuk video: tambahkan/kurangi elemen gerak. AI akan menyesuaikan tanpa mengulang dari awal.</p></div>
+    <div class="card"><div class="card-icon icon-gpt">📝</div><h3>Untuk Narasi &amp; Scene (ChatGPT)</h3><p>Sebutkan: jumlah tahapan, nama pabrik, jenis operator, format output yang diinginkan.</p></div>
+    <div class="card"><div class="card-icon icon-gem">🖼️</div><h3>Untuk Gambar (ChatGPT / Gemini)</h3><p>Rumus: <strong>Subjek + Aktivitas + Detail + Gaya + Kualitas</strong>. Tambahkan sudut kamera dan pencahayaan.</p></div>
+    <div class="card"><div class="card-icon icon-flow">🎬</div><h3>Untuk Video (Google Flow / Gemini)</h3><p>Tambahkan: kata kerja gerak, gerakan kamera, dan durasi dalam detik. Gunakan bahasa Inggris.</p></div>
+    <div class="card"><div class="card-icon icon-edit">✂️</div><h3>Untuk Editing (CapCut / Canva)</h3><p>Rencanakan dulu: urutan scene, teks judul, dan gaya transisi sebelum mulai edit.</p></div>
   </div>
 </section>
 
@@ -1033,14 +1444,14 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <section class="section" id="manufaktur">
   <div class="sh">
-    <span class="section-tag">Bab 8</span>
+    <span class="section-tag">Bab 9</span>
     <h2 class="section-title">Konsep Manufaktur Toyota</h2>
-    <p class="section-desc">Tiga pilar utama sistem produksi Toyota yang menjadi fondasi kerja operator dan panduan dalam membuat konten AI.</p>
+    <p class="section-desc">Tiga pilar utama sistem produksi Toyota yang menjadi fondasi kerja operator.</p>
   </div>
   <div class="lean-cards">
-    <div class="lean-card"><span class="lean-big">⚡</span><div class="lean-title">Lean Manufacturing</div><div class="lean-sub">Efisiensi Tanpa Pemborosan</div><div class="lean-desc">Menekankan efisiensi di setiap proses. Dalam konteks AI, ini berarti menggunakan prompt yang tepat — tidak berulang, tidak mubazir — untuk menghasilkan konten berkualitas secara efisien.</div></div>
-    <div class="lean-card"><span class="lean-big">🕐</span><div class="lean-title">Just In Time</div><div class="lean-sub">Material Tepat Waktu</div><div class="lean-desc">Material disediakan sesuai kebutuhan. Dalam workflow AI: narasi disiapkan dulu di ChatGPT, baru kemudian digunakan di Gemini dan AI Studio — tidak ada langkah yang dilewati.</div></div>
-    <div class="lean-card"><span class="lean-big">🤝</span><div class="lean-title">Kerja Tim Platform</div><div class="lean-sub">Sinergi Tiga Platform AI</div><div class="lean-desc">Seperti operator di lini produksi, ketiga platform AI memiliki peran berbeda yang saling terhubung. ChatGPT → Gemini → AI Studio bekerja sebagai satu tim untuk menghasilkan output final.</div></div>
+    <div class="lean-card"><span class="lean-big">⚡</span><div class="lean-title">Lean Manufacturing</div><div class="lean-sub">Efisiensi Tanpa Pemborosan</div><div class="lean-desc">Menekankan efisiensi di setiap proses. Dalam konteks AI: gunakan prompt yang tepat — tidak berulang-ulang — untuk menghasilkan konten berkualitas secara efisien.</div></div>
+    <div class="lean-card"><span class="lean-big">🕐</span><div class="lean-title">Just In Time</div><div class="lean-sub">Langkah Tepat pada Waktunya</div><div class="lean-desc">Setiap langkah dilakukan pada urutan yang tepat: ChatGPT/GPT Go dulu untuk narasi, lalu Gemini, Google Flow, dan CapCut/Canva — tidak ada yang dilewati.</div></div>
+    <div class="lean-card"><span class="lean-big">🤝</span><div class="lean-title">Kerja Tim Platform</div><div class="lean-sub">Sinergi Empat Platform</div><div class="lean-desc">Seperti operator di lini produksi yang bekerja bersama, keempat platform memiliki peran berbeda yang saling terhubung menghasilkan output akhir yang lengkap.</div></div>
   </div>
 </section>
 
@@ -1050,7 +1461,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
   <div class="sh">
     <span class="section-tag">Latihan &amp; Evaluasi</span>
     <h2 class="section-title">Uji Pemahaman Anda</h2>
-    <p class="section-desc">Jawab 10 pertanyaan untuk mengukur pemahaman Anda tentang peran masing-masing platform AI dalam modul ini.</p>
+    <p class="section-desc">Jawab 10 pertanyaan untuk mengukur pemahaman tentang peran masing-masing platform.</p>
   </div>
   <div class="quiz-container">
     <div id="quizMain">
@@ -1073,69 +1484,115 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 
 <hr class="section-divider">
 
+<!-- ============================================================
+     GLOSARIUM — REDESIGNED INTERACTIVE VERSION
+     ============================================================ -->
 <section class="section" id="glosarium">
   <div class="sh">
     <span class="section-tag">Referensi</span>
-    <h2 class="section-title">Glosarium</h2>
-    <p class="section-desc">Daftar istilah penting. Ketik untuk mencari.</p>
+    <h2 class="section-title">Glosarium Interaktif</h2>
+    <p class="section-desc">Klik istilah untuk melihat penjelasan lengkap. Filter berdasarkan kategori atau cari lewat kolom pencarian.</p>
   </div>
-  <div class="glossary-search"><span style="color:var(--text-3)">🔍</span><input type="text" id="glossarySearch" placeholder="Cari istilah, misalnya: prompt, scene, Veo, narasi..." oninput="filterGlossary(this.value)"></div>
-  <div class="glossary-list" id="glossaryList"></div>
+
+  <div class="glossary-container">
+    <!-- Search + Filters -->
+    <div class="glossary-topbar">
+      <div class="glossary-search-wrap">
+        <span class="glossary-search-icon">🔍</span>
+        <input type="text" id="glossarySearch" placeholder="Cari istilah, misal: Google Flow, scene, prompt, kanban..." oninput="filterGlossary()">
+        <button id="clearSearch" style="background:none;border:none;color:var(--text-4);cursor:pointer;font-size:.8rem;display:none" onclick="clearGloss()">✕</button>
+      </div>
+      <div class="glossary-filters">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-chip active-all" onclick="setFilter('all',this)">Semua</button>
+        <button class="filter-chip" onclick="setFilter('gpt',this)">🤖 ChatGPT</button>
+        <button class="filter-chip" onclick="setFilter('gem',this)">✨ Gemini</button>
+        <button class="filter-chip" onclick="setFilter('flow',this)">🎬 Google Flow</button>
+        <button class="filter-chip" onclick="setFilter('edit',this)">✂️ Editing</button>
+        <button class="filter-chip" onclick="setFilter('def',this)">📖 Konsep</button>
+        <button class="filter-chip" onclick="setFilter('lean',this)">🏭 Manufaktur</button>
+      </div>
+    </div>
+
+    <!-- Stats + sort -->
+    <div class="glossary-stats">
+      <div class="glos-stat-count"><strong id="glosCount">0</strong> istilah ditemukan</div>
+      <div class="glos-sort">
+        <span>Urutkan:</span>
+        <select onchange="setSortMode(this.value)">
+          <option value="alpha">A–Z</option>
+          <option value="cat">Kategori</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Alphabet nav -->
+    <div class="alpha-nav" id="alphaNav"></div>
+
+    <!-- Glossary body -->
+    <div class="glossary-body" id="glossaryBody"></div>
+  </div>
 </section>
 
 <footer>
-  <p>📘 <strong style="color:var(--text)">Modul Pembelajaran AI dalam Manufaktur Otomotif</strong> — Revisi 2.0</p>
-  <p style="margin-top:8px"><a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">🤖 ChatGPT — Narasi &amp; Gambar ↗</a> &nbsp;|&nbsp; <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">✨ Gemini — Gambar &amp; Video ↗</a> &nbsp;|&nbsp; <a href="https://aistudio.google.com" target="_blank" class="pl pl-ais">🎬 AI Studio — Gambar ke Video ↗</a></p>
+  <p>📘 <strong style="color:var(--text)">Modul Pembelajaran AI dalam Manufaktur Otomotif</strong> — Revisi 4.0</p>
+  <p style="margin-top:8px">
+    <a href="https://chat.openai.com" target="_blank" class="pl pl-gpt">🤖 ChatGPT ↗</a> &nbsp;|&nbsp;
+    <a href="https://gemini.google.com" target="_blank" class="pl pl-gem">✨ Gemini ↗</a> &nbsp;|&nbsp;
+    <a href="https://labs.google/fx/id/tools/flow" target="_blank" class="pl pl-flow">🎬 Google Flow ↗</a> &nbsp;|&nbsp;
+    <a href="https://www.capcut.com" target="_blank" class="pl pl-edit">✂️ CapCut ↗</a> &nbsp;|&nbsp;
+    <a href="https://www.canva.com" target="_blank" class="pl pl-edit">🎨 Canva ↗</a>
+  </p>
   <p style="margin-top:10px;color:var(--text-3)"><strong style="color:var(--text-2)">Ingat:</strong> AI adalah alat bantu untuk <em>brainstorming</em> dan efisiensi, <strong>bukan untuk menggantikan seluruh pekerjaan kita.</strong></p>
 </footer>
 
 <script>
-// NAV
+/* NAV */
 const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
 navToggle.addEventListener('click',()=>navLinks.classList.toggle('open'));
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
 
-// ACCORDION
+/* ACCORDION */
 function toggleAcc(header){
   const item=header.parentElement,body=item.querySelector('.accordion-body'),inner=item.querySelector('.accordion-body-inner'),isOpen=item.classList.contains('open');
   document.querySelectorAll('.accordion-item').forEach(i=>{i.classList.remove('open');i.querySelector('.accordion-body').style.maxHeight='0'});
   if(!isOpen){item.classList.add('open');body.style.maxHeight=inner.scrollHeight+48+'px'}
 }
 
-// TABS
+/* TABS */
 function switchTab(btn,tabId,platform){
   const sectionEl=btn.closest('section');
-  btn.parentElement.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active-gpt','active-gem','active-ais')});
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active-gpt','active-gem','active-flow','active-edit')});
   sectionEl.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active-'+platform);
   document.getElementById(tabId).classList.add('active');
 }
 
-// STAGES Gemini
+/* STAGES Gemini */
 function selStageGem(idx,el){
-  document.querySelectorAll('#stagesGridGem .stage-card').forEach(c=>c.classList.remove('active-gpt','active-gem','active-ais'));
+  document.querySelectorAll('#stagesGridGem .stage-card').forEach(c=>c.classList.remove('active-gpt','active-gem','active-flow'));
   document.querySelectorAll('[id^="gem-stage-"]').forEach(d=>d.classList.remove('active'));
   el.classList.add('active-gem');
   document.getElementById('gem-stage-'+idx).classList.add('active');
 }
 
-// COPY
+/* COPY */
 function copyTxt(btn,text){
   navigator.clipboard.writeText(text).then(()=>{const o=btn.innerHTML;btn.innerHTML='✅ Tersalin!';setTimeout(()=>btn.innerHTML=o,2000)});
 }
 
-// QUIZ
+/* QUIZ */
 const Qs=[
-  {q:"Apa peran utama ChatGPT/GPT Go dalam workflow modul ini?",opts:["Hanya untuk menjawab pertanyaan umum","Membuat narasi, menyusun scene & skenario, generate gambar awal, dan revisi gambar","Konversi gambar ke video menggunakan Veo 2","Menyimpan file ke Google Drive"],ans:1,fb:"Platform GPT adalah fondasi konten — narasi, scene, dan generate gambar. Output ini digunakan sebagai panduan di Gemini dan AI Studio."},
-  {q:"Gemini digunakan untuk menghasilkan apa dalam modul ini?",opts:["Hanya teks narasi saja","Generate gambar DAN video berdasarkan prompt scene ChatGPT","Konversi video menjadi presentasi PowerPoint","Mengedit gambar yang sudah ada di komputer"],ans:1,fb:"Gemini memiliki kemampuan generate gambar dan video. Prompt yang digunakan berasal dari scene yang sudah disusun di ChatGPT sebelumnya."},
-  {q:"Apa fungsi utama Google AI Studio (Veo 2) dalam workflow ini?",opts:["Membuat narasi proses produksi","Generate gambar dari teks saja","Mengkonversi gambar menjadi video berdasarkan prompt scene","Menyimpan semua file ke cloud"],ans:2,fb:"AI Studio dengan Veo 2 bertugas mengkonversi gambar yang sudah dihasilkan menjadi video, dipandu oleh prompt scene dari ChatGPT."},
-  {q:"Urutan workflow yang benar adalah...",opts:["AI Studio → Gemini → ChatGPT","Gemini → ChatGPT → AI Studio","ChatGPT/GPT Go (narasi+scene+gambar) → Gemini (gambar+video) / AI Studio (gambar→video)","Semua platform digunakan secara bersamaan tanpa urutan"],ans:2,fb:"Urutan yang benar: ChatGPT/GPT Go menjadi fondasi (narasi, scene, gambar), kemudian gambar/prompt tersebut digunakan di Gemini dan AI Studio untuk generate visual dan video."},
+  {q:"Apa peran utama ChatGPT/GPT Go dalam workflow modul ini?",opts:["Hanya untuk menjawab pertanyaan umum","Membuat narasi, menyusun scene & skenario, generate gambar awal, dan revisi gambar","Konversi gambar ke video menggunakan Google Flow","Menggabungkan video di CapCut"],ans:1,fb:"Platform GPT adalah fondasi konten — narasi, scene, dan generate gambar. Output ini digunakan sebagai panduan di Gemini dan Google Flow."},
+  {q:"Google Flow digunakan untuk apa dalam modul ini?",opts:["Membuat narasi proses produksi","Generate gambar dari teks saja","Mengkonversi gambar menjadi video berdasarkan deskripsi gerakan","Menggabungkan semua video scene menjadi satu"],ans:2,fb:"Google Flow adalah tool khusus untuk mengubah gambar statis menjadi video bergerak. Upload gambar, deskripsikan gerakan, dan Google Flow menganimasikannya."},
+  {q:"Urutan workflow yang benar adalah...",opts:["Google Flow → Gemini → ChatGPT → CapCut/Canva","ChatGPT/GPT Go → Gemini → Google Flow → CapCut/Canva","CapCut/Canva → ChatGPT → Google Flow → Gemini","Semua platform digunakan bersamaan tanpa urutan"],ans:1,fb:"Urutan yang benar: ChatGPT/GPT Go (narasi+scene+gambar) → Gemini (gambar+video) → Google Flow (gambar ke video) → CapCut/Canva (gabung & edit)."},
+  {q:"Apa fungsi CapCut atau Canva dalam workflow ini?",opts:["Generate gambar dari prompt teks","Membuat narasi proses produksi","Menggabungkan semua video scene, menambahkan teks, musik, dan transisi menjadi video final","Mengkonversi gambar menjadi video"],ans:2,fb:"CapCut dan Canva bertugas sebagai tahap akhir — menggabungkan semua video scene menjadi satu video utuh, lengkap dengan teks, musik latar, transisi, dan export ke format siap pakai."},
   {q:"Apa yang dimaksud dengan 'scene' dalam konteks modul ini?",opts:["Satu foto produk jadi","Deskripsi detail satu momen/tahap produksi: visual, aktivitas operator, lingkungan, dan dialog","Judul bab dalam modul pembelajaran","Format file video yang digunakan"],ans:1,fb:"Scene adalah deskripsi detail satu tahapan: apa yang terlihat secara visual, apa yang dilakukan operator, kondisi lingkungan, dan narasi."},
   {q:"Saat merevisi gambar di ChatGPT, cara yang benar adalah...",opts:["Membuat percakapan baru dan mendeskripsikan ulang seluruh gambar dari awal","Menyebutkan hanya perubahan spesifik yang diinginkan dalam percakapan yang sama","Menggunakan platform lain untuk merevisi","Tidak bisa merevisi sama sekali"],ans:1,fb:"ChatGPT mempertahankan konteks gambar dalam satu percakapan. Cukup sebutkan perubahan spesifik — tidak perlu mendeskripsikan ulang seluruh gambar."},
-  {q:"Fitur generate gambar di ChatGPT versi Free/Go sifatnya...",opts:["Tidak terbatas harian","Sangat dibatasi oleh kuota harian, gunakan sebijak mungkin","Hanya untuk pengguna perusahaan besar","Tidak tersedia sama sekali"],ans:1,fb:"Generate gambar di versi gratis dibatasi oleh kuota harian. Jika habis, Anda selalu bisa menggunakan Gemini sebagai alternatifnya."},
-  {q:"Apa model AI dari Google yang digunakan di AI Studio untuk mengkonversi gambar ke video?",opts:["GPT Go","Stable Diffusion","Veo 2","Imagen 3"],ans:2,fb:"Veo 2 adalah model Google khusus untuk generate video — termasuk mengkonversi gambar statis menjadi video animasi berdasarkan prompt teks."},
-  {q:"Apa konsep Toyota yang paling relevan dengan urutan workflow tiga platform AI ini?",opts:["Lean Manufacturing — efisiensi tanpa pemborosan","Just In Time — setiap langkah dilakukan tepat pada waktunya dan berurutan","Kerja Tim — semua platform digunakan bersamaan","Quality Control — hanya fokus pada hasil akhir"],ans:1,fb:"Just In Time relevan karena setiap platform digunakan pada urutan yang tepat — ChatGPT dulu sebagai fondasi, baru kemudian Gemini dan AI Studio menggunakan outputnya."},
-  {q:"Output akhir yang lengkap dari Proyek Akhir modul ini adalah...",opts:["Hanya narasi tertulis saja","Hanya 5 gambar scene saja","Narasi tertulis + 5 gambar scene + 5 video scene + materi presentasi siap pakai","Hanya video tanpa narasi"],ans:2,fb:"Output final yang lengkap mencakup keempat komponen: narasi tertulis, 5 gambar scene, 5 video scene, dan materi presentasi/pelatihan final."}
+  {q:"Di Google Flow, agar video yang dihasilkan terlihat natural, hal terpenting dalam prompt adalah...",opts:["Hanya menyebutkan nama scene","Menggunakan kata kerja gerak spesifik seperti 'slowly walks', 'carefully picks up', 'gently places'","Menulis prompt dalam Bahasa Indonesia saja","Tidak perlu menulis prompt, cukup upload gambar"],ans:1,fb:"Kata kerja gerak yang spesifik memberi AI panduan yang jelas tentang gaya gerakan. Ini menghasilkan animasi yang lebih natural."},
+  {q:"Format video apa yang direkomendasikan saat export dari CapCut/Canva untuk presentasi?",opts:["GIF animasi","MP4 resolusi 1080p (Full HD)","PDF","JPG"],ans:1,fb:"MP4 resolusi 1080p adalah format standar untuk video presentasi — kualitas bagus, kompatibel dengan semua perangkat."},
+  {q:"Apa perbedaan utama CapCut dan Canva dalam konteks editing video ini?",opts:["CapCut berbayar, Canva gratis","CapCut lebih cocok untuk edit video cepat, Canva lebih baik untuk tampilan bermerek dan desain yang rapi","Canva hanya untuk HP, CapCut hanya untuk komputer","Tidak ada perbedaan, keduanya identik"],ans:1,fb:"CapCut unggul untuk editing video yang cepat dan intuitif. Canva lebih cocok jika ingin menambahkan elemen branding perusahaan, logo, dan desain yang lebih rapi."},
+  {q:"Output akhir yang lengkap dari Proyek Akhir modul ini adalah...",opts:["Hanya narasi tertulis saja","Hanya 5 gambar scene saja","Narasi tertulis + 5 gambar scene + 5 video scene + 1 video final hasil editing","Hanya video tanpa narasi"],ans:2,fb:"Output final yang lengkap mencakup empat komponen: narasi tertulis, 5 gambar scene, 5 video scene individual, dan 1 video final yang sudah digabung dan diedit."}
 ];
 let cQ=0,score=0,answered=false;
 function renderQ(){
@@ -1170,40 +1627,199 @@ function showRes(){
   const r=document.getElementById('quizResult');r.classList.add('show');
   document.getElementById('resultScore').textContent=`${score}/${Qs.length}`;
   const p=(score/Qs.length)*100;
-  document.getElementById('resultLabel').textContent=p>=90?'🏆 Luar biasa! Anda menguasai seluruh materi modul dengan sangat baik.':p>=70?'👍 Bagus! Pemahaman Anda tentang workflow tiga platform sudah kuat.':p>=50?'📚 Cukup baik. Review kembali bagian panduan platform dan workflow.':'💪 Terus semangat! Baca ulang modul dan fokus pada pembagian peran tiap platform.';
+  document.getElementById('resultLabel').textContent=p>=90?'🏆 Luar biasa! Kamu menguasai seluruh materi modul dengan sangat baik.':p>=70?'👍 Bagus! Pemahaman kamu tentang workflow empat platform sudah kuat.':p>=50?'📚 Cukup baik. Review kembali bagian panduan Google Flow dan editing video.':'💪 Terus semangat! Baca ulang modul dan fokus pada pembagian peran tiap platform.';
   document.getElementById('progressFill').style.width='100%';
 }
 function restartQuiz(){cQ=0;score=0;answered=false;document.getElementById('quizMain').style.display='block';document.getElementById('quizResult').classList.remove('show');renderQ()}
 renderQ();
 
-// GLOSSARY
-const GD=[
-  {term:"ChatGPT Free",cat:"gpt",def:"Platform AI dari OpenAI (chat.openai.com) versi gratis. Dalam modul ini berperan membuat narasi, menyusun scene & skenario, generate gambar (terbatas kuota harian), dan merevisi gambar."},
-  {term:"GPT Go",cat:"gpt",def:"Mesin pencari gratis yang terintegrasi dengan fungsi ChatGPT. Sangat praktis sebagai alternatif untuk pencarian referensi prompt secara instan tanpa perlu mendaftar."},
-  {term:"Gemini",cat:"gem",def:"Platform AI dari Google (gemini.google.com). Digunakan untuk generate gambar dari prompt scene, generate video pendek, dan ekspor hasil ke Google Drive."},
-  {term:"AI Studio",cat:"ais",def:"Google AI Studio (aistudio.google.com). Digunakan untuk mengkonversi gambar (dari ChatGPT/Gemini) menjadi video menggunakan model Veo 2."},
-  {term:"Narasi",cat:"def",def:"Teks deskriptif yang menggambarkan alur proses produksi secara lengkap dan terstruktur. Dibuat di ChatGPT/GPT Go sebagai fondasi seluruh konten."},
-  {term:"Scene",cat:"def",def:"Deskripsi detail satu momen/tahapan produksi mencakup visual, aktivitas operator, lingkungan, dan dialog. Dipecah dari narasi utama."},
-  {term:"Skenario",cat:"def",def:"Urutan scene yang tersusun membentuk alur cerita proses produksi dari awal hingga akhir. Dibuat di ChatGPT setelah narasi selesai."},
-  {term:"Veo 2",cat:"ais",def:"Model AI dari Google untuk generate video, tersedia di AI Studio. Dapat mengkonversi gambar statis menjadi video bergerak berdasarkan prompt teks."},
-  {term:"Imagen 3",cat:"ais",def:"Model AI dari Google untuk generate gambar berkualitas tinggi, tersedia di AI Studio. Alternatif selain Gemini untuk menghasilkan visual scene."},
-  {term:"Prompt",cat:"def",def:"Instruksi teks yang diberikan kepada AI untuk menghasilkan output tertentu. Bisa berupa prompt narasi, prompt gambar, atau prompt video."},
-  {term:"Prompt Engineering",cat:"def",def:"Teknik menyusun perintah secara efektif agar AI menghasilkan output yang akurat. Berbeda untuk narasi (ChatGPT), gambar, dan video."},
-  {term:"Workflow",cat:"def",def:"Alur kerja terintegrasi tiga platform: ChatGPT/GPT Go (narasi+scene+gambar) → Gemini (gambar+video) / AI Studio (gambar→video) → output final."},
-  {term:"Lean Manufacturing",cat:"def",def:"Filosofi produksi Toyota yang menekankan efisiensi dengan meminimalkan pemborosan. Relevan dengan penggunaan prompt yang tepat dan efisien."},
-  {term:"Just In Time",cat:"def",def:"Sistem produksi di mana setiap langkah dilakukan tepat pada waktunya. Analog dengan urutan workflow: ChatGPT/GPT Go dulu, baru kemudian Gemini dan AI Studio."},
-  {term:"Operator",cat:"def",def:"Tenaga kerja manusia yang menjalankan proses produksi langsung di lini manufaktur. Elemen utama pabrik — AI hanya membantu dokumentasi dan visualisasi kerjanya."},
-  {term:"Generate Video",cat:"gem",def:"Proses AI menghasilkan video dari deskripsi teks atau gambar. Tersedia di Gemini (langsung dari prompt) dan AI Studio Veo 2 (dari upload gambar)."},
-  {term:"Assembly Line",cat:"def",def:"Lini perakitan di pabrik — sistem produksi di mana produk dirakit secara berurutan dari satu stasiun ke stasiun berikutnya oleh operator."},
-  {term:"Quality Control",cat:"def",def:"Proses inspeksi menyeluruh untuk memastikan produk memenuhi standar kualitas Toyota. Scene ke-5 dan tahap paling kritis dalam proses produksi."}
+/* ============================================================
+   GLOSSARY DATA — Extended & Rich
+   ============================================================ */
+const GD = [
+  // ChatGPT / GPT
+  {term:"ChatGPT Free",cat:"gpt",catLabel:"ChatGPT",summary:"Platform AI dari OpenAI versi gratis",detail:"Platform AI dari OpenAI (chat.openai.com) versi gratis. Berperan membuat narasi, menyusun scene & skenario, generate gambar (terbatas kuota harian), dan merevisi gambar dalam satu percakapan.",example:"Gunakan ChatGPT Free untuk membuat narasi 5 tahapan produksi Toyota, lalu minta pecah menjadi scene.",related:["GPT Go","Narasi","Scene","Prompt"]},
+  {term:"GPT Go",cat:"gpt",catLabel:"ChatGPT",summary:"Mesin pencari gratis terintegrasi ChatGPT",detail:"Mesin pencari gratis yang terintegrasi dengan fungsi ChatGPT (gptgo.ai). Sangat praktis sebagai alternatif untuk pencarian referensi prompt secara instan tanpa perlu mendaftar atau login.",example:"Pakai GPT Go untuk brainstorming prompt awal, lalu pindah ke ChatGPT Free untuk narasi yang lebih detail.",related:["ChatGPT Free","Prompt","Brainstorming"]},
+  {term:"Brainstorming",cat:"gpt",catLabel:"ChatGPT",summary:"Proses eksplorasi ide secara cepat dengan AI",detail:"Proses eksplorasi ide secara bebas dan cepat menggunakan AI sebagai mitra berpikir. Dalam modul ini, brainstorming dilakukan di ChatGPT/GPT Go untuk menemukan ide narasi, konsep scene, atau deskripsi visual sebelum difinalisasi.",example:"'Berikan 5 ide narasi berbeda untuk scene Quality Control di pabrik Toyota'",related:["ChatGPT Free","GPT Go","Narasi"]},
+
+  // Gemini
+  {term:"Gemini",cat:"gem",catLabel:"Gemini",summary:"Platform AI dari Google untuk gambar & video",detail:"Platform AI dari Google (gemini.google.com). Login cukup dengan Gmail. Digunakan untuk generate gambar dari prompt scene, generate video pendek, dan ekspor hasil ke Google Drive. Terintegrasi penuh dengan ekosistem Google.",example:"Tempel prompt scene dari ChatGPT ke Gemini untuk menghasilkan gambar visual scene tersebut.",related:["Google Drive","Multimodal","Prompt"]},
+  {term:"Gemini 2.0 Flash",cat:"gem",catLabel:"Gemini",summary:"Model Gemini yang cepat dan efisien untuk generate konten",detail:"Versi model Gemini yang dioptimalkan untuk kecepatan. Sudah cukup bagus untuk generate gambar dan video dari prompt scene. Tersedia di dropdown pilihan model di antarmuka Gemini.",example:"Pilih 'Gemini 2.0 Flash' di dropdown untuk generate gambar pabrik Toyota dari deskripsi scene.",related:["Gemini","Generate Gambar"]},
+  {term:"Multimodal",cat:"gem",catLabel:"Gemini",summary:"Kemampuan AI menghasilkan berbagai format sekaligus",detail:"Kemampuan sebuah model AI untuk memahami dan menghasilkan berbagai format konten dalam satu sesi — teks, gambar, dan video. Gemini adalah contoh platform multimodal karena bisa menghasilkan ketiganya.",example:"Gemini dapat menerima deskripsi teks dan menghasilkan gambar + penjelasan tambahan dalam satu respons.",related:["Gemini","Generate Gambar","Generate Video"]},
+  {term:"Google Drive",cat:"gem",catLabel:"Gemini",summary:"Penyimpanan cloud Google untuk file hasil generate",detail:"Layanan penyimpanan cloud dari Google. Gemini dapat langsung mengekspor hasil generate ke Google Drive, memudahkan penyimpanan dan berbagi file dengan rekan kerja tanpa perlu download manual.",related:["Gemini","Google Docs"]},
+  {term:"Google Docs",cat:"gem",catLabel:"Gemini",summary:"Dokumen cloud untuk menyimpan narasi dari Gemini",detail:"Platform dokumen berbasis cloud dari Google. Hasil narasi atau teks dari Gemini bisa langsung diekspor ke Google Docs untuk disunting, dibagikan, atau dijadikan referensi saat mengerjakan scene selanjutnya.",related:["Gemini","Google Drive","Narasi"]},
+
+  // Google Flow
+  {term:"Google Flow",cat:"flow",catLabel:"Google Flow",summary:"Tool AI untuk mengubah gambar menjadi video",detail:"Tool AI dari Google Labs (labs.google/fx/id/tools/flow) yang khusus dirancang untuk mengubah gambar statis menjadi video yang bergerak secara natural. Cara kerja: upload gambar → tulis deskripsi gerakan → klik generate → download MP4.",example:"Upload gambar scene-01.jpg, lalu tulis: 'operator slowly walks to rack, picks up component, 8 seconds' — Google Flow akan menganimasikannya.",related:["Generate Video","Prompt Gerakan","MP4","Google Labs"]},
+  {term:"Google Labs",cat:"flow",catLabel:"Google Flow",summary:"Platform eksperimen produk baru dari Google",detail:"Platform dari Google untuk bereksperimen dengan produk dan teknologi AI yang masih dalam tahap pengembangan. Google Flow adalah salah satu tool dari Google Labs yang dapat diakses gratis dengan akun Google.",related:["Google Flow"]},
+  {term:"Prompt Gerakan",cat:"flow",catLabel:"Google Flow",summary:"Deskripsi teks yang mengarahkan animasi video",detail:"Teks deskripsi yang diberikan ke Google Flow untuk mengarahkan bagaimana gambar akan dianimasikan menjadi video. Harus menggunakan kata kerja gerak spesifik (slowly walks, carefully picks up, gently places) dan sebaiknya menyebutkan durasi waktu.",example:"'The operator slowly walks toward the parts rack, picks up a component with both hands, scans the barcode. 8 seconds.'",related:["Google Flow","Kata Kerja Gerak","Generate Video"]},
+  {term:"Kata Kerja Gerak",cat:"flow",catLabel:"Google Flow",summary:"Kata kunci untuk membuat animasi terlihat natural",detail:"Kata kerja yang menggambarkan gerakan secara spesifik dan membantu Google Flow menghasilkan animasi yang lebih natural. Contoh: slowly walks, carefully picks up, gently places, methodically inspects, smoothly rotates.",example:"Gunakan 'carefully places' bukan sekadar 'places' agar gerakan terlihat teliti dan profesional.",related:["Prompt Gerakan","Google Flow"]},
+  {term:"Tracking Shot",cat:"flow",catLabel:"Google Flow",summary:"Teknik kamera yang mengikuti pergerakan subjek",detail:"Teknik sinematografi di mana kamera bergerak mengikuti atau berdampingan dengan subjek. Dalam prompt Google Flow, bisa dideskripsikan sebagai 'camera follows inspector from the side' atau 'side tracking shot'.",example:"'Camera follows inspector in a slow tracking side shot' dalam prompt Google Flow.",related:["Google Flow","Prompt Gerakan"]},
+
+  // CapCut / Canva / Editing
+  {term:"CapCut",cat:"edit",catLabel:"Editing",summary:"Aplikasi edit video gratis untuk HP dan web",detail:"Aplikasi editing video gratis yang tersedia di HP (Android/iOS) dan browser (capcut.com). Digunakan untuk menggabungkan semua video scene, menambahkan teks, musik, transisi, dan export ke MP4. Interface drag-and-drop yang intuitif dan mudah dipelajari.",example:"Import scene-01 sampai scene-05 ke CapCut, susun di timeline, tambahkan transisi Fade, dan export ke 1080p.",related:["Canva","Timeline","Transisi","Export","MP4"]},
+  {term:"Canva",cat:"edit",catLabel:"Editing",summary:"Platform desain visual dan video dengan template profesional",detail:"Platform desain grafis dan video (canva.com) yang cocok untuk membuat video dengan tampilan bermerek. Bisa menambahkan logo, warna brand, dan template profesional. Tersedia di browser dan aplikasi HP. Ada fitur Brand Kit untuk konsistensi visual.",example:"Buat video pelatihan di Canva dengan logo Toyota, warna korporat, dan template presentasi yang rapi.",related:["CapCut","Brand Kit","Template","Transisi","Export"]},
+  {term:"Timeline",cat:"edit",catLabel:"Editing",summary:"Area penyusunan urutan video di editor",detail:"Area di CapCut atau Canva tempat kamu menyusun urutan video, teks, musik, dan transisi. Video yang berada di paling kiri timeline adalah yang pertama diputar. Drag-and-drop video scene ke timeline sesuai urutan narasi.",example:"Seret scene-01.mp4 ke timeline paling kiri, disusul scene-02, 03, 04, dan 05 secara berurutan.",related:["CapCut","Canva","Transisi"]},
+  {term:"Transisi",cat:"edit",catLabel:"Editing",summary:"Efek visual perpindahan antar scene",detail:"Efek visual yang muncul saat video berpindah dari satu scene ke scene berikutnya. Jenis yang direkomendasikan: Fade (memudar perlahan) atau Dissolve (meleleh). Durasi 0.5–1 detik sudah cukup untuk membuat pergantian scene terasa halus dan profesional.",example:"Tambahkan Fade transition dengan durasi 0.7 detik antara scene Persiapan Material dan Perakitan Rangka.",related:["Timeline","CapCut","Canva"]},
+  {term:"Export",cat:"edit",catLabel:"Editing",summary:"Proses menyimpan proyek menjadi file video jadi",detail:"Proses menyimpan proyek editing menjadi file video yang bisa dibagikan atau diputar di luar aplikasi. Di CapCut/Canva, pilih format MP4 dengan resolusi minimal 720p. Untuk presentasi terbaik gunakan 1080p (Full HD).",example:"Klik Export → pilih MP4 → pilih 1080p → tunggu proses render — video finalmu siap!",related:["MP4","CapCut","Canva"]},
+  {term:"Brand Kit",cat:"edit",catLabel:"Editing",summary:"Fitur Canva untuk menyimpan identitas visual perusahaan",detail:"Fitur di Canva Pro yang memungkinkan penyimpanan warna brand, font, dan logo perusahaan. Sangat berguna untuk memastikan semua video pelatihan memiliki tampilan yang konsisten dengan identitas visual perusahaan.",related:["Canva","Template"]},
+  {term:"Subtitle",cat:"edit",catLabel:"Editing",summary:"Teks keterangan di bagian bawah video",detail:"Teks yang ditampilkan di bagian bawah layar video untuk memberikan keterangan adegan atau terjemahan. CapCut bahkan memiliki fitur subtitle otomatis yang bisa mengkonversi narasi suara menjadi teks secara otomatis.",related:["CapCut","Canva","Teks Judul"]},
+  {term:"Teks Judul",cat:"edit",catLabel:"Editing",summary:"Label teks nama tahapan di setiap scene",detail:"Teks yang ditambahkan di awal setiap scene untuk memberikan keterangan nama tahapan produksi. Misalnya 'Scene 1 — Persiapan Material'. Diposisikan di bagian bawah layar, ukuran cukup besar agar terbaca di layar presentasi.",example:"Tambahkan teks 'Tahap 1: Persiapan Material' di bagian bawah scene pertama selama 3 detik pertama.",related:["CapCut","Canva","Subtitle"]},
+
+  // Konsep AI & Produksi Konten
+  {term:"Narasi",cat:"def",catLabel:"Konsep",summary:"Teks deskriptif alur proses produksi",detail:"Teks deskriptif yang menggambarkan alur proses produksi secara lengkap dan terstruktur. Dibuat di ChatGPT/GPT Go sebagai fondasi seluruh konten. Narasi yang baik mencakup aktivitas operator, peralatan yang digunakan, dan suasana lingkungan kerja.",example:"Narasi dimulai dari 'Tahap 1: Operator memeriksa daftar komponen menggunakan tablet digital...' hingga 'Tahap 5: QC menyatakan kendaraan lolos standar Toyota.'",related:["Scene","Skenario","ChatGPT Free"]},
+  {term:"Scene",cat:"def",catLabel:"Konsep",summary:"Deskripsi detail satu tahapan produksi",detail:"Deskripsi detail satu momen atau tahapan produksi yang mencakup empat elemen: (1) Visual — apa yang terlihat di frame, (2) Aktivitas operator — gerakan spesifik, (3) Konteks lingkungan — lokasi, pencahayaan, peralatan, (4) Dialog atau narasi pendek. Total 5 scene untuk 5 tahapan produksi.",example:"Scene 1: Operator berseragam oranye berdiri di depan rak komponen berlabel. Tangan kanan memegang tablet, memindai barcode part B-204.",related:["Narasi","Skenario","Prompt"]},
+  {term:"Skenario",cat:"def",catLabel:"Konsep",summary:"Urutan scene yang membentuk alur cerita",detail:"Urutan seluruh scene yang tersusun membentuk alur cerita proses produksi dari awal hingga akhir. Dibuat di ChatGPT setelah narasi selesai, berfungsi sebagai 'naskah' yang menjadi panduan pembuatan gambar dan video.",related:["Narasi","Scene","ChatGPT Free"]},
+  {term:"Prompt",cat:"def",catLabel:"Konsep",summary:"Instruksi teks kepada AI untuk menghasilkan output",detail:"Instruksi teks yang diberikan kepada sistem AI untuk menghasilkan output tertentu. Ada tiga jenis dalam modul ini: (1) Prompt narasi untuk ChatGPT, (2) Prompt gambar untuk Gemini, (3) Prompt gerakan untuk Google Flow. Kualitas prompt menentukan kualitas output.",example:"Prompt gambar yang baik: 'Toyota factory operator in orange uniform standing at labeled parts rack, holding digital tablet, clean factory, bright LED lighting, realistic, 4K'",related:["Prompt Engineering","Scene","Kata Kerja Gerak"]},
+  {term:"Prompt Engineering",cat:"def",catLabel:"Konsep",summary:"Teknik menyusun prompt agar output AI optimal",detail:"Seni dan ilmu menyusun instruksi kepada AI secara efektif agar menghasilkan output yang akurat, relevan, dan sesuai kebutuhan. Rumus untuk prompt gambar: Subjek + Aktivitas + Detail Lingkungan + Gaya Visual + Kualitas.",example:"Bandingkan: 'pabrik mobil' (buruk) vs 'Toyota factory operator in blue uniform carefully installs dashboard, clean assembly area, bright lighting, realistic, 4K' (baik).",related:["Prompt","Generate Gambar","Generate Video"]},
+  {term:"Generate Gambar",cat:"def",catLabel:"Konsep",summary:"Proses AI menghasilkan gambar dari deskripsi teks",detail:"Proses di mana AI (ChatGPT atau Gemini) menghasilkan gambar visual berdasarkan deskripsi teks (prompt) yang diberikan pengguna. Hasil gambar digunakan sebagai bahan untuk Google Flow menghasilkan video.",example:"Masukkan prompt scene ke ChatGPT atau Gemini → AI menghasilkan gambar pabrik Toyota sesuai deskripsi → download gambar untuk diproses di Google Flow.",related:["Prompt","Google Flow","Gemini","ChatGPT Free"]},
+  {term:"Generate Video",cat:"def",catLabel:"Konsep",summary:"Proses AI menghasilkan video dari gambar atau teks",detail:"Proses di mana AI (Google Flow atau Gemini) menghasilkan video bergerak berdasarkan gambar yang diupload dan deskripsi gerakan, atau langsung dari prompt teks. Google Flow fokus pada konversi gambar ke video.",example:"Upload scene-01.jpg ke Google Flow → tulis deskripsi gerakan → klik Generate → video bergerak siap didownload.",related:["Google Flow","Gemini","Prompt Gerakan","MP4"]},
+  {term:"Workflow",cat:"def",catLabel:"Konsep",summary:"Alur kerja terintegrasi keempat platform",detail:"Alur kerja terintegrasi dalam modul ini: ChatGPT/GPT Go (narasi+scene+gambar) → Gemini (gambar+video) → Google Flow (gambar→video MP4) → CapCut/Canva (gabung & edit) → video final siap presentasi. Setiap platform memiliki peran berbeda yang saling melengkapi.",related:["ChatGPT Free","Gemini","Google Flow","CapCut"]},
+  {term:"MP4",cat:"def",catLabel:"Konsep",summary:"Format file video standar untuk hasil akhir",detail:"Format file video yang paling umum dan kompatibel dengan semua perangkat dan aplikasi. Semua video yang didownload dari Google Flow ada dalam format MP4. Saat export dari CapCut/Canva, pilih format MP4 dengan resolusi 1080p untuk kualitas presentasi terbaik.",related:["Export","CapCut","Canva","Google Flow"]},
+  {term:"Resolusi 1080p",cat:"def",catLabel:"Konsep",summary:"Kualitas video Full HD untuk presentasi",detail:"Resolusi video 1920×1080 piksel, dikenal sebagai Full HD. Direkomendasikan untuk export video final presentasi di layar besar atau proyektor. Jika ukuran file terlalu besar untuk dibagikan, bisa turun ke 720p (1280×720 piksel) yang tetap terlihat bagus di layar komputer.",related:["Export","MP4","CapCut","Canva"]},
+  {term:"Assembly Line",cat:"def",catLabel:"Konsep",summary:"Lini perakitan di pabrik otomotif",detail:"Sistem produksi di mana kendaraan dirakit secara berurutan dari satu stasiun kerja ke stasiun berikutnya oleh operator yang berbeda. Setiap operator memiliki tanggung jawab spesifik di stasiunnya masing-masing.",related:["Operator","Quality Control","Kanban"]},
+  {term:"Operator",cat:"def",catLabel:"Konsep",summary:"Tenaga kerja manusia di lini produksi",detail:"Tenaga kerja terampil yang menjalankan proses produksi langsung di lini manufaktur. Elemen sentral dalam konten pelatihan modul ini — AI digunakan untuk mendokumentasikan dan memvisualisasikan pekerjaan operator, bukan menggantikannya.",related:["Assembly Line","Quality Control"]},
+  {term:"Quality Control",cat:"def",catLabel:"Konsep",summary:"Proses inspeksi kualitas produk akhir",detail:"Proses inspeksi menyeluruh untuk memastikan produk memenuhi standar kualitas yang ditetapkan. Dalam alur produksi Toyota, QC adalah tahap ke-5 dan paling kritis. Inspektor menggunakan alat ukur presisi dan checklist digital.",example:"Scene QC: Inspektor berjalan mengelilingi mobil jadi, memeriksa setiap panel bodi dengan alat ukur, mencentang checklist di tablet.",related:["Assembly Line","Operator","Kanban"]},
+  {term:"Scene Consistency",cat:"def",catLabel:"Konsep",summary:"Konsistensi visual antara semua scene",detail:"Prinsip bahwa semua gambar dan video dalam satu proyek harus memiliki elemen visual yang sama: warna seragam operator, merek pabrik, gaya pencahayaan, dan gaya artistik. Ini membuat video final terasa seperti satu produksi yang kohesif.",example:"Pastikan semua 5 scene menggunakan seragam oranye, pencahayaan LED, dan gaya fotografi realistis yang sama.",related:["Scene","Generate Gambar","Workflow"]},
+
+  // Lean / Toyota
+  {term:"Lean Manufacturing",cat:"lean",catLabel:"Manufaktur",summary:"Filosofi produksi Toyota yang meminimalkan pemborosan",detail:"Filosofi produksi yang menekankan efisiensi dengan meminimalkan segala bentuk pemborosan (muda). Dalam konteks AI: gunakan prompt yang tepat dan efisien — tidak berulang-ulang dan tidak mubazir — untuk menghasilkan konten berkualitas.",related:["Just In Time","Kaizen","Muda"]},
+  {term:"Just In Time",cat:"lean",catLabel:"Manufaktur",summary:"Sistem produksi tepat waktu dan sesuai kebutuhan",detail:"Sistem produksi di mana setiap komponen atau langkah dilakukan tepat pada waktu yang dibutuhkan, tidak terlalu awal dan tidak terlambat. Analog dengan workflow modul ini: ChatGPT/GPT Go dulu sebagai fondasi, baru kemudian Gemini, Google Flow, dan CapCut/Canva — sesuai urutan yang benar.",related:["Lean Manufacturing","Kanban","Kaizen"]},
+  {term:"Kanban",cat:"lean",catLabel:"Manufaktur",summary:"Sistem visual manajemen alur produksi",detail:"Sistem manajemen visual yang menggunakan papan dan kartu untuk mengelola alur kerja dan inventaris di lini produksi. Papan Kanban sering terlihat sebagai latar belakang dalam scene pabrik Toyota dan berfungsi sebagai sinyal untuk pengisian ulang komponen.",example:"Dalam prompt scene 1: '...Kanban board visible in background' — ini menciptakan konteks pabrik Toyota yang autentik.",related:["Just In Time","Lean Manufacturing","Assembly Line"]},
+  {term:"Kaizen",cat:"lean",catLabel:"Manufaktur",summary:"Filosofi perbaikan berkelanjutan dalam produksi",detail:"Filosofi Jepang yang berarti 'perbaikan berkelanjutan' (kai = perubahan, zen = lebih baik). Dalam manufaktur Toyota, setiap operator didorong untuk terus memperbaiki proses kerja mereka. Dalam konteks AI: terus revisi dan sempurnakan prompt untuk hasil yang semakin baik.",related:["Lean Manufacturing","Just In Time"]},
+  {term:"Muda",cat:"lean",catLabel:"Manufaktur",summary:"Istilah Jepang untuk 'pemborosan' dalam produksi",detail:"Istilah Jepang yang berarti 'pemborosan' — salah satu konsep inti Lean Manufacturing. Ada 7 jenis muda: transportasi berlebih, inventaris berlebih, gerakan tidak perlu, menunggu, overprocessing, produksi berlebih, dan cacat. Lean Manufacturing bertujuan mengeliminasi semua muda.",related:["Lean Manufacturing","Kaizen"]},
+  {term:"Toyota Production System",cat:"lean",catLabel:"Manufaktur",summary:"Sistem produksi Toyota yang menjadi standar industri",detail:"Sistem produksi yang dikembangkan Toyota yang menggabungkan Lean Manufacturing, Just In Time, dan Jidoka (otomasi dengan sentuhan manusiawi). Menjadi standar referensi industri manufaktur otomotif global dan fondasi dari materi modul ini.",related:["Lean Manufacturing","Just In Time","Kaizen","Kanban"]},
 ];
-const catColor={'gpt':'glossary-term-gpt','gem':'glossary-term-gem','ais':'glossary-term-ais','def':'glossary-term-def'};
-function renderGlossary(f=''){
-  const list=document.getElementById('glossaryList');
-  const filtered=GD.filter(g=>g.term.toLowerCase().includes(f.toLowerCase())||g.def.toLowerCase().includes(f.toLowerCase()));
-  list.innerHTML=filtered.map(g=>`<div class="glossary-item"><div class="glossary-term ${catColor[g.cat]||'glossary-term-def'}">${g.term}</div><div class="glossary-def">${g.def}</div></div>`).join('')||'<div style="text-align:center;color:var(--text-3);padding:2rem;background:var(--surface);border-radius:var(--r)">Istilah tidak ditemukan.</div>';
+
+let currentFilter = 'all';
+let currentSort = 'alpha';
+let currentSearch = '';
+let expandedEntry = null;
+
+const catColors = {gpt:'gcat-gpt',gem:'gcat-gem',flow:'gcat-flow',edit:'gcat-edit',def:'gcat-def',lean:'gcat-lean'};
+const dotColors = {gpt:'var(--gpt)',gem:'var(--gem)',flow:'var(--flow)',edit:'var(--edit)',def:'var(--gold)',lean:'var(--red)'};
+
+function setFilter(f,el){
+  currentFilter=f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active-all','active-gpt','active-gem','active-flow','active-edit','active-def','active-lean'));
+  el.classList.add('active-'+f);
+  renderGlossary();
 }
-function filterGlossary(v){renderGlossary(v)}
+function setSortMode(v){currentSort=v;renderGlossary()}
+function clearGloss(){
+  document.getElementById('glossarySearch').value='';
+  currentSearch='';
+  document.getElementById('clearSearch').style.display='none';
+  renderGlossary();
+}
+
+function filterGlossary(){
+  currentSearch=document.getElementById('glossarySearch').value;
+  document.getElementById('clearSearch').style.display=currentSearch?'block':'none';
+  renderGlossary();
+}
+
+function clickRelated(term){
+  document.getElementById('glossarySearch').value=term;
+  currentSearch=term;
+  document.getElementById('clearSearch').style.display='block';
+  currentFilter='all';
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active-all','active-gpt','active-gem','active-flow','active-edit','active-def','active-lean'));
+  document.querySelector('.filter-chip').classList.add('active-all');
+  renderGlossary();
+  document.getElementById('glosarium').scrollIntoView({behavior:'smooth'});
+}
+
+function renderGlossary(){
+  let filtered=GD.filter(g=>{
+    const matchFilter=currentFilter==='all'||g.cat===currentFilter;
+    const q=currentSearch.toLowerCase();
+    const matchSearch=!q||g.term.toLowerCase().includes(q)||g.detail.toLowerCase().includes(q)||g.summary.toLowerCase().includes(q)||(g.related&&g.related.some(r=>r.toLowerCase().includes(q)));
+    return matchFilter&&matchSearch;
+  });
+
+  if(currentSort==='alpha'){
+    filtered.sort((a,b)=>a.term.localeCompare(b.term,'id'));
+  } else {
+    const catOrder={gpt:0,gem:1,flow:2,edit:3,def:4,lean:5};
+    filtered.sort((a,b)=>(catOrder[a.cat]||99)-(catOrder[b.cat]||99)||a.term.localeCompare(b.term,'id'));
+  }
+
+  document.getElementById('glosCount').textContent=filtered.length;
+
+  // Build alphabet nav
+  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const termsSet=new Set(filtered.map(g=>g.term[0].toUpperCase()));
+  const alphaNav=document.getElementById('alphaNav');
+  alphaNav.innerHTML=letters.map(l=>`<button class="alpha-btn${termsSet.has(l)?' has-items':''}" onclick="scrollToAlpha('${l}')" title="${l}">${l}</button>`).join('');
+
+  // Render entries
+  const body=document.getElementById('glossaryBody');
+  if(filtered.length===0){
+    body.innerHTML=`<div class="glos-empty"><span class="glos-empty-icon">🔍</span><div class="glos-empty-text">Tidak ada istilah yang cocok dengan "<strong>${currentSearch}</strong>".<br>Coba kata kunci lain atau hapus filter.</div></div>`;
+    return;
+  }
+
+  let html='';
+  let lastLetter='';
+  let lastCat='';
+
+  filtered.forEach((g,idx)=>{
+    if(currentSort==='alpha'){
+      const firstLetter=g.term[0].toUpperCase();
+      if(firstLetter!==lastLetter){
+        html+=`<div class="alpha-group-header" id="alpha-${firstLetter}">${firstLetter}</div>`;
+        lastLetter=firstLetter;
+      }
+    } else {
+      if(g.cat!==lastCat){
+        const labels={gpt:'🤖 ChatGPT & GPT Go',gem:'✨ Gemini',flow:'🎬 Google Flow',edit:'✂️ CapCut & Canva',def:'📖 Konsep & Istilah Umum',lean:'🏭 Manufaktur Toyota'};
+        html+=`<div class="alpha-group-header">${labels[g.cat]||g.cat}</div>`;
+        lastCat=g.cat;
+      }
+    }
+
+    const relatedHtml=g.related&&g.related.length?`<div class="glos-related"><span class="glos-related-label">Terkait:</span>${g.related.map(r=>`<span class="glos-related-tag" onclick="clickRelated('${r}')">${r}</span>`).join('')}</div>`:'';
+    const exampleHtml=g.example?`<div class="glos-example">💡 ${g.example}</div>`:'';
+
+    html+=`<div class="glos-entry" id="glos-${idx}" onclick="toggleEntry(${idx})">
+      <div class="glos-entry-header">
+        <span class="glos-cat-dot" style="background:${dotColors[g.cat]||'var(--text-3)'}"></span>
+        <div class="glos-entry-main">
+          <div class="glos-term-row">
+            <span class="glos-term">${g.term}</span>
+            <span class="glos-cat-badge ${catColors[g.cat]||'gcat-def'}">${g.catLabel}</span>
+          </div>
+          <div class="glos-summary">${g.summary}</div>
+        </div>
+        <span class="glos-expand-icon">▼</span>
+      </div>
+      <div class="glos-detail">
+        <div class="glos-detail-inner">
+          <p>${g.detail}</p>
+          ${exampleHtml}
+          ${relatedHtml}
+        </div>
+      </div>
+    </div>`;
+  });
+
+  body.innerHTML=html;
+}
+
+function toggleEntry(idx){
+  const entry=document.getElementById('glos-'+idx);
+  const isExpanded=entry.classList.contains('expanded');
+  document.querySelectorAll('.glos-entry.expanded').forEach(e=>e.classList.remove('expanded'));
+  if(!isExpanded) entry.classList.add('expanded');
+}
+
+function scrollToAlpha(letter){
+  const el=document.getElementById('alpha-'+letter);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.alpha-btn').forEach(b=>{b.classList.toggle('active',b.textContent===letter)});
+}
+
 renderGlossary();
 </script>
 </body>
