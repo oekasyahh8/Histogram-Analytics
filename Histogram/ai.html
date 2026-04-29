@@ -1422,14 +1422,20 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <h2 class="section-title">Prompt Engineering</h2>
     <p class="section-desc">Teknik menyusun perintah yang tepat untuk teks, gambar, dan video agar output AI sesuai kebutuhan industri.</p>
   </div>
-  <div class="grid-2" style="margin-bottom:2rem">
+<div class="grid-2" style="margin-bottom:2rem">
     <div class="prompt-card">
       <div class="prompt-header"><span class="prompt-title" style="color:var(--red)">❌ Prompt Tidak Efektif</span></div>
-      <div class="prompt-body"><div class="prompt-text pt-bad">pabrik mobil</div><p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Terlalu umum — tidak ada subjek, aktivitas, lingkungan, atau gaya. Hasilnya tidak dapat diprediksi.</p></div>
+      <div class="prompt-body">
+        <div class="prompt-text pt-bad">gambar pabrik mesin mobil</div>
+        <p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Terlalu umum. AI bakal bingung nentuin gaya visual, aktivitas, dan detailnya. Hasilnya pasti random dan sering cacat logika.</p>
+      </div>
     </div>
     <div class="prompt-card">
-      <div class="prompt-header"><span class="prompt-title" style="color:var(--green)">✅ Prompt Efektif (Gambar + Video)</span></div>
-      <div class="prompt-body"><div class="prompt-text pt-good">Toyota factory operator in blue uniform carefully installs dashboard into car interior, refers to work instruction sheet, clean assembly area, bright overhead lighting, focused expression, realistic, medium shot, 4K — animate: smooth hand movement, 8 seconds, static camera</div><p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Mencakup: subjek + aktivitas + detail lingkungan + gaya visual + parameter video. Hasilnya konsisten dan profesional.</p></div>
+      <div class="prompt-header"><span class="prompt-title" style="color:var(--green)">✅ Prompt Efektif (2D Cinematic Anime)</span></div>
+      <div class="prompt-body">
+        <div class="prompt-text pt-good">2D cinematic industrial anime. Toyota engine production line. Operator in blue uniform cleaning the CNC machine workspace (implementing 5R Seiso). Clean industrial environment, bright lighting, highly detailed, 4K.</div>
+        <p style="font-size:.82rem;color:var(--text-2);margin-top:.75rem;line-height:1.7">Mencakup: Gaya visual (2D anime lebih aman dari cacat proporsi teknis dibanding *realistic*) + Lokasi *engine production* + Aktivitas 5R spesifik + Kualitas.</p>
+      </div>
     </div>
   </div>
   <div class="grid-2">
@@ -1437,6 +1443,80 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
     <div class="card"><div class="card-icon icon-gem">🖼️</div><h3>Untuk Gambar (ChatGPT / Gemini)</h3><p>Rumus: <strong>Subjek + Aktivitas + Detail + Gaya + Kualitas</strong>. Tambahkan sudut kamera dan pencahayaan.</p></div>
     <div class="card"><div class="card-icon icon-flow">🎬</div><h3>Untuk Video (Google Flow / Gemini)</h3><p>Tambahkan: kata kerja gerak, gerakan kamera, dan durasi dalam detik. Gunakan bahasa Inggris.</p></div>
     <div class="card"><div class="card-icon icon-edit">✂️</div><h3>Untuk Editing (CapCut / Canva)</h3><p>Rencanakan dulu: urutan scene, teks judul, dan gaya transisi sebelum mulai edit.</p></div>
+  </div>
+  <div class="info-box" style="margin-top: 2rem; border-color: rgba(192,80,80,.3); background: var(--red-lt);">
+    <span class="info-box-icon">⚠️</span>
+    <div style="font-size:.84rem;color:var(--text)">
+      <strong style="color:var(--red); font-size: 1rem; display: block; margin-bottom: 0.5rem;">Awas "Halusinasi AI" di Area Produksi!</strong>
+      AI generatif sering kali "halusinasi" atau ngaco kalau disuruh bikin detail teknis operasional. Masalah yang sering muncul: jari tangan operator ada enam, cara pegang *tools* (seperti *torque wrench* atau mikrometer) menyalahi standar, atau bentuk mesin CNC yang absurd.<br><br>
+      <strong>Trik Mengatasinya:</strong>
+      <ul style="margin-top: 0.5rem; margin-left: 1.5rem; color: var(--text-2);">
+        <li style="margin-bottom: 0.3rem;"><strong>Gunakan Gaya 2D/Ilustrasi:</strong> Gaya <em>2D cinematic anime</em> atau ilustrasi sering kali menyamarkan detail alat yang rumit, sehingga <em>error</em> teknis tidak terlalu mencolok dan video tetap estetis dibanding memaksa pakai gaya <em>realistic photography</em>.</li>
+        <li style="margin-bottom: 0.3rem;"><strong>Hindari <em>Close-up</em> Tangan/Alat:</strong> Kalau narasinya nggak butuh pamerin detail baut atau alat, paksa AI pakai sudut pandang <em>medium shot</em> atau <em>wide shot</em> di prompt.</li>
+        <li><strong>Tutupi saat Editing:</strong> Kalau videonya terlanjur jadi tapi ada alat yang bentuknya aneh, akali di CapCut/Canva dengan nge-<em>zoom</em> videonya (<em>crop</em> area yang cacat) atau tutupi bagian tersebut pakai blok teks judul scene.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sh" style="margin-top: 3rem;">
+    <h3 style="font-family: var(--font-display); font-size: 1.4rem; font-style: italic; color: var(--text); margin-bottom: 1rem;">Template Prompt 5R Siap Pakai (Standar 2D Anime)</h3>
+    <p class="section-desc">Tinggal copy-paste ke ChatGPT atau Gemini untuk generate visual ilustrasi 5R di area Engine Production.</p>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAcc(this)">
+        <span>1. Ringkas (Seiri) — Memilah Barang</span>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="prompt-text pt-gem" style="margin-top: 1rem;">High quality 2D anime style. Toyota engine production line. Operator in blue uniform sorting necessary and unnecessary tools on a workbench. Putting unused items into a red tag box. Clean factory, bright lighting, detailed, 4K.</div>
+        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'High quality 2D anime style. Toyota engine production line. Operator in blue uniform sorting necessary and unnecessary tools on a workbench. Putting unused items into a red tag box. Clean factory, bright lighting, detailed, 4K.')">📋 Salin Prompt</button>
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAcc(this)">
+        <span>2. Rapi (Seiton) — Menata Peralatan</span>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="prompt-text pt-gem" style="margin-top: 1rem;">High quality 2D anime style. Toyota engine production line. Operator in blue uniform placing wrenches and measuring tools neatly onto a well-organized shadow board. Every tool has its specific labeled place. Detailed, clear lighting, 4K.</div>
+        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'High quality 2D anime style. Toyota engine production line. Operator in blue uniform placing wrenches and measuring tools neatly onto a well-organized shadow board. Every tool has its specific labeled place. Detailed, clear lighting, 4K.')">📋 Salin Prompt</button>
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAcc(this)">
+        <span>3. Resik (Seiso) — Membersihkan Area</span>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="prompt-text pt-gem" style="margin-top: 1rem;">High quality 2D anime style. Toyota engine production line. Operator in blue uniform carefully cleaning the surface of a CNC machine from metal scraps using a brush. Spotless floor, clear industrial lights, detailed, 4K.</div>
+        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'High quality 2D anime style. Toyota engine production line. Operator in blue uniform carefully cleaning the surface of a CNC machine from metal scraps using a brush. Spotless floor, clear industrial lights, detailed, 4K.')">📋 Salin Prompt</button>
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAcc(this)">
+        <span>4. Rawat (Seiketsu) — Standarisasi</span>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="prompt-text pt-gem" style="margin-top: 1rem;">High quality 2D anime style. Toyota engine production line. Operator in blue uniform checking a digital 5S standard checklist on a tablet. Background shows a perfectly clean and organized workstation. Professional, detailed, 4K.</div>
+        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'High quality 2D anime style. Toyota engine production line. Operator in blue uniform checking a digital 5S standard checklist on a tablet. Background shows a perfectly clean and organized workstation. Professional, detailed, 4K.')">📋 Salin Prompt</button>
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAcc(this)">
+        <span>5. Rajin (Shitsuke) — Disiplin & Konsistensi</span>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <div class="prompt-text pt-gem" style="margin-top: 1rem;">High quality 2D anime style. Toyota engine production line. Group of operators in blue uniforms having a morning briefing (Asakai) focusing on quality control and safety. Pointing and calling gesture (Yubisashi Koshou). Bright lighting, 4K.</div>
+        <button class="copy-btn copy-btn-gem" onclick="copyTxt(this,'High quality 2D anime style. Toyota engine production line. Group of operators in blue uniforms having a morning briefing (Asakai) focusing on quality control and safety. Pointing and calling gesture (Yubisashi Koshou). Bright lighting, 4K.')">📋 Salin Prompt</button>
+      </div></div>
+    </div>
   </div>
 </section>
 
@@ -1490,7 +1570,7 @@ footer p{color:var(--text-3);font-size:.83rem;line-height:1.9}
 <section class="section" id="glosarium">
   <div class="sh">
     <span class="section-tag">Referensi</span>
-    <h2 class="section-title">Glosarium Interaktif</h2>
+    <h2 class="section-title">Glosarium</h2>
     <p class="section-desc">Klik istilah untuk melihat penjelasan lengkap. Filter berdasarkan kategori atau cari lewat kolom pencarian.</p>
   </div>
 
